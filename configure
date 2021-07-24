@@ -793,7 +793,7 @@ Haiku)
   QEMU_CFLAGS="-DB_USE_POSITIVE_POSIX_ERRORS -D_BSD_SOURCE $QEMU_CFLAGS"
 ;;
 Linux)
-  audio_drv_list="try-pa oss"
+  audio_drv_list="try-pa oss alsa jack"
   audio_possible_drivers="oss alsa sdl pa"
   linux="yes"
   linux_user="yes"

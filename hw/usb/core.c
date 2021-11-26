@@ -55,7 +55,7 @@ void usb_attach(USBPort *port)
 
     USBDevice *dev = port->dev;
 
-    trace_hw_usb_coreC_usb_attach_1_dgtrace(port->dev, dev->product_desc);
+    trace_hw_usb_coreC_usb_attach_1_dgtrace(port->dev->port_path, dev->product_desc);
 
     assert(dev != NULL);
     assert(dev->attached);

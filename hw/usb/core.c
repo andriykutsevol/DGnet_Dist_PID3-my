@@ -51,11 +51,11 @@ void usb_pick_speed(USBPort *port)
 void usb_attach(USBPort *port)
 {
     
-    trace_hw_usb_core_C_usb_attach_0_dgtrace(port->path);
+    trace_hw_usb_coreC_usb_attach_0_dgtrace(port->path);
 
     USBDevice *dev = port->dev;
 
-    trace_hw_usb_core_C_usb_attach_1_dgtrace(port->dev, dev->product_desc);
+    trace_hw_usb_coreC_usb_attach_1_dgtrace(port->dev, dev->product_desc);
 
     assert(dev != NULL);
     assert(dev->attached);
@@ -65,7 +65,7 @@ void usb_attach(USBPort *port)
     dev->state = USB_STATE_ATTACHED;
     usb_device_handle_attach(dev);
 
-    trace_hw_usb_core_C_usb_attach_999_dgtrace()
+    trace_hw_usb_coreC_usb_attach_999_dgtrace()
 
 }
 

@@ -65,7 +65,7 @@ void usb_attach(USBPort *port)
     dev->state = USB_STATE_ATTACHED;
     usb_device_handle_attach(dev);
 
-    trace_hw_usb_coreC_usb_attach_999_dgtrace()
+    trace_hw_usb_coreC_usb_attach_999_dgtrace();
 
 }
 

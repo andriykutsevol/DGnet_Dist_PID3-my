@@ -58,7 +58,7 @@ void usb_attach(USBPort *port)
     //trace_hw_usb_coreC_usb_attach_1_dgtrace(port->dev->port_path, dev->product_desc, dev->serial, dev->addr);
 
     //assert(dev != NULL);
-    trace_hw_usb_coreC_usb_attach_1_1();
+    trace_hw_usb_coreC_usb_attach_1_1(port->dev->port_path);
     assert(dev->attached);
     trace_hw_usb_coreC_usb_attach_1_2();
     assert(dev->state == USB_STATE_NOTATTACHED);

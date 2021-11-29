@@ -17,6 +17,7 @@ usb_port_detach(int bus, const char *port) "bus %d, port %s"
 usb_port_release(int bus, const char *port) "bus %d, port %s"
 hw_usb_busC_usb_device_handle_attach_0_dgtrace(void) ""
 hw_usb_busC_usb_device_handle_attach_999_dgtrace(void) ""
+hw_usb_busC_usb_bus_dev_print_0_dgtrace(void) ""
 
 # hcd-ohci-pci.c
 usb_ohci_exit(const char *s) "%s"

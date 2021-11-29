@@ -582,6 +582,8 @@ static const char *usb_speed(unsigned int speed)
 
 static void usb_bus_dev_print(Monitor *mon, DeviceState *qdev, int indent)
 {
+    
+    trace_hw_usb_busC_usb_bus_dev_print_0_dgtrace();
     USBDevice *dev = USB_DEVICE(qdev);
     USBBus *bus = usb_bus_from_device(dev);
 

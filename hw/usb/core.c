@@ -51,11 +51,11 @@ void usb_pick_speed(USBPort *port)
 void usb_attach(USBPort *port)
 {
     
-    trace_hw_usb_coreC_usb_attach_0_dgtrace(port->path);
+    //trace_hw_usb_coreC_usb_attach_0_dgtrace(port->path);
 
     USBDevice *dev = port->dev;
 
-    trace_hw_usb_coreC_usb_attach_1_dgtrace(port->dev->port_path, dev->product_desc, dev->serial, dev->addr);
+    //trace_hw_usb_coreC_usb_attach_1_dgtrace(port->dev->port_path, dev->product_desc, dev->serial, dev->addr);
 
     //assert(dev != NULL);
     trace_hw_usb_coreC_usb_attach_1_1_dgtrace();

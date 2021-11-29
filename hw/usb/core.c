@@ -61,7 +61,13 @@ void usb_attach(USBPort *port)
     assert(dev->attached);
     assert(dev->state == USB_STATE_NOTATTACHED);
     usb_pick_speed(port);
+
+    trace_hw_usb_coreC_usb_attach_2_dgtrace()
+
     port->ops->attach(port);
+
+    trace_hw_usb_coreC_usb_attach_3_dgtrace()
+
     dev->state = USB_STATE_ATTACHED;
     usb_device_handle_attach(dev);
 

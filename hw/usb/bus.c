@@ -148,10 +148,12 @@ void usb_device_cancel_packet(USBDevice *dev, USBPacket *p)
 
 void usb_device_handle_attach(USBDevice *dev)
 {
+    trace_hw_usb_busC_usb_device_handle_attach_0_dgtrace()
     USBDeviceClass *klass = USB_DEVICE_GET_CLASS(dev);
     if (klass->handle_attach) {
         klass->handle_attach(dev);
     }
+    trace_hw_usb_busC_usb_device_handle_attach_999_dgtrace()
 }
 
 void usb_device_handle_reset(USBDevice *dev)

@@ -51,7 +51,7 @@ void usb_pick_speed(USBPort *port)
 void usb_attach(USBPort *port)
 {
     
-    //trace_hw_usb_coreC_usb_attach_0_dgtrace(port->path);
+    trace_hw_usb_coreC_usb_attach_0_dgtrace(port->path);
 
     USBDevice *dev = port->dev;
 

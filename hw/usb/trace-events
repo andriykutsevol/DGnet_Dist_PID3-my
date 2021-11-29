@@ -4,7 +4,7 @@
 usb_packet_state_change(int bus, const char *port, int ep, void *p, const char *o, const char *n) "bus %d, port %s, ep %d, packet %p, state %s -> %s"
 usb_packet_state_fault(int bus, const char *port, int ep, void *p, const char *o, const char *n) "bus %d, port %s, ep %d, packet %p, state %s, expected %s"
 hw_usb_coreC_usb_attach_0_dgtrace(char *path) "port->path %s"
-hw_usb_coreC_usb_attach_1_dgtrace(char *path, char *product_desc) "port->path %s, dev->product_desc %s"
+hw_usb_coreC_usb_attach_1_dgtrace(char *path, char *product_desc, char *serial, uint8_t addr) "port->path %s, dev->product_desc %s, dev->serial %s, dev->addr %d"
 hw_usb_coreC_usb_attach_2_dgtrace(void) ""
 hw_usb_coreC_usb_attach_3_dgtrace(void) ""
 hw_usb_coreC_usb_attach_999_dgtrace(void) ""

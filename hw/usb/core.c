@@ -27,9 +27,6 @@
 #include "hw/usb.h"
 #include "qemu/iov.h"
 #include "trace.h"
-#include <libusb.h>
-
-static libusb_context *ctx;
 
 void usb_pick_speed(USBPort *port)
 {

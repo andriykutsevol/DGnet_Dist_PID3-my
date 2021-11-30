@@ -1182,26 +1182,41 @@ static libusb_device *usb_host_find_ref(int bus, int addr)
 
 static void usb_host_realize(USBDevice *udev, Error **errp)
 {
+    trace_hw_usb_hostlibC_usb_host_realize_0_dgtrace();
+    
     USBHostDevice *s = USB_HOST_DEVICE(udev);
     libusb_device *ldev;
     int rc;
+
+    trace_hw_usb_hostlibC_usb_host_realize_1_dgtrace();
 
     if (usb_host_init() != 0) {
         error_setg(errp, "failed to init libusb");
         return;
     }
+
+    trace_hw_usb_hostlibC_usb_host_realize_2_dgtrace();
+
     if (s->match.vendor_id > 0xffff) {
         error_setg(errp, "vendorid out of range");
         return;
     }
+
+    trace_hw_usb_hostlibC_usb_host_realize_3_dgtrace();
+
     if (s->match.product_id > 0xffff) {
         error_setg(errp, "productid out of range");
         return;
     }
+
+    trace_hw_usb_hostlibC_usb_host_realize_4_dgtrace();
+
     if (s->match.addr > 127) {
         error_setg(errp, "hostaddr out of range");
         return;
     }
+
+    trace_hw_usb_hostlibC_usb_host_realize_5_dgtrace();
 
     loglevel = s->loglevel;
     udev->flags |= (1 << USB_DEV_FLAG_IS_HOST);
@@ -1210,22 +1225,31 @@ static void usb_host_realize(USBDevice *udev, Error **errp)
     QTAILQ_INIT(&s->isorings);
     s->hostfd = -1;
 
+    trace_hw_usb_hostlibC_usb_host_realize_6_dgtrace();
+
 #if LIBUSB_API_VERSION >= 0x01000107 && !defined(CONFIG_WIN32)
+
+    trace_hw_usb_hostlibC_usb_host_realize_7_dgtrace();
     if (s->hostdevice) {
+        trace_hw_usb_hostlibC_usb_host_realize_8_dgtrace();
         int fd;
         s->needs_autoscan = false;
         fd = qemu_open_old(s->hostdevice, O_RDWR);
         if (fd < 0) {
+            trace_hw_usb_hostlibC_usb_host_realize_9_dgtrace();
             error_setg_errno(errp, errno, "failed to open %s", s->hostdevice);
             return;
         }
+        trace_hw_usb_hostlibC_usb_host_realize_10_dgtrace("usb_host_open");
         rc = usb_host_open(s, NULL, fd);
         if (rc < 0) {
+            trace_hw_usb_hostlibC_usb_host_realize_11_dgtrace();
             error_setg(errp, "failed to open host usb device %s", s->hostdevice);
             return;
         }
     } else
 #endif
+    trace_hw_usb_hostlibC_usb_host_realize_12_dgtrace();
     if (s->match.addr && s->match.bus_num &&
         !s->match.vendor_id &&
         !s->match.product_id &&
@@ -1233,26 +1257,35 @@ static void usb_host_realize(USBDevice *udev, Error **errp)
         s->needs_autoscan = false;
         ldev = usb_host_find_ref(s->match.bus_num,
                                  s->match.addr);
+        trace_hw_usb_hostlibC_usb_host_realize_13_dgtrace();
+
         if (!ldev) {
+            trace_hw_usb_hostlibC_usb_host_realize_14_dgtrace();
             error_setg(errp, "failed to find host usb device %d:%d",
                        s->match.bus_num, s->match.addr);
             return;
         }
+        trace_hw_usb_hostlibC_usb_host_realize_15_dgtrace("usb_host_open");
         rc = usb_host_open(s, ldev, 0);
         libusb_unref_device(ldev);
+        trace_hw_usb_hostlibC_usb_host_realize_16_dgtrace();
         if (rc < 0) {
+            trace_hw_usb_hostlibC_usb_host_realize_17_dgtrace();
             error_setg(errp, "failed to open host usb device %d:%d",
                        s->match.bus_num, s->match.addr);
             return;
         }
     } else {
+        trace_hw_usb_hostlibC_usb_host_realize_18_dgtrace();
         s->needs_autoscan = true;
         QTAILQ_INSERT_TAIL(&hostdevs, s, next);
         usb_host_auto_check(NULL);
     }
 
+    trace_hw_usb_hostlibC_usb_host_realize_19_dgtrace();
     s->exit.notify = usb_host_exit_notifier;
     qemu_add_exit_notifier(&s->exit);
+    trace_hw_usb_hostlibC_usb_host_realize_999_dgtrace();
 }
 
 static void usb_host_instance_init(Object *obj)

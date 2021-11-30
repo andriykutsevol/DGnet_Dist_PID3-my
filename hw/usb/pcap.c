@@ -75,6 +75,8 @@ struct usbmon_packet {
 
 static int usbmon_status(USBPacket *p)
 {
+    trace_hw_usb_pcapC_usbmon_status_0_dgtrace();
+    
     switch (p->status) {
     case USB_RET_SUCCESS:
         return 0;
@@ -87,6 +89,8 @@ static int usbmon_status(USBPacket *p)
 
 static unsigned int usbmon_epnum(USBPacket *p)
 {
+    trace_hw_usb_pcapC_usbmon_epnum_0_dgtrace();
+    
     unsigned epnum = 0;
 
     epnum |= p->ep->nr;
@@ -103,6 +107,8 @@ static unsigned char usbmon_xfer_type[] = {
 
 static void do_usb_pcap_header(FILE *fp, struct usbmon_packet *packet)
 {
+    trace_hw_usb_pcapC_do_usb_pcap_header_0_dgtrace();
+    
     struct pcaprec_hdr header;
     struct timeval tv;
 
@@ -120,6 +126,8 @@ static void do_usb_pcap_header(FILE *fp, struct usbmon_packet *packet)
 
 static void do_usb_pcap_ctrl(FILE *fp, USBPacket *p, bool setup)
 {
+    trace_hw_usb_pcapC_do_usb_pcap_ctrl_0_dgtrace();
+    
     USBDevice *dev = p->ep->dev;
     bool in = dev->setup_buf[0] & USB_DIR_IN;
     struct usbmon_packet packet = {
@@ -165,6 +173,7 @@ static void do_usb_pcap_ctrl(FILE *fp, USBPacket *p, bool setup)
 
 static void do_usb_pcap_data(FILE *fp, USBPacket *p, bool setup)
 {
+    trace_hw_usb_pcapC_do_usb_pcap_data_0_dgtrace();
     struct usbmon_packet packet = {
         .id         = p->id,
         .type       = setup ? 'S' : 'C',
@@ -220,6 +229,8 @@ static void do_usb_pcap_data(FILE *fp, USBPacket *p, bool setup)
 
 void usb_pcap_init(FILE *fp)
 {
+    trace_hw_usb_pcapC_usb_pcap_init_0_dgtrace();
+
     struct pcap_hdr header = {
         .magic_number  = PCAP_MAGIC,
         .version_major = 2,
@@ -233,6 +244,8 @@ void usb_pcap_init(FILE *fp)
 
 void usb_pcap_ctrl(USBPacket *p, bool setup)
 {
+    trace_hw_usb_pcapC_usb_pcap_ctrl_0_dgtrace();
+
     FILE *fp = p->ep->dev->pcap;
 
     if (!fp) {

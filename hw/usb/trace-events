@@ -11,6 +11,9 @@ hw_usb_coreC_usb_attach_1_3(void) ""
 hw_usb_coreC_usb_attach_2_dgtrace(void) ""
 hw_usb_coreC_usb_attach_3_dgtrace(void) ""
 hw_usb_coreC_usb_attach_999_dgtrace(char *path, char *product_desc, char *serial, uint8_t addr) "port->path %s, dev->product_desc %s, dev->serial %s, dev->addr %d"
+hw_usb_coreC_usb_detach_0(char *path) "port->path %s"
+hw_usb_coreC_usb_port_reset_0(char *path) "port->path %s"
+hw_usb_coreC_usb_device_reset_0(char *path) "dev->port_path %s"
 
 
 # bus.c

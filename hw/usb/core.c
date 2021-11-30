@@ -80,6 +80,8 @@ void usb_attach(USBPort *port)
 
 void usb_detach(USBPort *port)
 {
+    trace_hw_usb_coreC_usb_detach_0(port->path);
+    
     USBDevice *dev = port->dev;
 
     assert(dev != NULL);
@@ -90,6 +92,8 @@ void usb_detach(USBPort *port)
 
 void usb_port_reset(USBPort *port)
 {
+    trace_hw_usb_coreC_usb_port_reset_0(port->path);
+    
     USBDevice *dev = port->dev;
 
     assert(dev != NULL);
@@ -100,6 +104,8 @@ void usb_port_reset(USBPort *port)
 
 void usb_device_reset(USBDevice *dev)
 {
+    trace_hw_usb_coreC_usb_device_reset_0(dev->port_path);
+    
     if (dev == NULL || !dev->attached) {
         return;
     }

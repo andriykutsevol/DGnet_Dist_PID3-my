@@ -1922,7 +1922,7 @@ static void usb_host_auto_check(void *unused)
                 if (s->dh != NULL) {
                     continue;
                 }
-                //tarce_hw_usb_hostlibC_usb_host_auto_check_2_dgtrace();
+                trace_hw_usb_hostlibC_usb_host_auto_check_1_dgtrace();
                 if (usb_host_open(s, devs[i], 0) < 0) {
                     s->errcount++;
                     continue;

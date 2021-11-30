@@ -497,6 +497,8 @@ void usb_handle_packet(USBDevice *dev, USBPacket *p)
 
 void usb_packet_complete_one(USBDevice *dev, USBPacket *p)
 {
+    trace_hw_usb_coreC_usb_packet_complete_one_0_dgtrace(dev->port_path, p);
+    
     USBEndpoint *ep = p->ep;
 
     assert(p->stream || QTAILQ_FIRST(&ep->queue) == p);
@@ -517,6 +519,8 @@ void usb_packet_complete_one(USBDevice *dev, USBPacket *p)
    handle_packet. */
 void usb_packet_complete(USBDevice *dev, USBPacket *p)
 {
+    trace_hw_usb_coreC_usb_packet_complete_0_dgtrace(dev->port_path, p);
+    
     USBEndpoint *ep = p->ep;
 
     usb_packet_check_state(p, USB_PACKET_ASYNC);

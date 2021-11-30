@@ -58,11 +58,11 @@ void usb_attach(USBPort *port)
     trace_hw_usb_coreC_usb_attach_1_dgtrace(port->dev->port_path, dev->product_desc, dev->serial, dev->addr);
 
     assert(dev != NULL);
-    trace_hw_usb_coreC_usb_attach_1_1(port->dev->port_path);
+    trace_hw_usb_coreC_usb_attach_1_1_dgtrace(port->dev->port_path);
     assert(dev->attached);
-    trace_hw_usb_coreC_usb_attach_1_2();
+    trace_hw_usb_coreC_usb_attach_1_2_dgtrace();
     assert(dev->state == USB_STATE_NOTATTACHED);
-    trace_hw_usb_coreC_usb_attach_1_3();
+    trace_hw_usb_coreC_usb_attach_1_3_dgtrace();
     usb_pick_speed(port);
 
     trace_hw_usb_coreC_usb_attach_2_dgtrace();
@@ -80,7 +80,7 @@ void usb_attach(USBPort *port)
 
 void usb_detach(USBPort *port)
 {
-    trace_hw_usb_coreC_usb_detach_0(port->path);
+    trace_hw_usb_coreC_usb_detach_0_dgtrace(port->path);
     
     USBDevice *dev = port->dev;
 
@@ -92,7 +92,7 @@ void usb_detach(USBPort *port)
 
 void usb_port_reset(USBPort *port)
 {
-    trace_hw_usb_coreC_usb_port_reset_0(port->path);
+    trace_hw_usb_coreC_usb_port_reset_0_dgtrace(port->path);
     
     USBDevice *dev = port->dev;
 
@@ -104,7 +104,7 @@ void usb_port_reset(USBPort *port)
 
 void usb_device_reset(USBDevice *dev)
 {
-    trace_hw_usb_coreC_usb_device_reset_0(dev->port_path);
+    trace_hw_usb_coreC_usb_device_reset_0_dgtrace(dev->port_path);
     
     if (dev == NULL || !dev->attached) {
         return;

@@ -504,14 +504,26 @@ void usb_packet_complete_one(USBDevice *dev, USBPacket *p)
     assert(p->stream || QTAILQ_FIRST(&ep->queue) == p);
     assert(p->status != USB_RET_ASYNC && p->status != USB_RET_NAK);
 
+    trace_hw_usb_coreC_usb_packet_complete_one_1_dgtrace();
+
     if (p->status != USB_RET_SUCCESS ||
             (p->short_not_ok && (p->actual_length < p->iov.size))) {
+        trace_hw_usb_coreC_usb_packet_complete_one_2_dgtrace();        
         ep->halted = true;
     }
+
+    trace_hw_usb_coreC_usb_packet_complete_one_3_dgtrace();
+
     usb_pcap_data(p, false);
+
+    trace_hw_usb_coreC_usb_packet_complete_one_4_dgtrace();
+
     usb_packet_set_state(p, USB_PACKET_COMPLETE);
     QTAILQ_REMOVE(&ep->queue, p, queue);
     dev->port->ops->complete(dev->port, p);
+
+    trace_hw_usb_coreC_usb_packet_complete_one_999_dgtrace();
+
 }
 
 /* Notify the controller that an async packet is complete.  This should only
@@ -524,9 +536,15 @@ void usb_packet_complete(USBDevice *dev, USBPacket *p)
     USBEndpoint *ep = p->ep;
 
     usb_packet_check_state(p, USB_PACKET_ASYNC);
+
+    trace_hw_usb_coreC_usb_packet_complete_1_dgtrace();
+
     usb_packet_complete_one(dev, p);
 
+    trace_hw_usb_coreC_usb_packet_complete_2_dgtrace();
+
     while (!QTAILQ_EMPTY(&ep->queue)) {
+        trace_hw_usb_coreC_usb_packet_complete_3_dgtrace();
         p = QTAILQ_FIRST(&ep->queue);
         if (ep->halted) {
             /* Empty the queue on a halt */
@@ -534,16 +552,20 @@ void usb_packet_complete(USBDevice *dev, USBPacket *p)
             dev->port->ops->complete(dev->port, p);
             continue;
         }
+        trace_hw_usb_coreC_usb_packet_complete_4_dgtrace();
         if (p->state == USB_PACKET_ASYNC) {
             break;
         }
         usb_packet_check_state(p, USB_PACKET_QUEUED);
+        trace_hw_usb_coreC_usb_packet_complete_5_dgtrace();
         usb_process_one(p);
         if (p->status == USB_RET_ASYNC) {
             usb_packet_set_state(p, USB_PACKET_ASYNC);
             break;
         }
+        trace_hw_usb_coreC_usb_packet_complete_6_dgtrace();
         usb_packet_complete_one(ep->dev, p);
+        trace_hw_usb_coreC_usb_packet_complete_999_dgtrace();
     }
 }
 

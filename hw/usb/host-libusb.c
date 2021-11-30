@@ -909,6 +909,8 @@ static void usb_host_ep_update(USBHostDevice *s)
 
 static int usb_host_open(USBHostDevice *s, libusb_device *dev, int hostfd)
 {
+    trace_hw_usb_hostlibC_usb_host_open_0_dgtrace();
+    
     USBDevice *udev = USB_DEVICE(s);
     int libusb_speed;
     int bus_num = 0;
@@ -924,6 +926,7 @@ static int usb_host_open(USBHostDevice *s, libusb_device *dev, int hostfd)
     }
 
     if (dev) {
+        trace_hw_usb_hostlibC_usb_host_open_1_dgtrace();
         bus_num = libusb_get_bus_number(dev);
         addr = libusb_get_device_address(dev);
         trace_usb_host_open_started(bus_num, addr);
@@ -935,36 +938,55 @@ static int usb_host_open(USBHostDevice *s, libusb_device *dev, int hostfd)
     } else {
 #if LIBUSB_API_VERSION >= 0x01000107 && !defined(CONFIG_WIN32)
         trace_usb_host_open_hostfd(hostfd);
-
+        trace_hw_usb_hostlibC_usb_host_open_2_dgtrace();
         rc = libusb_wrap_sys_device(ctx, hostfd, &s->dh);
         if (rc != 0) {
             goto fail;
         }
+        trace_hw_usb_hostlibC_usb_host_open_3_dgtrace();
         s->hostfd  = hostfd;
         dev = libusb_get_device(s->dh);
         bus_num = libusb_get_bus_number(dev);
         addr = libusb_get_device_address(dev);
 #else
         g_assert_not_reached();
+        trace_hw_usb_hostlibC_usb_host_open_4_dgtrace();
 #endif
     }
 
+    trace_hw_usb_hostlibC_usb_host_open_5_dgtrace();
     s->dev     = dev;
     s->bus_num = bus_num;
     s->addr    = addr;
 
     usb_host_detach_kernel(s);
+    trace_hw_usb_hostlibC_usb_host_open_6_dgtrace();
 
     libusb_get_device_descriptor(dev, &s->ddesc);
+
+    trace_hw_usb_hostlibC_usb_host_open_7_dgtrace();
+
     usb_host_get_port(s->dev, s->port, sizeof(s->port));
 
+    trace_hw_usb_hostlibC_usb_host_open_8_dgtrace();
+
     usb_ep_init(udev);
+
+    trace_hw_usb_hostlibC_usb_host_open_9_dgtrace();
+
     usb_host_ep_update(s);
 
+    trace_hw_usb_hostlibC_usb_host_open_10_dgtrace();
+
     libusb_speed = libusb_get_device_speed(dev);
+
+    trace_hw_usb_hostlibC_usb_host_open_11_dgtrace();
+
 #if LIBUSB_API_VERSION >= 0x01000107 && defined(CONFIG_LINUX) && \
         defined(USBDEVFS_GET_SPEED)
+        trace_hw_usb_hostlibC_usb_host_open_12_dgtrace();
     if (hostfd && libusb_speed == 0) {
+        trace_hw_usb_hostlibC_usb_host_open_13_dgtrace();
         /*
          * Workaround libusb bug: libusb_get_device_speed() does not
          * work for libusb_wrap_sys_device() devices in v1.0.23.
@@ -973,6 +995,7 @@ static int usb_host_open(USBHostDevice *s, libusb_device *dev, int hostfd)
          * due to name conflicts.
          */
         int rc = ioctl(hostfd, USBDEVFS_GET_SPEED, NULL);
+        trace_hw_usb_hostlibC_usb_host_open_14_dgtrace();
         switch (rc) {
         case 1: /* low */
             libusb_speed = LIBUSB_SPEED_LOW;
@@ -988,32 +1011,50 @@ static int usb_host_open(USBHostDevice *s, libusb_device *dev, int hostfd)
             libusb_speed = LIBUSB_SPEED_SUPER;
             break;
         case 6: /* super plus */
+        trace_hw_usb_hostlibC_usb_host_open_15_dgtrace();
 #ifdef HAVE_SUPER_PLUS
+            trace_hw_usb_hostlibC_usb_host_open_16_dgtrace();
             libusb_speed = LIBUSB_SPEED_SUPER_PLUS;
 #else
             libusb_speed = LIBUSB_SPEED_SUPER;
+            trace_hw_usb_hostlibC_usb_host_open_17_dgtrace();
 #endif
             break;
         }
     }
 #endif
+    trace_hw_usb_hostlibC_usb_host_open_18_dgtrace();
     udev->speed = speed_map[libusb_speed];
     usb_host_speed_compat(s);
+    trace_hw_usb_hostlibC_usb_host_open_19_dgtrace();
 
     if (s->ddesc.iProduct) {
+        trace_hw_usb_hostlibC_usb_host_open_20_dgtrace();
+        
         libusb_get_string_descriptor_ascii(s->dh, s->ddesc.iProduct,
                                            (unsigned char *)udev->product_desc,
                                            sizeof(udev->product_desc));
+        trace_hw_usb_hostlibC_usb_host_open_21_dgtrace();                                   
+
     } else {
+        trace_hw_usb_hostlibC_usb_host_open_22_dgtrace();
         snprintf(udev->product_desc, sizeof(udev->product_desc),
                  "host:%d.%d", bus_num, addr);
     }
 
+    trace_hw_usb_hostlibC_usb_host_open_23_dgtrace();
+
     usb_device_attach(udev, &local_err);
+
+    trace_hw_usb_hostlibC_usb_host_open_24_dgtrace();
+
     if (local_err) {
         error_report_err(local_err);
+        trace_hw_usb_hostlibC_usb_host_open_25_dgtrace();
         goto fail;
     }
+
+    trace_hw_usb_hostlibC_usb_host_open_999_dgtrace();
 
     trace_usb_host_open_success(bus_num, addr);
     return 0;

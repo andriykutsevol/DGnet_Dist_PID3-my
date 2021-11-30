@@ -14,9 +14,9 @@ hw_usb_coreC_usb_attach_999_dgtrace(char *path, char *product_desc, char *serial
 hw_usb_coreC_usb_detach_0_dgtrace(char *path) "port->path %s"
 hw_usb_coreC_usb_port_reset_0_dgtrace(char *path) "port->path %s"
 hw_usb_coreC_usb_device_reset_0_dgtrace(char *path) "dev->port_path %s"
-hw_usb_coreC_usb_process_one_0_dgtrace(void) ""
-hw_usb_coreC_usb_queue_one_0_dgtrace(void) ""
-hw_usb_coreC_usb_handle_packet_0_dgtrace(void) ""
+hw_usb_coreC_usb_process_one_0_dgtrace(void *p) "packet %p"
+hw_usb_coreC_usb_queue_one_0_dgtrace(void *p) "packet %p"
+hw_usb_coreC_usb_handle_packet_0_dgtrace(void *p) "packet %p"
 
 # bus.c
 usb_port_claim(int bus, const char *port) "bus %d, port %s"

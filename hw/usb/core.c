@@ -392,7 +392,7 @@ USBDevice *usb_find_device(USBPort *port, uint8_t addr)
 static void usb_process_one(USBPacket *p)
 {
     
-    trace_hw_usb_coreC_usb_process_one_0_dgtrace();
+    trace_hw_usb_coreC_usb_process_one_0_dgtrace(p);
     
     USBDevice *dev = p->ep->dev;
     bool nak;
@@ -435,7 +435,7 @@ static void usb_process_one(USBPacket *p)
 
 static void usb_queue_one(USBPacket *p)
 {
-    trace_hw_usb_coreC_usb_queue_one_0_dgtrace();
+    trace_hw_usb_coreC_usb_queue_one_0_dgtrace(p);
     
     usb_packet_set_state(p, USB_PACKET_QUEUED);
     QTAILQ_INSERT_TAIL(&p->ep->queue, p, queue);
@@ -447,7 +447,7 @@ static void usb_queue_one(USBPacket *p)
    driver will call usb_packet_complete() when done processing it. */
 void usb_handle_packet(USBDevice *dev, USBPacket *p)
 {
-    trace_hw_usb_coreC_usb_handle_packet_0_dgtrace();
+    trace_hw_usb_coreC_usb_handle_packet_0_dgtrace(p);
     
     
     if (dev == NULL) {

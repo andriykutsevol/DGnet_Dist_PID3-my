@@ -1866,6 +1866,7 @@ static void usb_host_vm_state(void *unused, bool running, RunState state)
 
 static void usb_host_auto_check(void *unused)
 {
+    tarce_hw_usb_hostlibC_usb_host_auto_check_0_dgtrace();
     struct USBHostDevice *s;
     struct USBAutoFilter *f;
     libusb_device **devs = NULL;
@@ -1920,7 +1921,7 @@ static void usb_host_auto_check(void *unused)
                 if (s->dh != NULL) {
                     continue;
                 }
-                tarce_hw_usb_hostlibC_usb_host_auto_check_dgtrace("usb_host_open");
+                tarce_hw_usb_hostlibC_usb_host_auto_check_2_dgtrace();
                 if (usb_host_open(s, devs[i], 0) < 0) {
                     s->errcount++;
                     continue;
@@ -1929,6 +1930,8 @@ static void usb_host_auto_check(void *unused)
             }
         }
         libusb_free_device_list(devs, 1);
+
+        tarce_hw_usb_hostlibC_usb_host_auto_check_3_dgtrace();
 
         QTAILQ_FOREACH(s, &hostdevs, next) {
             if (s->dh == NULL) {
@@ -1943,6 +1946,8 @@ static void usb_host_auto_check(void *unused)
             s->seen = 0;
         }
 
+        tarce_hw_usb_hostlibC_usb_host_auto_check_4_dgtrace();
+
 #if 0
         if (unconnected == 0) {
             /* nothing to watch */
@@ -1954,18 +1959,26 @@ static void usb_host_auto_check(void *unused)
         }
 #endif
     }
+    tarce_hw_usb_hostlibC_usb_host_auto_check_5_dgtrace();
 
     if (!usb_vmstate) {
         usb_vmstate = qemu_add_vm_change_state_handler(usb_host_vm_state, NULL);
     }
+    tarce_hw_usb_hostlibC_usb_host_auto_check_6_dgtrace();
     if (!usb_auto_timer) {
+        tarce_hw_usb_hostlibC_usb_host_auto_check_7_dgtrace();
         usb_auto_timer = timer_new_ms(QEMU_CLOCK_REALTIME, usb_host_auto_check, NULL);
         if (!usb_auto_timer) {
+            tarce_hw_usb_hostlibC_usb_host_auto_check_8_dgtrace();
             return;
         }
+        tarce_hw_usb_hostlibC_usb_host_auto_check_9_dgtrace();
         trace_usb_host_auto_scan_enabled();
+        tarce_hw_usb_hostlibC_usb_host_auto_check_10_dgtrace();
     }
+    tarce_hw_usb_hostlibC_usb_host_auto_check_11_dgtrace();
     timer_mod(usb_auto_timer, qemu_clock_get_ms(QEMU_CLOCK_REALTIME) + 2000);
+    tarce_hw_usb_hostlibC_usb_host_auto_check_999_dgtrace();
 }
 
 /**

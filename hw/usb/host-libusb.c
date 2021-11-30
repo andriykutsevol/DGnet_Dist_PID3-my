@@ -1932,7 +1932,7 @@ static void usb_host_auto_check(void *unused)
         }
         libusb_free_device_list(devs, 1);
 
-        //tarce_hw_usb_hostlibC_usb_host_auto_check_3_dgtrace();
+        trace_hw_usb_hostlibC_usb_host_auto_check_2_dgtrace();
 
         QTAILQ_FOREACH(s, &hostdevs, next) {
             if (s->dh == NULL) {
@@ -1947,7 +1947,7 @@ static void usb_host_auto_check(void *unused)
             s->seen = 0;
         }
 
-        //tarce_hw_usb_hostlibC_usb_host_auto_check_4_dgtrace();
+        trace_hw_usb_hostlibC_usb_host_auto_check_3_dgtrace();
 
 #if 0
         if (unconnected == 0) {
@@ -1960,26 +1960,26 @@ static void usb_host_auto_check(void *unused)
         }
 #endif
     }
-    //tarce_hw_usb_hostlibC_usb_host_auto_check_5_dgtrace();
+    trace_hw_usb_hostlibC_usb_host_auto_check_4_dgtrace();
 
     if (!usb_vmstate) {
         usb_vmstate = qemu_add_vm_change_state_handler(usb_host_vm_state, NULL);
     }
-    //tarce_hw_usb_hostlibC_usb_host_auto_check_6_dgtrace();
+    trace_hw_usb_hostlibC_usb_host_auto_check_5_dgtrace();
     if (!usb_auto_timer) {
-        //tarce_hw_usb_hostlibC_usb_host_auto_check_7_dgtrace();
+        trace_hw_usb_hostlibC_usb_host_auto_check_6_dgtrace();
         usb_auto_timer = timer_new_ms(QEMU_CLOCK_REALTIME, usb_host_auto_check, NULL);
         if (!usb_auto_timer) {
-            //tarce_hw_usb_hostlibC_usb_host_auto_check_8_dgtrace();
+            trace_hw_usb_hostlibC_usb_host_auto_check_7_dgtrace();
             return;
         }
-        //tarce_hw_usb_hostlibC_usb_host_auto_check_9_dgtrace();
+        trace_hw_usb_hostlibC_usb_host_auto_check_8_dgtrace();
         trace_usb_host_auto_scan_enabled();
-        //tarce_hw_usb_hostlibC_usb_host_auto_check_10_dgtrace();
+        trace_hw_usb_hostlibC_usb_host_auto_check_9_dgtrace();
     }
-    //tarce_hw_usb_hostlibC_usb_host_auto_check_11_dgtrace();
+    trace_hw_usb_hostlibC_usb_host_auto_check_10_dgtrace();
     timer_mod(usb_auto_timer, qemu_clock_get_ms(QEMU_CLOCK_REALTIME) + 2000);
-    //tarce_hw_usb_hostlibC_usb_host_auto_check_999_dgtrace();
+    trace_hw_usb_hostlibC_usb_host_auto_check_999_dgtrace();
 }
 
 /**

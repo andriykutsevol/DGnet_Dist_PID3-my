@@ -1867,7 +1867,7 @@ static void usb_host_vm_state(void *unused, bool running, RunState state)
 
 static void usb_host_auto_check(void *unused)
 {
-    //tarce_hw_usb_hostlibC_usb_host_auto_check_0_dgtrace();
+    trace_hw_usb_hostlibC_usb_host_auto_check_0_dgtrace();
     struct USBHostDevice *s;
     struct USBAutoFilter *f;
     libusb_device **devs = NULL;

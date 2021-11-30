@@ -243,6 +243,8 @@ void usb_pcap_ctrl(USBPacket *p, bool setup)
 
 void usb_pcap_data(USBPacket *p, bool setup)
 {
+    trace_hw_usb_pcapC_usb_pcap_data_0_dgtrace();
+
     FILE *fp = p->ep->dev->pcap;
 
     if (!fp) {

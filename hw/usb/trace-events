@@ -395,7 +395,7 @@ hw_usb_hostlibC_usb_host_realize_17_dgtrace(void) ""
 hw_usb_hostlibC_usb_host_realize_18_dgtrace(void) ""
 hw_usb_hostlibC_usb_host_realize_19_dgtrace(void) ""
 hw_usb_hostlibC_usb_host_realize_999_dgtrace(void) ""
-
+hw_usb_hostlibC_usb_host_vm_state_0_dgtrace(void) ""
 
 # dev-serial.c
 usb_serial_reset(int bus, int addr) "dev %d:%u reset"

@@ -1859,6 +1859,7 @@ static VMChangeStateEntry *usb_vmstate;
 
 static void usb_host_vm_state(void *unused, bool running, RunState state)
 {
+    trace_hw_usb_hostlibC_usb_host_vm_state_0_dgtrace();
     if (running) {
         usb_host_auto_check(unused);
     }

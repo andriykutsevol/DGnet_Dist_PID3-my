@@ -242,8 +242,8 @@ usb_xhci_enforced_limit(const char *item) "%s"
 
 hw_usb_hcdxhciC_xhci_fire_ctl_transfer_0_dgtrace(const char *msg) "msg: %s"
 hw_usb_hcdxhciC_xhci_submit_0_dgtrace(const char *msg) "msg: %s"
-trace_hw_usb_hcdxhciC_xhci_kick_epctx_0_dgtrace(const char *msg) "msg: %s"
-trace_hw_usb_hcdxhciC_xhci_kick_epctx_1_dgtrace(const char *msg) "msg: %s"
+hw_usb_hcdxhciC_xhci_kick_epctx_0_dgtrace(const char *msg) "msg: %s"
+hw_usb_hcdxhciC_xhci_kick_epctx_1_dgtrace(const char *msg) "msg: %s"
 
 
 

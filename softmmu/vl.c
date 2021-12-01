@@ -3544,6 +3544,8 @@ void qemu_init(int argc, char **argv, char **envp)
     }
     trace_init_file();
 
+    trace_softmmu_vlC_qemu_init_0_dgtrace();
+
     qemu_init_main_loop(&error_fatal);
     cpu_timers_init();
 

@@ -765,7 +765,7 @@ static int usb_device_add(const char *devname)
         return -1;
     }
 
-    trace_softmmu_vlC_usb_device_add_1_dgtrace()
+    trace_softmmu_vlC_usb_device_add_1_dgtrace();
 
     dev = usbdevice_create(devname);
     if (!dev)

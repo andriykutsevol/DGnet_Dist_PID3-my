@@ -27,14 +27,14 @@ system_wakeup_request(int reason) "reason=%d"
 qemu_system_shutdown_request(int reason) "reason=%d"
 qemu_system_powerdown_request(void) ""
 
-softmmu_vlC_qmp_x_exit_preconfig_0_dgtrace();
-softmmu_vlC_qmp_x_exit_preconfig_1_dgtrace();
-softmmu_vlC_qmp_x_exit_preconfig_2_dgtrace();
-softmmu_vlC_qmp_x_exit_preconfig_3_dgtrace();
-softmmu_vlC_qmp_x_exit_preconfig_4_dgtrace();
-softmmu_vlC_qmp_x_exit_preconfig_5_dgtrace();
-softmmu_vlC_qmp_x_exit_preconfig_6_dgtrace();
-softmmu_vlC_qmp_x_exit_preconfig_999_dgtrace();
+softmmu_vlC_qmp_x_exit_preconfig_0_dgtrace(void) ""
+softmmu_vlC_qmp_x_exit_preconfig_1_dgtrace(void) ""
+softmmu_vlC_qmp_x_exit_preconfig_2_dgtrace(void) ""
+softmmu_vlC_qmp_x_exit_preconfig_3_dgtrace(void) ""
+softmmu_vlC_qmp_x_exit_preconfig_4_dgtrace(void) ""
+softmmu_vlC_qmp_x_exit_preconfig_5_dgtrace(void) ""
+softmmu_vlC_qmp_x_exit_preconfig_6_dgtrace(void) ""
+softmmu_vlC_qmp_x_exit_preconfig_999_dgtrace(void) ""
 
 softmmu_vlC_qemu_init_0_dgtrace(void) ""
 softmmu_vlC_qemu_init_1_dgtrace(void) ""

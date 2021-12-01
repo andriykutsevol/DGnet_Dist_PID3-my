@@ -468,6 +468,7 @@ void usb_handle_packet(USBDevice *dev, USBPacket *p)
     }
 
     if (QTAILQ_EMPTY(&p->ep->queue) || p->ep->pipeline || p->stream) {
+        trace_hw_usb_coreC_usb_handle_packet_1_dgtrace(dev->port_path, p);
         usb_process_one(p);
         if (p->status == USB_RET_ASYNC) {
             /* hcd drivers cannot handle async for isoc */

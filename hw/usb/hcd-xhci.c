@@ -1812,6 +1812,7 @@ static void xhci_kick_ep(XHCIState *xhci, unsigned int slotid,
     if (epctx->kick_active) {
         return;
     }
+    trace_hw_usb_hcdxhciC_xhci_kick_ep_0_dgtrace("call xhci_kick_epctx()");
     xhci_kick_epctx(epctx, streamid);
 }
 
@@ -1863,7 +1864,7 @@ static void xhci_kick_epctx(XHCIEPContext *epctx, unsigned int streamid)
             if (xhci_setup_packet(xfer) < 0) {
                 return;
             }
-            trace_hw_usb_hcdxhciC_xhci_kick_epctx_0_dgtrace("call 'usb_handle_packet'");
+            trace_hw_usb_hcdxhciC_xhci_kick_epctx_0_dgtrace("call usb_handle_packet()");
             usb_handle_packet(xfer->packet.ep->dev, &xfer->packet);
             assert(xfer->packet.status != USB_RET_NAK);
             xhci_try_complete_packet(xfer);
@@ -1872,7 +1873,7 @@ static void xhci_kick_epctx(XHCIEPContext *epctx, unsigned int streamid)
             if (xhci_setup_packet(xfer) < 0) {
                 return;
             }
-            trace_hw_usb_hcdxhciC_xhci_kick_epctx_1_dgtrace("call 'usb_handle_packet'");
+            trace_hw_usb_hcdxhciC_xhci_kick_epctx_1_dgtrace("call usb_handle_packet()");
             usb_handle_packet(xfer->packet.ep->dev, &xfer->packet);
             if (xfer->packet.status == USB_RET_NAK) {
                 xhci_xfer_unmap(xfer);
@@ -3115,6 +3116,7 @@ static void xhci_doorbell_write(void *ptr, hwaddr reg,
             DPRINTF("xhci: bad doorbell %d write: 0x%x\n",
                     (int)reg, (uint32_t)val);
         } else {
+            trace_hw_usb_hcdxhciC_xhci_doorbell_write_0_dgtrace("call xhci_kick_ep()");
             xhci_kick_ep(xhci, reg, epid, streamid);
         }
     }
@@ -3269,6 +3271,7 @@ static void xhci_wakeup_endpoint(USBBus *bus, USBEndpoint *ep,
         DPRINTF("%s: oops, no slot for dev %d\n", __func__, ep->dev->addr);
         return;
     }
+    trace_hw_usb_hcdxhciC_xhci_wakeup_endpoint_0_dgtrace("call xhci_kick_ep()");
     xhci_kick_ep(xhci, slotid, xhci_find_epid(ep), stream);
 }
 

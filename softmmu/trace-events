@@ -26,3 +26,8 @@ runstate_set(int current_state, const char *current_state_str, int new_state, co
 system_wakeup_request(int reason) "reason=%d"
 qemu_system_shutdown_request(int reason) "reason=%d"
 qemu_system_powerdown_request(void) ""
+softmmu_vlC_usb_device_add_0_dgtrace(const char *devname) "devname %s"
+softmmu_vlC_usb_device_add_1_dgtrace(void) ""
+softmmu_vlC_usb_device_add_999_dgtrace(void) "" 
+softmmu_vlC_usb_parse_0_dgtrace(const char *cmdline) "cmdline %s"
+softmmu_vlC_usb_parse_999_dgtrace(void) "" 

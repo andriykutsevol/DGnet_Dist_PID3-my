@@ -757,26 +757,36 @@ static void configure_msg(QemuOpts *opts)
 
 static int usb_device_add(const char *devname)
 {
+    trace_softmmu_vlC_usb_device_add_0_dgtrace(devname);
+    
     USBDevice *dev = NULL;
 
     if (!machine_usb(current_machine)) {
         return -1;
     }
 
+    trace_softmmu_vlC_usb_device_add_1_dgtrace()
+
     dev = usbdevice_create(devname);
     if (!dev)
         return -1;
+
+    trace_softmmu_vlC_usb_device_add_999_dgtrace();
 
     return 0;
 }
 
 static int usb_parse(const char *cmdline)
 {
+    trace_softmmu_vlC_usb_parse_0_dgtrace(cmdline);
+    
     int r;
     r = usb_device_add(cmdline);
     if (r < 0) {
         error_report("could not add USB device '%s'", cmdline);
     }
+
+    trace_softmmu_vlC_usb_parse_999_dgtrace();
     return r;
 }
 

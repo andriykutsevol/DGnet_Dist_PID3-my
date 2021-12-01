@@ -2535,22 +2535,33 @@ static void qemu_init_board(void)
 
 static void qemu_create_cli_devices(void)
 {
+    trace_softmmu_vlC_qemu_create_cli_devices_0_dgtrace();
+    
     soundhw_init();
+
+    trace_softmmu_vlC_qemu_create_cli_devices_1_dgtrace();
 
     qemu_opts_foreach(qemu_find_opts("fw_cfg"),
                       parse_fw_cfg, fw_cfg_find(), &error_fatal);
 
+    trace_softmmu_vlC_qemu_create_cli_devices_2_dgtrace();
+
     /* init USB devices */
     if (machine_usb(current_machine)) {
+        trace_softmmu_vlC_qemu_create_cli_devices_3_dgtrace();
         if (foreach_device_config(DEV_USB, usb_parse) < 0)
+            trace_softmmu_vlC_qemu_create_cli_devices_4_dgtrace();
             exit(1);
     }
-
+    trace_softmmu_vlC_qemu_create_cli_devices_5_dgtrace();
     /* init generic devices */
     rom_set_order_override(FW_CFG_ORDER_OVERRIDE_DEVICE);
+    trace_softmmu_vlC_qemu_create_cli_devices_6_dgtrace();
     qemu_opts_foreach(qemu_find_opts("device"),
                       device_init_func, NULL, &error_fatal);
+    trace_softmmu_vlC_qemu_create_cli_devices_7_dgtrace();
     rom_reset_order_override();
+    trace_softmmu_vlC_qemu_create_cli_devices_999_dgtrace();
 }
 
 static void qemu_machine_creation_done(void)
@@ -2590,14 +2601,21 @@ static void qemu_machine_creation_done(void)
 
 void qmp_x_exit_preconfig(Error **errp)
 {
+    trace_softmmu_vlC_qmp_x_exit_preconfig_0_dgtrace();
+    
     if (phase_check(PHASE_MACHINE_INITIALIZED)) {
         error_setg(errp, "The command is permitted only before machine initialization");
         return;
     }
 
+    trace_softmmu_vlC_qmp_x_exit_preconfig_1_dgtrace();
+
     qemu_init_board();
+    trace_softmmu_vlC_qmp_x_exit_preconfig_2_dgtrace();
     qemu_create_cli_devices();
+    trace_softmmu_vlC_qmp_x_exit_preconfig_3_dgtrace();
     qemu_machine_creation_done();
+    trace_softmmu_vlC_qmp_x_exit_preconfig_4_dgtrace();
 
     if (loadvm) {
         Error *local_err = NULL;
@@ -2607,10 +2625,11 @@ void qmp_x_exit_preconfig(Error **errp)
             exit(1);
         }
     }
+    trace_softmmu_vlC_qmp_x_exit_preconfig_5_dgtrace();
     if (replay_mode != REPLAY_MODE_NONE) {
         replay_vmstate_init();
     }
-
+    trace_softmmu_vlC_qmp_x_exit_preconfig_6_dgtrace();
     if (incoming) {
         Error *local_err = NULL;
         if (strcmp(incoming, "defer") != 0) {
@@ -2623,6 +2642,7 @@ void qmp_x_exit_preconfig(Error **errp)
     } else if (autostart) {
         qmp_cont(NULL);
     }
+    trace_softmmu_vlC_qmp_x_exit_preconfig_999_dgtrace();
 }
 
 void qemu_init(int argc, char **argv, char **envp)

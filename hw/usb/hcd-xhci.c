@@ -3338,7 +3338,7 @@ static void usb_xhci_init(XHCIState *xhci)
 static void usb_xhci_realize(DeviceState *dev, Error **errp)
 {
     
-    trace_hw_usb_hcdxhciC_usb_xhci_realize_0_dgtrace();
+    trace_hw_usb_hcdxhciC_usb_xhci_realize_0_dgtrace(dev->canonical_path);
 
     int i;
 

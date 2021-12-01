@@ -248,7 +248,7 @@ hw_usb_hcdxhciC_xhci_kick_ep_0_dgtrace(const char *msg) "msg: %s"
 hw_usb_hcdxhciC_xhci_doorbell_write_0_dgtrace(const char *msg) "msg: %s"
 hw_usb_hcdxhciC_xhci_wakeup_endpoint_0_dgtrace(const char *msg) "msg: %s"
 
-hw_usb_hcdxhciC_usb_xhci_realize_0_dgtrace(void) ""
+hw_usb_hcdxhciC_usb_xhci_realize_0_dgtrace(char *msg) "msg: %s"
 hw_usb_hcdxhciC_usb_xhci_realize_1_dgtrace(void) ""
 hw_usb_hcdxhciC_usb_xhci_realize_2_dgtrace(void) ""
 hw_usb_hcdxhciC_usb_xhci_realize_3_dgtrace(void) ""

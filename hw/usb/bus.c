@@ -246,7 +246,7 @@ static void usb_qdev_realize(DeviceState *qdev, Error **errp)
 
     USBDevice *dev = USB_DEVICE(qdev);
 
-    dev->pcap_filename = "/home/dgnet/qemu/pcap.txt";
+    dev->pcap_filename = "/home/dgnet/qemu/dg_qemu.pcap";
 
     Error *local_err = NULL;
 

@@ -427,6 +427,7 @@ static void usb_process_one(USBPacket *p)
     } else {
         /* data pipe */
         if (!nak) {
+            trace_hw_usb_coreC_usb_process_one_1_dgtrace(dev->port_path, p);
             usb_pcap_data(p, true);
         }
         usb_device_handle_data(dev, p);

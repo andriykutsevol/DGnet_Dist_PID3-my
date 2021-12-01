@@ -3619,11 +3619,15 @@ void qemu_init(int argc, char **argv, char **envp)
         exit(0);
     }
 
+    trace_softmmu_vlC_qemu_init_1_dgtrace();
     if (!preconfig_requested) {
+        trace_softmmu_vlC_qemu_init_2_dgtrace();
         qmp_x_exit_preconfig(&error_fatal);
     }
+    trace_softmmu_vlC_qemu_init_3_dgtrace();
     qemu_init_displays();
     accel_setup_post(current_machine);
     os_setup_post();
     resume_mux_open();
+    trace_softmmu_vlC_qemu_init_999_dgtrace();
 }

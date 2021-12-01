@@ -763,6 +763,8 @@ static void usb_device_instance_init(Object *obj)
 
 static void usb_device_class_init(ObjectClass *klass, void *data)
 {
+    trace_hw_usb_busC_usb_device_class_init_0_dgtrace();
+    
     DeviceClass *k = DEVICE_CLASS(klass);
     k->bus_type = TYPE_USB_BUS;
     k->realize  = usb_qdev_realize;

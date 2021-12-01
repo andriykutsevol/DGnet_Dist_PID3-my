@@ -240,6 +240,13 @@ usb_xhci_xfer_error(void *xfer, uint32_t ret) "%p: ret %d"
 usb_xhci_unimplemented(const char *item, int nr) "%s (0x%x)"
 usb_xhci_enforced_limit(const char *item) "%s"
 
+hw_usb_hcdxhciC_xhci_fire_ctl_transfer_0_dgtrace(const char *msg) "msg: %s"
+hw_usb_hcdxhciC_xhci_submit_0_dgtrace(const char *msg) "msg: %s"
+trace_hw_usb_hcdxhciC_xhci_kick_epctx_0_dgtrace(const char *msg) "msg: %s"
+trace_hw_usb_hcdxhciC_xhci_kick_epctx_1_dgtrace(const char *msg) "msg: %s"
+
+
+
 # hcd-dwc2.c
 usb_dwc2_update_irq(uint32_t level) "level=%d"
 usb_dwc2_raise_global_irq(uint32_t intr) "0x%08x"

@@ -1676,6 +1676,7 @@ static int xhci_fire_ctl_transfer(XHCIState *xhci, XHCITransfer *xfer)
     }
     xfer->packet.parameter = trb_setup->parameter;
 
+    trace_hw_usb_hcdxhciC_xhci_fire_ctl_transfer_0_dgtrace("call 'usb_handle_packet'");
     usb_handle_packet(xfer->packet.ep->dev, &xfer->packet);
     xhci_try_complete_packet(xfer);
     return 0;
@@ -1776,6 +1777,7 @@ static int xhci_submit(XHCIState *xhci, XHCITransfer *xfer, XHCIEPContext *epctx
     if (xhci_setup_packet(xfer) < 0) {
         return -1;
     }
+    trace_hw_usb_hcdxhciC_xhci_submit_0_dgtrace("call 'usb_handle_packet'");
     usb_handle_packet(xfer->packet.ep->dev, &xfer->packet);
     xhci_try_complete_packet(xfer);
     return 0;
@@ -1861,6 +1863,7 @@ static void xhci_kick_epctx(XHCIEPContext *epctx, unsigned int streamid)
             if (xhci_setup_packet(xfer) < 0) {
                 return;
             }
+            trace_hw_usb_hcdxhciC_xhci_kick_epctx_0_dgtrace("call 'usb_handle_packet'");
             usb_handle_packet(xfer->packet.ep->dev, &xfer->packet);
             assert(xfer->packet.status != USB_RET_NAK);
             xhci_try_complete_packet(xfer);
@@ -1869,6 +1872,7 @@ static void xhci_kick_epctx(XHCIEPContext *epctx, unsigned int streamid)
             if (xhci_setup_packet(xfer) < 0) {
                 return;
             }
+            trace_hw_usb_hcdxhciC_xhci_kick_epctx_1_dgtrace("call 'usb_handle_packet'");
             usb_handle_packet(xfer->packet.ep->dev, &xfer->packet);
             if (xfer->packet.status == USB_RET_NAK) {
                 xhci_xfer_unmap(xfer);

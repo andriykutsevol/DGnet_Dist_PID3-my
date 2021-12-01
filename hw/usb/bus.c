@@ -289,14 +289,17 @@ static void usb_qdev_realize(DeviceState *qdev, Error **errp)
     trace_hw_usb_busC_usb_qdev_realize_5_dgtrace();
 
     if (dev->pcap_filename) {
+        trace_hw_usb_busC_usb_qdev_realize_6_dgtrace();
         int fd = qemu_open_old(dev->pcap_filename, O_CREAT | O_WRONLY | O_TRUNC, 0666);
         if (fd < 0) {
             error_setg(errp, "open %s failed", dev->pcap_filename);
             usb_qdev_unrealize(qdev);
             return;
         }
+        trace_hw_usb_busC_usb_qdev_realize_7_dgtrace();
         dev->pcap = fdopen(fd, "w");
         usb_pcap_init(dev->pcap);
+        trace_hw_usb_busC_usb_qdev_realize_8_dgtrace();
     }
 
     trace_hw_usb_busC_usb_qdev_realize_999_dgtrace();

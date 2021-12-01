@@ -52,6 +52,7 @@ static QTAILQ_HEAD(, USBBus) busses = QTAILQ_HEAD_INITIALIZER(busses);
 
 static int usb_device_post_load(void *opaque, int version_id)
 {
+    trace_hw_usb_busC_usb_device_post_load_0_dgtrace();
     USBDevice *dev = opaque;
 
     if (dev->state == USB_STATE_NOTATTACHED) {
@@ -241,8 +242,12 @@ void usb_device_free_streams(USBDevice *dev, USBEndpoint **eps, int nr_eps)
 
 static void usb_qdev_realize(DeviceState *qdev, Error **errp)
 {
+    trace_hw_usb_busC_usb_qdev_realize_0_dgtrace();
+
     USBDevice *dev = USB_DEVICE(qdev);
     Error *local_err = NULL;
+
+    trace_hw_usb_busC_usb_qdev_realize_1_dgtrace();
 
     pstrcpy(dev->product_desc, sizeof(dev->product_desc),
             usb_device_get_product_desc(dev));
@@ -250,11 +255,15 @@ static void usb_qdev_realize(DeviceState *qdev, Error **errp)
     QLIST_INIT(&dev->strings);
     usb_ep_init(dev);
 
+    trace_hw_usb_busC_usb_qdev_realize_2_dgtrace();
+
     usb_claim_port(dev, &local_err);
     if (local_err) {
         error_propagate(errp, local_err);
         return;
     }
+
+    trace_hw_usb_busC_usb_qdev_realize_3_dgtrace();
 
     usb_device_realize(dev, &local_err);
     if (local_err) {
@@ -262,6 +271,8 @@ static void usb_qdev_realize(DeviceState *qdev, Error **errp)
         error_propagate(errp, local_err);
         return;
     }
+
+    trace_hw_usb_busC_usb_qdev_realize_4_dgtrace();
 
     if (dev->auto_attach) {
         usb_device_attach(dev, &local_err);
@@ -271,6 +282,8 @@ static void usb_qdev_realize(DeviceState *qdev, Error **errp)
             return;
         }
     }
+
+    trace_hw_usb_busC_usb_qdev_realize_5_dgtrace();
 
     if (dev->pcap_filename) {
         int fd = qemu_open_old(dev->pcap_filename, O_CREAT | O_WRONLY | O_TRUNC, 0666);
@@ -282,6 +295,8 @@ static void usb_qdev_realize(DeviceState *qdev, Error **errp)
         dev->pcap = fdopen(fd, "w");
         usb_pcap_init(dev->pcap);
     }
+
+    trace_hw_usb_busC_usb_qdev_realize_999_dgtrace();
 }
 
 static void usb_qdev_unrealize(DeviceState *qdev)

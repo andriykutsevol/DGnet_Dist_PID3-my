@@ -43,6 +43,15 @@ hw_usb_busC_usb_device_handle_attach_0_dgtrace(void) ""
 hw_usb_busC_usb_device_handle_attach_999_dgtrace(void) ""
 hw_usb_busC_usb_bus_dev_print_0_dgtrace(void) ""
 
+hw_usb_busC_usb_qdev_realize_0_dgtrace(void) ""
+hw_usb_busC_usb_qdev_realize_1_dgtrace(void) ""
+hw_usb_busC_usb_qdev_realize_2_dgtrace(void) ""
+hw_usb_busC_usb_qdev_realize_3_dgtrace(void) ""
+hw_usb_busC_usb_qdev_realize_4_dgtrace(void) ""
+hw_usb_busC_usb_qdev_realize_5_dgtrace(void) ""
+hw_usb_busC_usb_qdev_realize_999_dgtrace(void) ""
+
+
 # pcap.c
 hw_usb_pcapC_usbmon_status_0_dgtrace(void) ""
 hw_usb_pcapC_usbmon_epnum_0_dgtrace(void) ""

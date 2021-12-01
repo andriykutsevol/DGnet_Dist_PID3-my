@@ -3337,6 +3337,9 @@ static void usb_xhci_init(XHCIState *xhci)
 
 static void usb_xhci_realize(DeviceState *dev, Error **errp)
 {
+    
+    trace_hw_usb_hcdxhciC_usb_xhci_realize_0_dgtrace();
+
     int i;
 
     XHCIState *xhci = XHCI(dev);
@@ -3362,6 +3365,8 @@ static void usb_xhci_realize(DeviceState *dev, Error **errp)
         xhci->max_pstreams_mask = 0;
     }
 
+    trace_hw_usb_hcdxhciC_usb_xhci_realize_1_dgtrace();
+
     usb_xhci_init(xhci);
     xhci->mfwrap_timer = timer_new_ns(QEMU_CLOCK_VIRTUAL, xhci_mfwrap_timer, xhci);
 
@@ -3375,10 +3380,14 @@ static void usb_xhci_realize(DeviceState *dev, Error **errp)
     memory_region_init_io(&xhci->mem_doorbell, OBJECT(dev), &xhci_doorbell_ops,
                            xhci, "doorbell", LEN_DOORBELL);
 
+    trace_hw_usb_hcdxhciC_usb_xhci_realize_2_dgtrace();                       
+
     memory_region_add_subregion(&xhci->mem, 0,            &xhci->mem_cap);
     memory_region_add_subregion(&xhci->mem, OFF_OPER,     &xhci->mem_oper);
     memory_region_add_subregion(&xhci->mem, OFF_RUNTIME,  &xhci->mem_runtime);
     memory_region_add_subregion(&xhci->mem, OFF_DOORBELL, &xhci->mem_doorbell);
+
+    trace_hw_usb_hcdxhciC_usb_xhci_realize_3_dgtrace();
 
     for (i = 0; i < xhci->numports; i++) {
         XHCIPort *port = &xhci->ports[i];
@@ -3388,6 +3397,8 @@ static void usb_xhci_realize(DeviceState *dev, Error **errp)
                               port->name, 0x10);
         memory_region_add_subregion(&xhci->mem, offset, &port->mem);
     }
+
+    trace_hw_usb_hcdxhciC_usb_xhci_realize_999_dgtrace();
 }
 
 static void usb_xhci_unrealize(DeviceState *dev)

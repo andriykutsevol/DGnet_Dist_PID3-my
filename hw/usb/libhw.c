@@ -22,9 +22,12 @@
 #include "qemu/osdep.h"
 #include "hw/usb.h"
 #include "sysemu/dma.h"
+#include "trace.h"
 
 int usb_packet_map(USBPacket *p, QEMUSGList *sgl)
 {
+    trace_hw_usb_libhwC_usb_packet_map_0_dgtrace();
+    
     DMADirection dir = (p->pid == USB_TOKEN_IN) ?
         DMA_DIRECTION_FROM_DEVICE : DMA_DIRECTION_TO_DEVICE;
     void *mem;
@@ -57,6 +60,8 @@ err:
 
 void usb_packet_unmap(USBPacket *p, QEMUSGList *sgl)
 {
+    trace_hw_usb_libhwC_usb_packet_unmap_0_dgtrace();
+    
     DMADirection dir = (p->pid == USB_TOKEN_IN) ?
         DMA_DIRECTION_FROM_DEVICE : DMA_DIRECTION_TO_DEVICE;
     int i;

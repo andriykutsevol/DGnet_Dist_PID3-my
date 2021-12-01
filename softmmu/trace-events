@@ -42,15 +42,15 @@ softmmu_vlC_qemu_init_2_dgtrace(void) ""
 softmmu_vlC_qemu_init_3_dgtrace(void) ""
 softmmu_vlC_qemu_init_999_dgtrace(void) ""
 
-softmmu_vlC_qemu_create_cli_devices_0_dgtrace();
-softmmu_vlC_qemu_create_cli_devices_1_dgtrace();
-softmmu_vlC_qemu_create_cli_devices_2_dgtrace();
-softmmu_vlC_qemu_create_cli_devices_3_dgtrace();
-softmmu_vlC_qemu_create_cli_devices_4_dgtrace();
-softmmu_vlC_qemu_create_cli_devices_5_dgtrace();
-softmmu_vlC_qemu_create_cli_devices_6_dgtrace();
-softmmu_vlC_qemu_create_cli_devices_7_dgtrace();
-softmmu_vlC_qemu_create_cli_devices_999_dgtrace();
+softmmu_vlC_qemu_create_cli_devices_0_dgtrace(void) ""
+softmmu_vlC_qemu_create_cli_devices_1_dgtrace(void) ""
+softmmu_vlC_qemu_create_cli_devices_2_dgtrace(void) ""
+softmmu_vlC_qemu_create_cli_devices_3_dgtrace(void) ""
+softmmu_vlC_qemu_create_cli_devices_4_dgtrace(void) ""
+softmmu_vlC_qemu_create_cli_devices_5_dgtrace(void) ""
+softmmu_vlC_qemu_create_cli_devices_6_dgtrace(void) ""
+softmmu_vlC_qemu_create_cli_devices_7_dgtrace(void) ""
+softmmu_vlC_qemu_create_cli_devices_999_dgtrace(void) ""
 
 softmmu_vlC_usb_device_add_0_dgtrace(const char *devname) "devname %s"
 softmmu_vlC_usb_device_add_1_dgtrace(void) ""

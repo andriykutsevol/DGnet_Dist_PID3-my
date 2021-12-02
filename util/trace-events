@@ -117,7 +117,6 @@ util_osdepC_qemu_open_cloexec_0_dgtrace(const char *name) "name %s"
 util_osdepC_qemu_open_cloexec_1_dgtrace(const char *name) "name %s"
 util_osdepC_qemu_open_cloexec_2_dgtrace(const char *name) "name %s"
 util_osdepC_qemu_open_cloexec_3_dgtrace(const char *name) "name %s"
-util_osdepC_qemu_open_cloexec_4_dgtrace(const char *name) "name %s"
 util_osdepC_qemu_open_cloexec_999_dgtrace(const char *name) "name %s"
 
 util_oslibposixC_qemu_set_cloexec_0_dgtrace(int fd) "fd %d"

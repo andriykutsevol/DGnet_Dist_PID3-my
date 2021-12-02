@@ -285,14 +285,13 @@ static int qemu_open_cloexec(const char *name, int flags, mode_t mode)
     trace_util_osdepC_qemu_open_cloexec_0_dgtrace(name);
     int ret;
 #ifdef O_CLOEXEC
-    trace_util_osdepC_qemu_open_cloexec_1_dgtrace(name);
     ret = open(name, flags | O_CLOEXEC, mode);
 #else
-    trace_util_osdepC_qemu_open_cloexec_2_dgtrace(name);
+    trace_util_osdepC_qemu_open_cloexec_1_dgtrace(name);
     ret = open(name, flags, mode);
-    trace_util_osdepC_qemu_open_cloexec_3_dgtrace(name);
+    trace_util_osdepC_qemu_open_cloexec_2_dgtrace(name);
     if (ret >= 0) {
-        trace_util_osdepC_qemu_open_cloexec_4_dgtrace(name);
+        trace_util_osdepC_qemu_open_cloexec_3_dgtrace(name);
         qemu_set_cloexec(ret);
     }
 #endif
@@ -344,7 +343,7 @@ qemu_open_internal(const char *name, int flags, mode_t mode, Error **errp)
     trace_util_osdepC_qemu_open_internal_5_dgtrace(name);
 
     ret = qemu_open_cloexec(name, flags, mode);
-    
+
     trace_util_osdepC_qemu_open_internal_6_dgtrace(name);
     if (ret == -1) {
         trace_util_osdepC_qemu_open_internal_7_dgtrace(name);

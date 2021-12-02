@@ -23,6 +23,7 @@
  */
 #include "qemu/osdep.h"
 #include "qapi/error.h"
+#include "trace.h"
 
 /* Needed early for CONFIG_BSD etc. */
 

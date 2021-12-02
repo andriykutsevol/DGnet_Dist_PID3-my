@@ -377,7 +377,6 @@ int qemu_create(const char *name, int flags, mode_t mode, Error **errp)
 
 int qemu_open_old(const char *name, int flags, ...)
 {
-    trace_util_osdepC_qemu_open_old_0_dgtrace(name);
 
     va_list ap;
     mode_t mode = 0;

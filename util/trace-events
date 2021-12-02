@@ -101,5 +101,24 @@ uffd_create_fd_api_noioctl(uint64_t ioctl_req, uint64_t ioctl_supp) "ioctl_req: 
 uffd_register_memory_failed(void *addr, uint64_t length, uint64_t mode, int err) "addr: %p length: %" PRIu64 " mode: 0x%" PRIx64 " errno: %i"
 uffd_unregister_memory_failed(void *addr, uint64_t length, int err) "addr: %p length: %" PRIu64 " errno: %i"
 
+#osdep.c
+util_osdepC_qemu_open_old_0_dgtrace(const char *name) "name %s"
+util_osdepC_qemu_open_internal_0_dgtrace(const char *name) "name %s"
+util_osdepC_qemu_open_internal_1_dgtrace(const char *name) "name %s"
+util_osdepC_qemu_open_internal_2_dgtrace(const char *name) "name %s"
+util_osdepC_qemu_open_internal_3_dgtrace(const char *name) "name %s"
+util_osdepC_qemu_open_internal_4_dgtrace(const char *name) "name %s"
+util_osdepC_qemu_open_internal_5_dgtrace(const char *name) "name %s"
+util_osdepC_qemu_open_internal_6_dgtrace(const char *name) "name %s"
+util_osdepC_qemu_open_internal_7_dgtrace(const char *name) "name %s"
+util_osdepC_qemu_open_internal_999_dgtrace(const char *name) "name %s"
 
+util_osdepC_qemu_open_cloexec_0_dgtrace(const char *name) "name %s"
+util_osdepC_qemu_open_cloexec_1_dgtrace(const char *name) "name %s"
+util_osdepC_qemu_open_cloexec_2_dgtrace(const char *name) "name %s"
+util_osdepC_qemu_open_cloexec_3_dgtrace(const char *name) "name %s"
+util_osdepC_qemu_open_cloexec_4_dgtrace(const char *name) "name %s"
+util_osdepC_qemu_open_cloexec_999_dgtrace(const char *name) "name %s"
 
+util_oslibposixC_qemu_set_cloexec_0_dgtrace(int fd) "fd %d"
+util_oslibwin32_qemu_set_cloexec_0_dgtrace(int fd) "fd %d"

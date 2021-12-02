@@ -282,20 +282,21 @@ int qemu_lock_fd_test(int fd, int64_t start, int64_t len, bool exclusive)
 
 static int qemu_open_cloexec(const char *name, int flags, mode_t mode)
 {
-
+    trace_util_osdepC_qemu_open_cloexec_0_dgtrace(name);
     int ret;
 #ifdef O_CLOEXEC
+    trace_util_osdepC_qemu_open_cloexec_1_dgtrace(name);
     ret = open(name, flags | O_CLOEXEC, mode);
 #else
-
+    trace_util_osdepC_qemu_open_cloexec_2_dgtrace(name);
     ret = open(name, flags, mode);
-
+    trace_util_osdepC_qemu_open_cloexec_3_dgtrace(name);
     if (ret >= 0) {
-
+        trace_util_osdepC_qemu_open_cloexec_4_dgtrace(name);
         qemu_set_cloexec(ret);
     }
 #endif
-
+    trace_util_osdepC_qemu_open_cloexec_999_dgtrace(name);
     return ret;
 }
 
@@ -304,16 +305,18 @@ static int qemu_open_cloexec(const char *name, int flags, mode_t mode)
  */
 static int
 qemu_open_internal(const char *name, int flags, mode_t mode, Error **errp)
-{ 
+{
+    trace_util_osdepC_qemu_open_internal_0_dgtrace(name);
+    
     int ret;
 
 #ifndef _WIN32
-
+    trace_util_osdepC_qemu_open_internal_1_dgtrace(name);
     const char *fdset_id_str;
 
     /* Attempt dup of fd from fd set */
     if (strstart(name, "/dev/fdset/", &fdset_id_str)) {
-
+        trace_util_osdepC_qemu_open_internal_2_dgtrace(name);
         int64_t fdset_id;
         int dupfd;
 
@@ -324,6 +327,8 @@ qemu_open_internal(const char *name, int flags, mode_t mode, Error **errp)
             return -1;
         }
 
+        trace_util_osdepC_qemu_open_internal_3_dgtrace(name);
+
         dupfd = monitor_fdset_dup_fd_add(fdset_id, flags);
         if (dupfd == -1) {
             error_setg_errno(errp, errno, "Could not dup FD for %s flags %x",
@@ -331,12 +336,18 @@ qemu_open_internal(const char *name, int flags, mode_t mode, Error **errp)
             return -1;
         }
 
+        trace_util_osdepC_qemu_open_internal_4_dgtrace(name);
+
         return dupfd;
     }
 #endif
+    trace_util_osdepC_qemu_open_internal_5_dgtrace(name);
 
     ret = qemu_open_cloexec(name, flags, mode);
+    
+    trace_util_osdepC_qemu_open_internal_6_dgtrace(name);
     if (ret == -1) {
+        trace_util_osdepC_qemu_open_internal_7_dgtrace(name);
         const char *action = flags & O_CREAT ? "create" : "open";
 #ifdef O_DIRECT
         /* Give more helpful error message for O_DIRECT */
@@ -355,6 +366,8 @@ qemu_open_internal(const char *name, int flags, mode_t mode, Error **errp)
         error_setg_errno(errp, errno, "Could not %s '%s'",
                          action, name);
     }
+
+    trace_util_osdepC_qemu_open_internal_999_dgtrace(name);
     return ret;
 }
 
@@ -377,6 +390,7 @@ int qemu_create(const char *name, int flags, mode_t mode, Error **errp)
 
 int qemu_open_old(const char *name, int flags, ...)
 {
+    trace_util_osdepC_qemu_open_old_0_dgtrace(name);
 
     va_list ap;
     mode_t mode = 0;

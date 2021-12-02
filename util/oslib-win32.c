@@ -249,6 +249,7 @@ int inet_aton(const char *cp, struct in_addr *ia)
 
 void qemu_set_cloexec(int fd)
 {
+    trace_util_oslibwin32_qemu_set_cloexec_0_dgtrace(int fd) "fd %d"
 }
 
 /* Offset between 1/1/1601 and 1/1/1970 in 100 nanosec units */

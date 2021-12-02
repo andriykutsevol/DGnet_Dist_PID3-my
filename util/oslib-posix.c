@@ -310,7 +310,7 @@ int socket_set_fast_reuse(int fd)
 
 void qemu_set_cloexec(int fd)
 {
-    trace_util_oslibposixC_qemu_set_cloexec_0_dgtrace(fd);
+    //trace_util_oslibposixC_qemu_set_cloexec_0_dgtrace(fd);
 
     int f;
     f = fcntl(fd, F_GETFD);

@@ -250,7 +250,7 @@ static void usb_qdev_realize(DeviceState *qdev, Error **errp)
 
     Error *local_err = NULL;
 
-    trace_hw_usb_busC_usb_qdev_realize_1_dgtrace();
+    trace_hw_usb_busC_usb_qdev_realize_1_dgtrace(dev->port_path);
 
     pstrcpy(dev->product_desc, sizeof(dev->product_desc),
             usb_device_get_product_desc(dev));

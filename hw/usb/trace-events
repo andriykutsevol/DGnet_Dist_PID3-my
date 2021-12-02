@@ -46,7 +46,7 @@ hw_usb_busC_usb_device_handle_attach_0_dgtrace(void) ""
 hw_usb_busC_usb_device_handle_attach_999_dgtrace(void) ""
 hw_usb_busC_usb_bus_dev_print_0_dgtrace(void) ""
 
-hw_usb_busC_usb_qdev_realize_0_dgtrace(void) ""
+hw_usb_busC_usb_qdev_realize_0_dgtrace(char *canonical_path) "qdev->canonical_path %s"
 hw_usb_busC_usb_qdev_realize_1_dgtrace(void) ""
 hw_usb_busC_usb_qdev_realize_2_dgtrace(void) ""
 hw_usb_busC_usb_qdev_realize_3_dgtrace(void) ""
@@ -58,8 +58,8 @@ hw_usb_busC_usb_qdev_realize_8_dgtrace(void) ""
 hw_usb_busC_usb_qdev_realize_999_dgtrace(void) ""
 
 hw_usb_busC_usb_device_post_load_0_dgtrace(void) ""
-
 hw_usb_busC_usb_device_class_init_0_dgtrace(void) ""
+hw_usb_busC_usb_new_0_dgtrace(const char *name) "name %s"
 
 
 # pcap.c

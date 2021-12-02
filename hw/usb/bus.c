@@ -242,7 +242,7 @@ void usb_device_free_streams(USBDevice *dev, USBEndpoint **eps, int nr_eps)
 
 static void usb_qdev_realize(DeviceState *qdev, Error **errp)
 {
-    trace_hw_usb_busC_usb_qdev_realize_0_dgtrace();
+    trace_hw_usb_busC_usb_qdev_realize_0_dgtrace(qdev->canonical_path);
 
     USBDevice *dev = USB_DEVICE(qdev);
 
@@ -352,6 +352,7 @@ void usb_legacy_register(const char *typename, const char *usbdevice_name,
 
 USBDevice *usb_new(const char *name)
 {
+    trace_hw_usb_busC_usb_new_0_dgtrace(name);
     return USB_DEVICE(qdev_new(name));
 }
 

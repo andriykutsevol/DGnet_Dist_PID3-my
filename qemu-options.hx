@@ -4415,6 +4415,15 @@ SRST
   .. include:: ../qemu-option-trace.rst.inc
 
 ERST
+
+DEF("pcap", HAS_ARG, QEMU_OPTION_pcap,
+    "-pcap [[output_folder=]<pattern>][,busnum=<pattern>][,devaddr=<pattern>]"
+    "                specify output folder for pcap subsystem\n",
+    QEMU_ARCH_ALL)
+SRST
+``-pcap [[output_folder=]pattern][,busnum=pattern][,devaddr=pattern]``
+ERST
+
 DEF("plugin", HAS_ARG, QEMU_OPTION_plugin,
     "-plugin [file=]<file>[,arg=<string>]\n"
     "                load a plugin\n",

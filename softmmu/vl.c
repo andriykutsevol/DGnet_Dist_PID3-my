@@ -2670,6 +2670,7 @@ void qemu_init(int argc, char **argv, char **envp)
     qemu_add_opts(&qemu_global_opts);
     qemu_add_opts(&qemu_mon_opts);
     qemu_add_opts(&qemu_trace_opts);
+    qemu_add_opts(&qemu_pcap_opts);
     qemu_plugin_add_opts();
     qemu_add_opts(&qemu_option_rom_opts);
     qemu_add_opts(&qemu_machine_opts);
@@ -3396,6 +3397,9 @@ void qemu_init(int argc, char **argv, char **envp)
             case QEMU_OPTION_trace:
                 trace_opt_parse(optarg);
                 break;
+            case QEMU_OPTION_pcap:
+                pcap_opt_parse(optarg);
+                break;                 
             case QEMU_OPTION_plugin:
                 qemu_plugin_opt_parse(optarg, &plugin_list);
                 break;

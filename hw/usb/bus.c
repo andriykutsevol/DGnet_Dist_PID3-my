@@ -293,6 +293,22 @@ static void usb_qdev_realize(DeviceState *qdev, Error **errp)
 
     trace_hw_usb_busC_usb_qdev_realize_5_dgtrace();
 
+    if(pcap_output_folder){
+        char *pfname = (char* )calloc(256, sizeof(char));
+
+        if(pcap_busnum && pcap_devaddr){
+            printf("pcap_busnum: %s\n", pcap_busnum);
+            printf("pcap_devaddr: %s\n", pcap_devaddr);
+        }
+
+        printf("USBDevice *dev->dev->port_path: %s\n", dev->port_path);
+
+        sprintf(pfname, "%s%s", pcap_output_folder, "pcap_output.pcap");
+        dev->pcap_filename = pfname;
+    }
+
+
+
     if (dev->pcap_filename) {
         trace_hw_usb_busC_usb_qdev_realize_6_dgtrace();
         int fd = qemu_open_old(dev->pcap_filename, O_CREAT | O_WRONLY | O_TRUNC, 0666);

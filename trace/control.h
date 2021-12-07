@@ -220,6 +220,7 @@ void trace_enable_events(const char *line_buf);
  * Definition of QEMU options describing trace subsystem configuration
  */
 extern QemuOptsList qemu_trace_opts;
+extern QemuOptsList qemu_pcap_opts;
 
 /**
  * trace_opt_parse:
@@ -228,6 +229,7 @@ extern QemuOptsList qemu_trace_opts;
  * Initialize tracing subsystem.
  */
 void trace_opt_parse(const char *optarg);
+void pcap_opt_parse(const char *optarg);
 
 /**
  * trace_get_vcpu_event_count:

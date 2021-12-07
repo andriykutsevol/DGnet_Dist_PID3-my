@@ -246,12 +246,12 @@ static void usb_qdev_realize(DeviceState *qdev, Error **errp)
 
     USBDevice *dev = USB_DEVICE(qdev);
 
-    char pfname1[] = "/home/dgnet/qemu/dg_qemu_InternalPort";
-    char pfname2[] = ".pcap";
-    char *pfname = (char* )calloc(sizeof(pfname1)+sizeof(pfname2) + 3, sizeof(char));
-    sprintf(pfname, "%s%s%s", pfname1, dev->port_path, pfname2);
+    // char pfname1[] = "/home/dgnet/qemu/dg_qemu_InternalPort";
+    // char pfname2[] = ".pcap";
+    // char *pfname = (char* )calloc(sizeof(pfname1)+sizeof(pfname2) + 3, sizeof(char));
+    // sprintf(pfname, "%s%s%s", pfname1, dev->port_path, pfname2);
 
-    dev->pcap_filename = pfname;
+    // dev->pcap_filename = pfname;
 
     Error *local_err = NULL;
 

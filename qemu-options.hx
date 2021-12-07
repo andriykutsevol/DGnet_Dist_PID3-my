@@ -4421,7 +4421,7 @@ DEF("pcap", HAS_ARG, QEMU_OPTION_pcap,
     "                specify output folder for pcap subsystem\n",
     QEMU_ARCH_ALL)
 SRST
-``-pcap [[output_folder=]pattern][,busnum=pattern][,devaddr=pattern]``
+``-pcap [[folder=]pattern][,devices=pattern]``
 ERST
 
 DEF("plugin", HAS_ARG, QEMU_OPTION_plugin,

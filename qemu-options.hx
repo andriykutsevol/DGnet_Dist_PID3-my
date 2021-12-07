@@ -4046,18 +4046,6 @@ SRST
     Output log in logfile instead of to stderr
 ERST
 
-
-DEF("pcap", HAS_ARG, QEMU_OPTION_pcap,
-    "-pcap [[output_folder=]<pattern>][,busnum=<pattern>][,devaddr=<pattern>]"
-    "                specify output folder for pcap subsystem\n",
-    QEMU_ARCH_ALL)
-SRST
-``-pcap [[folder=]pattern][,devices=pattern]``
-    Options for usbmon(pcap) subsystem.
-ERST
-
-
-
 DEF("dfilter", HAS_ARG, QEMU_OPTION_DFILTER, \
     "-dfilter range,..  filter debug output to range of addresses (useful for -d cpu,exec,etc..)\n",
     QEMU_ARCH_ALL)
@@ -4581,6 +4569,17 @@ DEF("trace", HAS_ARG, QEMU_OPTION_trace,
 SRST
 ``-trace [[enable=]pattern][,events=file][,file=file]``
   .. include:: ../qemu-option-trace.rst.inc
+
+
+DEF("pcap", HAS_ARG, QEMU_OPTION_pcap,
+    "-pcap [[output_folder=]<pattern>][,busnum=<pattern>][,devaddr=<pattern>]"
+    "                specify output folder for pcap subsystem\n",
+    QEMU_ARCH_ALL)
+SRST
+``-pcap [[output_folder=]pattern][,busnum=<pattern>][,devaddr=<pattern>]``
+    Options for usbmon(pcap) subsystem.
+ERST
+
 
 ERST
 DEF("plugin", HAS_ARG, QEMU_OPTION_plugin,

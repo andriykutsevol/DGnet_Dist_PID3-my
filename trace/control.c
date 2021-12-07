@@ -68,6 +68,26 @@ QemuOptsList qemu_trace_opts = {
 };
 
 
+QemuOptsList qemu_pcap_opts = {
+    .name = "pcap",
+    .implied_opt_name = "output_folder",
+    .head = QTAILQ_HEAD_INITIALIZER(qemu_trace_opts.head),
+    .desc = {
+        {
+            .name = "output_folder",
+            .type = QEMU_OPT_STRING,
+        },{
+            .name = "busnum",
+            .type = QEMU_OPT_STRING,
+        },{
+            .name = "devaddr",
+            .type = QEMU_OPT_STRING,
+        },
+        { /* end of list */ }
+    },
+};
+
+
 void trace_event_register_group(TraceEvent **events)
 {
     size_t i;

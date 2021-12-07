@@ -4053,6 +4053,7 @@ DEF("pcap", HAS_ARG, QEMU_OPTION_pcap,
     QEMU_ARCH_ALL)
 SRST
 ``-pcap [[folder=]pattern][,devices=pattern]``
+    Options for usbmon(pcap) subsystem.
 ERST
 
 

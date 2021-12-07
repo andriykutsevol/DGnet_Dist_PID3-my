@@ -4569,7 +4569,7 @@ DEF("trace", HAS_ARG, QEMU_OPTION_trace,
 SRST
 ``-trace [[enable=]pattern][,events=file][,file=file]``
   .. include:: ../qemu-option-trace.rst.inc
-
+ERST
 
 DEF("pcap", HAS_ARG, QEMU_OPTION_pcap,
     "-pcap [[output_folder=]<pattern>][,busnum=<pattern>][,devaddr=<pattern>]"
@@ -4580,8 +4580,6 @@ SRST
     Options for usbmon(pcap) subsystem.
 ERST
 
-
-ERST
 DEF("plugin", HAS_ARG, QEMU_OPTION_plugin,
     "-plugin [file=]<file>[,<argname>=<argvalue>]\n"
     "                load a plugin\n",

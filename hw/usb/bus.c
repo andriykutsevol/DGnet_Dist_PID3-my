@@ -250,7 +250,6 @@ static void usb_qdev_realize(DeviceState *qdev, Error **errp)
     // char pfname2[] = ".pcap";
     // char *pfname = (char* )calloc(sizeof(pfname1)+sizeof(pfname2) + 3, sizeof(char));
     // sprintf(pfname, "%s%s%s", pfname1, dev->port_path, pfname2);
-
     // dev->pcap_filename = pfname;
 
     Error *local_err = NULL;
@@ -297,6 +296,7 @@ static void usb_qdev_realize(DeviceState *qdev, Error **errp)
         char *pfname = (char* )calloc(256, sizeof(char));
 
         if(pcap_busnum && pcap_devaddr){
+            trace_hw_usb_busC_usb_qdev_realize_51_dgtrace();
             printf("pcap_busnum: %s\n", pcap_busnum);
             printf("pcap_devaddr: %s\n", pcap_devaddr);
         }

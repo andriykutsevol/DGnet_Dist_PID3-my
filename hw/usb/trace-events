@@ -52,6 +52,7 @@ hw_usb_busC_usb_qdev_realize_2_dgtrace(void) ""
 hw_usb_busC_usb_qdev_realize_3_dgtrace(void) ""
 hw_usb_busC_usb_qdev_realize_4_dgtrace(void) ""
 hw_usb_busC_usb_qdev_realize_5_dgtrace(void) ""
+hw_usb_busC_usb_qdev_realize_51_dgtrace();
 hw_usb_busC_usb_qdev_realize_6_dgtrace(void) ""
 hw_usb_busC_usb_qdev_realize_7_dgtrace(void) ""
 hw_usb_busC_usb_qdev_realize_8_dgtrace(void) ""

@@ -303,7 +303,7 @@ static void usb_qdev_realize(DeviceState *qdev, Error **errp)
         }else{
             USBBus *bus = usb_bus_from_device(dev);
             char *pfname = (char* )calloc(256, sizeof(char));
-            sprintf(pfname, "%s/%s_%s%s", pcap_output_folder, atoi(bus->busnr), dev->port_path, ".pcap");
+            sprintf(pfname, "%s/%s_%s%s", pcap_output_folder, "0", dev->port_path, ".pcap");
             dev->pcap_filename = pfname;
         }
     }

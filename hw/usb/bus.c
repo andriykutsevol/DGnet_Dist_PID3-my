@@ -283,7 +283,7 @@ static void usb_qdev_realize(DeviceState *qdev, Error **errp)
         }
     }
 
-    trace_hw_usb_busC_usb_qdev_realize_5_dgtrace();
+    trace_hw_usb_busC_usb_qdev_realize_5_dgtrace(dev->port_path);
 
     if(pcap_output_folder && dev->port_path){
         char *pfname = (char* )calloc(256, sizeof(char));

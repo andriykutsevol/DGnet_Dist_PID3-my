@@ -291,9 +291,9 @@ static void usb_qdev_realize(DeviceState *qdev, Error **errp)
             if(!strcmp(pcap_devaddr, dev->port_path)){
                 trace_hw_usb_busC_usb_qdev_realize_52_dgtrace(pcap_devaddr);
                 trace_hw_usb_busC_usb_qdev_realize_53_dgtrace(dev->port_path);
+                USBBus *bus = usb_bus_from_device(dev);
                 if(atoi(pcap_busnum) == bus->busnr){
                     trace_hw_usb_busC_usb_qdev_realize_51_dgtrace(pcap_busnum);
-                    USBBus *bus = usb_bus_from_device(dev);
                     trace_hw_usb_busC_usb_qdev_realize_54_dgtrace(bus->busnr);
                 }
             }

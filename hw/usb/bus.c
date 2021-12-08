@@ -295,6 +295,9 @@ static void usb_qdev_realize(DeviceState *qdev, Error **errp)
                 if(atoi(pcap_busnum) == bus->busnr){
                     trace_hw_usb_busC_usb_qdev_realize_51_dgtrace(pcap_busnum);
                     trace_hw_usb_busC_usb_qdev_realize_54_dgtrace(bus->busnr);
+                    char *pfname = (char* )calloc(256, sizeof(char));
+                    sprintf(pfname, "%s/%s_%s%s", pcap_output_folder, pcap_busnum, dev->port_path, ".pcap");
+                    dev->pcap_filename = pfname;                    
                 }
             }
         }else{

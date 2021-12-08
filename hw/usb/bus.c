@@ -245,13 +245,6 @@ static void usb_qdev_realize(DeviceState *qdev, Error **errp)
     trace_hw_usb_busC_usb_qdev_realize_0_dgtrace(qdev->canonical_path);
 
     USBDevice *dev = USB_DEVICE(qdev);
-
-    // char pfname1[] = "/home/dgnet/qemu/dg_qemu_InternalPort";
-    // char pfname2[] = ".pcap";
-    // char *pfname = (char* )calloc(sizeof(pfname1)+sizeof(pfname2) + 3, sizeof(char));
-    // sprintf(pfname, "%s%s%s", pfname1, dev->port_path, pfname2);
-    // dev->pcap_filename = pfname;
-
     Error *local_err = NULL;
 
     trace_hw_usb_busC_usb_qdev_realize_1_dgtrace(dev->port_path);
@@ -302,7 +295,6 @@ static void usb_qdev_realize(DeviceState *qdev, Error **errp)
             printf("pcap_busnum: %s\n", pcap_busnum);
             printf("pcap_devaddr: %s\n", pcap_devaddr);
         }
-
 
     }
 

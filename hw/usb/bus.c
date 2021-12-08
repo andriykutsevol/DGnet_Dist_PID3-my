@@ -311,7 +311,6 @@ static void usb_qdev_realize(DeviceState *qdev, Error **errp)
     }
 
 
-
     if (dev->pcap_filename) {
         trace_hw_usb_busC_usb_qdev_realize_6_dgtrace();
         int fd = qemu_open_old(dev->pcap_filename, O_CREAT | O_WRONLY | O_TRUNC, 0666);

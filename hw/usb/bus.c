@@ -284,7 +284,7 @@ static void usb_qdev_realize(DeviceState *qdev, Error **errp)
     }
 
     trace_hw_usb_busC_usb_qdev_realize_5_dgtrace(dev->port_path);
-
+    // When run the Qemu without the libvirt the "dev->port_path" could not be initialized?
     if(pcap_output_folder && dev->port_path){
 
         if(pcap_busnum && pcap_devaddr){
@@ -296,16 +296,16 @@ static void usb_qdev_realize(DeviceState *qdev, Error **errp)
                     trace_hw_usb_busC_usb_qdev_realize_51_dgtrace(pcap_busnum);
                     trace_hw_usb_busC_usb_qdev_realize_54_dgtrace(bus->busnr);
                     char *pfname = (char* )calloc(256, sizeof(char));
-                    sprintf(pfname, "%s/%s_%s%s", pcap_output_folder, pcap_busnum, dev->port_path, ".pcap");
+                    sprintf(pfname, "%s/%s_%s%s", pcap_output_folder, pcap_busnum, pcap_devaddr, ".pcap");
                     dev->pcap_filename = pfname;                    
                 }
             }
         }else{
+            USBBus *bus = usb_bus_from_device(dev);
             char *pfname = (char* )calloc(256, sizeof(char));
-            sprintf(pfname, "%s/%s%s", pcap_output_folder, dev->port_path, ".pcap");
+            sprintf(pfname, "%s/%s_%s%s", pcap_output_folder, pcap_busnum, pcap_devaddr, ".pcap");
             dev->pcap_filename = pfname;
         }
-
     }
 
 

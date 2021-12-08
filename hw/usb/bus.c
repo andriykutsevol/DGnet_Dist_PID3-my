@@ -286,14 +286,15 @@ static void usb_qdev_realize(DeviceState *qdev, Error **errp)
     trace_hw_usb_busC_usb_qdev_realize_5_dgtrace(dev->port_path);
 
     if(pcap_output_folder && dev->port_path){
-        char *pfname = (char* )calloc(256, sizeof(char));
-        sprintf(pfname, "%s/%s%s", pcap_output_folder, dev->port_path, ".pcap");
-        dev->pcap_filename = pfname;
 
         if(pcap_busnum && pcap_devaddr){
             trace_hw_usb_busC_usb_qdev_realize_51_dgtrace();
             printf("pcap_busnum: %s\n", pcap_busnum);
             printf("pcap_devaddr: %s\n", pcap_devaddr);
+        }else{
+            char *pfname = (char* )calloc(256, sizeof(char));
+            sprintf(pfname, "%s/%s%s", pcap_output_folder, dev->port_path, ".pcap");
+            dev->pcap_filename = pfname;
         }
 
     }

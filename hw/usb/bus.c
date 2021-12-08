@@ -52,6 +52,7 @@ static QTAILQ_HEAD(, USBBus) busses = QTAILQ_HEAD_INITIALIZER(busses);
 
 static int usb_device_post_load(void *opaque, int version_id)
 {
+    trace_hw_usb_busC_usb_device_post_load_0_dgtrace();
     USBDevice *dev = opaque;
 
     if (dev->state == USB_STATE_NOTATTACHED) {
@@ -148,10 +149,12 @@ void usb_device_cancel_packet(USBDevice *dev, USBPacket *p)
 
 void usb_device_handle_attach(USBDevice *dev)
 {
+    trace_hw_usb_busC_usb_device_handle_attach_0_dgtrace();
     USBDeviceClass *klass = USB_DEVICE_GET_CLASS(dev);
     if (klass->handle_attach) {
         klass->handle_attach(dev);
     }
+    trace_hw_usb_busC_usb_device_handle_attach_999_dgtrace();
 }
 
 void usb_device_handle_reset(USBDevice *dev)
@@ -239,8 +242,12 @@ void usb_device_free_streams(USBDevice *dev, USBEndpoint **eps, int nr_eps)
 
 static void usb_qdev_realize(DeviceState *qdev, Error **errp)
 {
+    trace_hw_usb_busC_usb_qdev_realize_0_dgtrace(qdev->canonical_path);
+
     USBDevice *dev = USB_DEVICE(qdev);
     Error *local_err = NULL;
+
+    trace_hw_usb_busC_usb_qdev_realize_1_dgtrace(dev->port_path);
 
     pstrcpy(dev->product_desc, sizeof(dev->product_desc),
             usb_device_get_product_desc(dev));
@@ -248,11 +255,15 @@ static void usb_qdev_realize(DeviceState *qdev, Error **errp)
     QLIST_INIT(&dev->strings);
     usb_ep_init(dev);
 
+    trace_hw_usb_busC_usb_qdev_realize_2_dgtrace();
+
     usb_claim_port(dev, &local_err);
     if (local_err) {
         error_propagate(errp, local_err);
         return;
     }
+
+    trace_hw_usb_busC_usb_qdev_realize_3_dgtrace();
 
     usb_device_realize(dev, &local_err);
     if (local_err) {
@@ -260,6 +271,8 @@ static void usb_qdev_realize(DeviceState *qdev, Error **errp)
         error_propagate(errp, local_err);
         return;
     }
+
+    trace_hw_usb_busC_usb_qdev_realize_4_dgtrace();
 
     if (dev->auto_attach) {
         usb_device_attach(dev, &local_err);
@@ -270,16 +283,49 @@ static void usb_qdev_realize(DeviceState *qdev, Error **errp)
         }
     }
 
+    trace_hw_usb_busC_usb_qdev_realize_5_dgtrace(dev->port_path);
+    // When run the Qemu without the libvirt the "dev->port_path" could not be initialized?
+    if(pcap_output_folder && dev->port_path){
+
+        if(pcap_busnum && pcap_devaddr){
+            if(!strcmp(pcap_devaddr, dev->port_path)){
+                trace_hw_usb_busC_usb_qdev_realize_52_dgtrace(pcap_devaddr);
+                trace_hw_usb_busC_usb_qdev_realize_53_dgtrace(dev->port_path);
+                USBBus *bus = usb_bus_from_device(dev);
+                if(atoi(pcap_busnum) == bus->busnr){
+                    trace_hw_usb_busC_usb_qdev_realize_51_dgtrace(pcap_busnum);
+                    trace_hw_usb_busC_usb_qdev_realize_54_dgtrace(bus->busnr);
+                    char *pfname = (char* )calloc(256, sizeof(char));
+                    sprintf(pfname, "%s/%s_%s%s", pcap_output_folder, pcap_busnum, pcap_devaddr, ".pcap");
+                    dev->pcap_filename = pfname;                    
+                }
+            }
+        }else{
+            trace_hw_usb_busC_usb_qdev_realize_55_dgtrace(pcap_busnum, pcap_devaddr);
+            USBBus *bus = usb_bus_from_device(dev);
+            trace_hw_usb_busC_usb_qdev_realize_56_dgtrace(bus->busnr);
+            char *pfname = (char* )calloc(256, sizeof(char));
+            sprintf(pfname, "%s/%d_%s%s", pcap_output_folder, bus->busnr, dev->port_path, ".pcap");
+            dev->pcap_filename = pfname;
+        }
+    }
+
+
     if (dev->pcap_filename) {
+        trace_hw_usb_busC_usb_qdev_realize_6_dgtrace();
         int fd = qemu_open_old(dev->pcap_filename, O_CREAT | O_WRONLY | O_TRUNC, 0666);
         if (fd < 0) {
             error_setg(errp, "open %s failed", dev->pcap_filename);
             usb_qdev_unrealize(qdev);
             return;
         }
+        trace_hw_usb_busC_usb_qdev_realize_7_dgtrace();
         dev->pcap = fdopen(fd, "w");
         usb_pcap_init(dev->pcap);
+        trace_hw_usb_busC_usb_qdev_realize_8_dgtrace();
     }
+
+    trace_hw_usb_busC_usb_qdev_realize_999_dgtrace();
 }
 
 static void usb_qdev_unrealize(DeviceState *qdev)
@@ -329,6 +375,7 @@ void usb_legacy_register(const char *typename, const char *usbdevice_name,
 
 USBDevice *usb_new(const char *name)
 {
+    trace_hw_usb_busC_usb_new_0_dgtrace(name);
     return USB_DEVICE(qdev_new(name));
 }
 
@@ -580,6 +627,8 @@ static const char *usb_speed(unsigned int speed)
 
 static void usb_bus_dev_print(Monitor *mon, DeviceState *qdev, int indent)
 {
+    
+    trace_hw_usb_busC_usb_bus_dev_print_0_dgtrace();
     USBDevice *dev = USB_DEVICE(qdev);
     USBBus *bus = usb_bus_from_device(dev);
 
@@ -744,6 +793,8 @@ static void usb_device_instance_init(Object *obj)
 
 static void usb_device_class_init(ObjectClass *klass, void *data)
 {
+    trace_hw_usb_busC_usb_device_class_init_0_dgtrace();
+    
     DeviceClass *k = DEVICE_CLASS(klass);
     k->bus_type = TYPE_USB_BUS;
     k->realize  = usb_qdev_realize;

@@ -221,6 +221,10 @@ enum USBDeviceFlags {
     USB_DEV_FLAG_MSOS_DESC_IN_USE,
 };
 
+extern char *pcap_output_folder;
+extern char *pcap_busnum;
+extern char *pcap_devaddr;
+
 /* definition of a USB device */
 struct USBDevice {
     DeviceState qdev;

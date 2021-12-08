@@ -50,19 +50,38 @@ void usb_pick_speed(USBPort *port)
 
 void usb_attach(USBPort *port)
 {
+    
+    trace_hw_usb_coreC_usb_attach_0_dgtrace(port->path);
+
     USBDevice *dev = port->dev;
 
+    trace_hw_usb_coreC_usb_attach_1_dgtrace(port->dev->port_path, dev->product_desc, dev->serial, dev->addr);
+
     assert(dev != NULL);
+    trace_hw_usb_coreC_usb_attach_1_1_dgtrace(port->dev->port_path);
     assert(dev->attached);
+    trace_hw_usb_coreC_usb_attach_1_2_dgtrace();
     assert(dev->state == USB_STATE_NOTATTACHED);
+    trace_hw_usb_coreC_usb_attach_1_3_dgtrace();
     usb_pick_speed(port);
+
+    trace_hw_usb_coreC_usb_attach_2_dgtrace();
+
     port->ops->attach(port);
+
+    trace_hw_usb_coreC_usb_attach_3_dgtrace();
+
     dev->state = USB_STATE_ATTACHED;
     usb_device_handle_attach(dev);
+
+    trace_hw_usb_coreC_usb_attach_999_dgtrace(port->dev->port_path, dev->product_desc, dev->serial, dev->addr);
+
 }
 
 void usb_detach(USBPort *port)
 {
+    trace_hw_usb_coreC_usb_detach_0_dgtrace(port->path);
+    
     USBDevice *dev = port->dev;
 
     assert(dev != NULL);
@@ -73,6 +92,8 @@ void usb_detach(USBPort *port)
 
 void usb_port_reset(USBPort *port)
 {
+    trace_hw_usb_coreC_usb_port_reset_0_dgtrace(port->path);
+    
     USBDevice *dev = port->dev;
 
     assert(dev != NULL);
@@ -83,6 +104,8 @@ void usb_port_reset(USBPort *port)
 
 void usb_device_reset(USBDevice *dev)
 {
+    trace_hw_usb_coreC_usb_device_reset_0_dgtrace(dev->port_path);
+    
     if (dev == NULL || !dev->attached) {
         return;
     }
@@ -368,8 +391,11 @@ USBDevice *usb_find_device(USBPort *port, uint8_t addr)
 
 static void usb_process_one(USBPacket *p)
 {
+    
     USBDevice *dev = p->ep->dev;
     bool nak;
+
+    trace_hw_usb_coreC_usb_process_one_0_dgtrace(dev->port_path, p);
 
     /*
      * Handlers expect status to be initialized to USB_RET_SUCCESS, but it
@@ -401,6 +427,7 @@ static void usb_process_one(USBPacket *p)
     } else {
         /* data pipe */
         if (!nak) {
+            trace_hw_usb_coreC_usb_process_one_1_dgtrace(dev->port_path, p);
             usb_pcap_data(p, true);
         }
         usb_device_handle_data(dev, p);
@@ -409,6 +436,9 @@ static void usb_process_one(USBPacket *p)
 
 static void usb_queue_one(USBPacket *p)
 {
+    USBDevice *dev = p->ep->dev;
+    trace_hw_usb_coreC_usb_queue_one_0_dgtrace(dev->port_path, p);
+    
     usb_packet_set_state(p, USB_PACKET_QUEUED);
     QTAILQ_INSERT_TAIL(&p->ep->queue, p, queue);
     p->status = USB_RET_ASYNC;
@@ -419,6 +449,9 @@ static void usb_queue_one(USBPacket *p)
    driver will call usb_packet_complete() when done processing it. */
 void usb_handle_packet(USBDevice *dev, USBPacket *p)
 {
+    trace_hw_usb_coreC_usb_handle_packet_0_dgtrace(dev->port_path, p);
+    
+    
     if (dev == NULL) {
         p->status = USB_RET_NODEV;
         return;
@@ -435,6 +468,7 @@ void usb_handle_packet(USBDevice *dev, USBPacket *p)
     }
 
     if (QTAILQ_EMPTY(&p->ep->queue) || p->ep->pipeline || p->stream) {
+        trace_hw_usb_coreC_usb_handle_packet_1_dgtrace(dev->port_path, p);
         usb_process_one(p);
         if (p->status == USB_RET_ASYNC) {
             /* hcd drivers cannot handle async for isoc */
@@ -465,19 +499,33 @@ void usb_handle_packet(USBDevice *dev, USBPacket *p)
 
 void usb_packet_complete_one(USBDevice *dev, USBPacket *p)
 {
+    trace_hw_usb_coreC_usb_packet_complete_one_0_dgtrace(dev->port_path, p);
+    
     USBEndpoint *ep = p->ep;
 
     assert(p->stream || QTAILQ_FIRST(&ep->queue) == p);
     assert(p->status != USB_RET_ASYNC && p->status != USB_RET_NAK);
 
+    trace_hw_usb_coreC_usb_packet_complete_one_1_dgtrace();
+
     if (p->status != USB_RET_SUCCESS ||
             (p->short_not_ok && (p->actual_length < p->iov.size))) {
+        trace_hw_usb_coreC_usb_packet_complete_one_2_dgtrace();        
         ep->halted = true;
     }
+
+    trace_hw_usb_coreC_usb_packet_complete_one_3_dgtrace();
+
     usb_pcap_data(p, false);
+
+    trace_hw_usb_coreC_usb_packet_complete_one_4_dgtrace();
+
     usb_packet_set_state(p, USB_PACKET_COMPLETE);
     QTAILQ_REMOVE(&ep->queue, p, queue);
     dev->port->ops->complete(dev->port, p);
+
+    trace_hw_usb_coreC_usb_packet_complete_one_999_dgtrace();
+
 }
 
 /* Notify the controller that an async packet is complete.  This should only
@@ -485,12 +533,20 @@ void usb_packet_complete_one(USBDevice *dev, USBPacket *p)
    handle_packet. */
 void usb_packet_complete(USBDevice *dev, USBPacket *p)
 {
+    trace_hw_usb_coreC_usb_packet_complete_0_dgtrace(dev->port_path, p);
+    
     USBEndpoint *ep = p->ep;
 
     usb_packet_check_state(p, USB_PACKET_ASYNC);
+
+    trace_hw_usb_coreC_usb_packet_complete_1_dgtrace();
+
     usb_packet_complete_one(dev, p);
 
+    trace_hw_usb_coreC_usb_packet_complete_2_dgtrace();
+
     while (!QTAILQ_EMPTY(&ep->queue)) {
+        trace_hw_usb_coreC_usb_packet_complete_3_dgtrace();
         p = QTAILQ_FIRST(&ep->queue);
         if (ep->halted) {
             /* Empty the queue on a halt */
@@ -498,16 +554,20 @@ void usb_packet_complete(USBDevice *dev, USBPacket *p)
             dev->port->ops->complete(dev->port, p);
             continue;
         }
+        trace_hw_usb_coreC_usb_packet_complete_4_dgtrace();
         if (p->state == USB_PACKET_ASYNC) {
             break;
         }
         usb_packet_check_state(p, USB_PACKET_QUEUED);
+        trace_hw_usb_coreC_usb_packet_complete_5_dgtrace();
         usb_process_one(p);
         if (p->status == USB_RET_ASYNC) {
             usb_packet_set_state(p, USB_PACKET_ASYNC);
             break;
         }
+        trace_hw_usb_coreC_usb_packet_complete_6_dgtrace();
         usb_packet_complete_one(ep->dev, p);
+        trace_hw_usb_coreC_usb_packet_complete_999_dgtrace();
     }
 }
 

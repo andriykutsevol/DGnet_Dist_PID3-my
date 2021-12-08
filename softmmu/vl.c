@@ -757,26 +757,36 @@ static void configure_msg(QemuOpts *opts)
 
 static int usb_device_add(const char *devname)
 {
+    trace_softmmu_vlC_usb_device_add_0_dgtrace(devname);
+    
     USBDevice *dev = NULL;
 
     if (!machine_usb(current_machine)) {
         return -1;
     }
 
+    trace_softmmu_vlC_usb_device_add_1_dgtrace();
+
     dev = usbdevice_create(devname);
     if (!dev)
         return -1;
+
+    trace_softmmu_vlC_usb_device_add_999_dgtrace();
 
     return 0;
 }
 
 static int usb_parse(const char *cmdline)
 {
+    trace_softmmu_vlC_usb_parse_0_dgtrace(cmdline);
+    
     int r;
     r = usb_device_add(cmdline);
     if (r < 0) {
         error_report("could not add USB device '%s'", cmdline);
     }
+
+    trace_softmmu_vlC_usb_parse_999_dgtrace();
     return r;
 }
 
@@ -2525,22 +2535,33 @@ static void qemu_init_board(void)
 
 static void qemu_create_cli_devices(void)
 {
+    trace_softmmu_vlC_qemu_create_cli_devices_0_dgtrace();
+    
     soundhw_init();
+
+    trace_softmmu_vlC_qemu_create_cli_devices_1_dgtrace();
 
     qemu_opts_foreach(qemu_find_opts("fw_cfg"),
                       parse_fw_cfg, fw_cfg_find(), &error_fatal);
 
+    trace_softmmu_vlC_qemu_create_cli_devices_2_dgtrace();
+
     /* init USB devices */
     if (machine_usb(current_machine)) {
+        trace_softmmu_vlC_qemu_create_cli_devices_3_dgtrace();
         if (foreach_device_config(DEV_USB, usb_parse) < 0)
+            trace_softmmu_vlC_qemu_create_cli_devices_4_dgtrace();
             exit(1);
     }
-
+    trace_softmmu_vlC_qemu_create_cli_devices_5_dgtrace();
     /* init generic devices */
     rom_set_order_override(FW_CFG_ORDER_OVERRIDE_DEVICE);
+    trace_softmmu_vlC_qemu_create_cli_devices_6_dgtrace();
     qemu_opts_foreach(qemu_find_opts("device"),
                       device_init_func, NULL, &error_fatal);
+    trace_softmmu_vlC_qemu_create_cli_devices_7_dgtrace();
     rom_reset_order_override();
+    trace_softmmu_vlC_qemu_create_cli_devices_999_dgtrace();
 }
 
 static void qemu_machine_creation_done(void)
@@ -2580,14 +2601,21 @@ static void qemu_machine_creation_done(void)
 
 void qmp_x_exit_preconfig(Error **errp)
 {
+    trace_softmmu_vlC_qmp_x_exit_preconfig_0_dgtrace();
+    
     if (phase_check(PHASE_MACHINE_INITIALIZED)) {
         error_setg(errp, "The command is permitted only before machine initialization");
         return;
     }
 
+    trace_softmmu_vlC_qmp_x_exit_preconfig_1_dgtrace();
+
     qemu_init_board();
+    trace_softmmu_vlC_qmp_x_exit_preconfig_2_dgtrace();
     qemu_create_cli_devices();
+    trace_softmmu_vlC_qmp_x_exit_preconfig_3_dgtrace();
     qemu_machine_creation_done();
+    trace_softmmu_vlC_qmp_x_exit_preconfig_4_dgtrace();
 
     if (loadvm) {
         Error *local_err = NULL;
@@ -2597,10 +2625,11 @@ void qmp_x_exit_preconfig(Error **errp)
             exit(1);
         }
     }
+    trace_softmmu_vlC_qmp_x_exit_preconfig_5_dgtrace();
     if (replay_mode != REPLAY_MODE_NONE) {
         replay_vmstate_init();
     }
-
+    trace_softmmu_vlC_qmp_x_exit_preconfig_6_dgtrace();
     if (incoming) {
         Error *local_err = NULL;
         if (strcmp(incoming, "defer") != 0) {
@@ -2613,6 +2642,7 @@ void qmp_x_exit_preconfig(Error **errp)
     } else if (autostart) {
         qmp_cont(NULL);
     }
+    trace_softmmu_vlC_qmp_x_exit_preconfig_999_dgtrace();
 }
 
 void qemu_init(int argc, char **argv, char **envp)
@@ -2640,6 +2670,7 @@ void qemu_init(int argc, char **argv, char **envp)
     qemu_add_opts(&qemu_global_opts);
     qemu_add_opts(&qemu_mon_opts);
     qemu_add_opts(&qemu_trace_opts);
+    qemu_add_opts(&qemu_pcap_opts);
     qemu_plugin_add_opts();
     qemu_add_opts(&qemu_option_rom_opts);
     qemu_add_opts(&qemu_machine_opts);
@@ -3366,6 +3397,9 @@ void qemu_init(int argc, char **argv, char **envp)
             case QEMU_OPTION_trace:
                 trace_opt_parse(optarg);
                 break;
+            case QEMU_OPTION_pcap:
+                pcap_opt_parse(optarg);
+                break;                 
             case QEMU_OPTION_plugin:
                 qemu_plugin_opt_parse(optarg, &plugin_list);
                 break;
@@ -3534,6 +3568,8 @@ void qemu_init(int argc, char **argv, char **envp)
     }
     trace_init_file();
 
+    trace_softmmu_vlC_qemu_init_0_dgtrace();
+
     qemu_init_main_loop(&error_fatal);
     cpu_timers_init();
 
@@ -3607,11 +3643,15 @@ void qemu_init(int argc, char **argv, char **envp)
         exit(0);
     }
 
+    trace_softmmu_vlC_qemu_init_1_dgtrace();
     if (!preconfig_requested) {
+        trace_softmmu_vlC_qemu_init_2_dgtrace();
         qmp_x_exit_preconfig(&error_fatal);
     }
+    trace_softmmu_vlC_qemu_init_3_dgtrace();
     qemu_init_displays();
     accel_setup_post(current_machine);
     os_setup_post();
     resume_mux_open();
+    trace_softmmu_vlC_qemu_init_999_dgtrace();
 }

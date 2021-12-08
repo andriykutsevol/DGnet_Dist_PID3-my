@@ -1676,6 +1676,7 @@ static int xhci_fire_ctl_transfer(XHCIState *xhci, XHCITransfer *xfer)
     }
     xfer->packet.parameter = trb_setup->parameter;
 
+    trace_hw_usb_hcdxhciC_xhci_fire_ctl_transfer_0_dgtrace("call 'usb_handle_packet'");
     usb_handle_packet(xfer->packet.ep->dev, &xfer->packet);
     xhci_try_complete_packet(xfer);
     return 0;
@@ -1776,6 +1777,7 @@ static int xhci_submit(XHCIState *xhci, XHCITransfer *xfer, XHCIEPContext *epctx
     if (xhci_setup_packet(xfer) < 0) {
         return -1;
     }
+    trace_hw_usb_hcdxhciC_xhci_submit_0_dgtrace("call 'usb_handle_packet'");
     usb_handle_packet(xfer->packet.ep->dev, &xfer->packet);
     xhci_try_complete_packet(xfer);
     return 0;
@@ -1810,6 +1812,7 @@ static void xhci_kick_ep(XHCIState *xhci, unsigned int slotid,
     if (epctx->kick_active) {
         return;
     }
+    trace_hw_usb_hcdxhciC_xhci_kick_ep_0_dgtrace("call xhci_kick_epctx()");
     xhci_kick_epctx(epctx, streamid);
 }
 
@@ -1861,6 +1864,7 @@ static void xhci_kick_epctx(XHCIEPContext *epctx, unsigned int streamid)
             if (xhci_setup_packet(xfer) < 0) {
                 return;
             }
+            trace_hw_usb_hcdxhciC_xhci_kick_epctx_0_dgtrace("call usb_handle_packet()");
             usb_handle_packet(xfer->packet.ep->dev, &xfer->packet);
             assert(xfer->packet.status != USB_RET_NAK);
             xhci_try_complete_packet(xfer);
@@ -1869,6 +1873,7 @@ static void xhci_kick_epctx(XHCIEPContext *epctx, unsigned int streamid)
             if (xhci_setup_packet(xfer) < 0) {
                 return;
             }
+            trace_hw_usb_hcdxhciC_xhci_kick_epctx_1_dgtrace("call usb_handle_packet()");
             usb_handle_packet(xfer->packet.ep->dev, &xfer->packet);
             if (xfer->packet.status == USB_RET_NAK) {
                 xhci_xfer_unmap(xfer);
@@ -3111,6 +3116,7 @@ static void xhci_doorbell_write(void *ptr, hwaddr reg,
             DPRINTF("xhci: bad doorbell %d write: 0x%x\n",
                     (int)reg, (uint32_t)val);
         } else {
+            trace_hw_usb_hcdxhciC_xhci_doorbell_write_0_dgtrace("call xhci_kick_ep()");
             xhci_kick_ep(xhci, reg, epid, streamid);
         }
     }
@@ -3265,6 +3271,7 @@ static void xhci_wakeup_endpoint(USBBus *bus, USBEndpoint *ep,
         DPRINTF("%s: oops, no slot for dev %d\n", __func__, ep->dev->addr);
         return;
     }
+    trace_hw_usb_hcdxhciC_xhci_wakeup_endpoint_0_dgtrace("call xhci_kick_ep()");
     xhci_kick_ep(xhci, slotid, xhci_find_epid(ep), stream);
 }
 
@@ -3330,6 +3337,9 @@ static void usb_xhci_init(XHCIState *xhci)
 
 static void usb_xhci_realize(DeviceState *dev, Error **errp)
 {
+    
+    trace_hw_usb_hcdxhciC_usb_xhci_realize_0_dgtrace(dev->canonical_path);
+
     int i;
 
     XHCIState *xhci = XHCI(dev);
@@ -3355,6 +3365,8 @@ static void usb_xhci_realize(DeviceState *dev, Error **errp)
         xhci->max_pstreams_mask = 0;
     }
 
+    trace_hw_usb_hcdxhciC_usb_xhci_realize_1_dgtrace();
+
     usb_xhci_init(xhci);
     xhci->mfwrap_timer = timer_new_ns(QEMU_CLOCK_VIRTUAL, xhci_mfwrap_timer, xhci);
 
@@ -3368,10 +3380,14 @@ static void usb_xhci_realize(DeviceState *dev, Error **errp)
     memory_region_init_io(&xhci->mem_doorbell, OBJECT(dev), &xhci_doorbell_ops,
                            xhci, "doorbell", LEN_DOORBELL);
 
+    trace_hw_usb_hcdxhciC_usb_xhci_realize_2_dgtrace();                       
+
     memory_region_add_subregion(&xhci->mem, 0,            &xhci->mem_cap);
     memory_region_add_subregion(&xhci->mem, OFF_OPER,     &xhci->mem_oper);
     memory_region_add_subregion(&xhci->mem, OFF_RUNTIME,  &xhci->mem_runtime);
     memory_region_add_subregion(&xhci->mem, OFF_DOORBELL, &xhci->mem_doorbell);
+
+    trace_hw_usb_hcdxhciC_usb_xhci_realize_3_dgtrace();
 
     for (i = 0; i < xhci->numports; i++) {
         XHCIPort *port = &xhci->ports[i];
@@ -3381,6 +3397,8 @@ static void usb_xhci_realize(DeviceState *dev, Error **errp)
                               port->name, 0x10);
         memory_region_add_subregion(&xhci->mem, offset, &port->mem);
     }
+
+    trace_hw_usb_hcdxhciC_usb_xhci_realize_999_dgtrace();
 }
 
 static void usb_xhci_unrealize(DeviceState *dev)

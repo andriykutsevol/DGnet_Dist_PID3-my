@@ -29,6 +29,11 @@
 #include "monitor/monitor.h"
 #include "trace/trace-root.h"
 
+
+char *pcap_output_folder;
+char *pcap_busnum;
+char *pcap_devaddr;
+
 int trace_events_enabled_count;
 
 typedef struct TraceEventGroup {
@@ -56,6 +61,26 @@ QemuOptsList qemu_trace_opts = {
             .type = QEMU_OPT_STRING,
         },{
             .name = "file",
+            .type = QEMU_OPT_STRING,
+        },
+        { /* end of list */ }
+    },
+};
+
+
+QemuOptsList qemu_pcap_opts = {
+    .name = "pcap",
+    .implied_opt_name = "output_folder",
+    .head = QTAILQ_HEAD_INITIALIZER(qemu_trace_opts.head),
+    .desc = {
+        {
+            .name = "output_folder",
+            .type = QEMU_OPT_STRING,
+        },{
+            .name = "busnum",
+            .type = QEMU_OPT_STRING,
+        },{
+            .name = "devaddr",
             .type = QEMU_OPT_STRING,
         },
         { /* end of list */ }
@@ -306,6 +331,32 @@ void trace_opt_parse(const char *optarg)
     trace_opts_file = g_strdup(qemu_opt_get(opts, "file"));
     qemu_opts_del(opts);
 }
+
+
+
+void pcap_opt_parse(const char *optarg)
+{
+    QemuOpts *opts = qemu_opts_parse_noisily(qemu_find_opts("pcap"),
+                                    optarg, true);                                        
+    pcap_output_folder = (char* )calloc(256, sizeof(char));
+    sprintf(pcap_output_folder, "%s/",qemu_opt_get(opts, "output_folder"));
+
+    
+    if(qemu_opt_get(opts, "busnum")){
+        pcap_busnum = (char* )calloc(10, sizeof(char));
+        sprintf(pcap_busnum, "%s",qemu_opt_get(opts, "busnum"));
+    }
+    
+    if(qemu_opt_get(opts, "devaddr")){
+        pcap_devaddr = (char* )calloc(10, sizeof(char));
+        sprintf(pcap_devaddr, "%s",qemu_opt_get(opts, "devaddr"));
+    }
+    
+    
+    qemu_opts_del(opts);
+}
+
+
 
 uint32_t trace_get_vcpu_event_count(void)
 {

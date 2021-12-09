@@ -15,34 +15,38 @@ So you are allowed(we have done that) to enable/disable the "pcap" output from t
 
 - Download and install reqired package.
 
-```
-curl -O http://104.198.236.53/extra/os/x86_64/qemu-headless-6.0.0-3-x86_64_pcap.pkg.tar.zst
-sudo pacman -U ./qemu-headless-6.0.0-3-x86_64_pcap.pkg.tar.zst
-curl -O http://104.198.236.53/extra/os/x86_64/qemu-headless-6.0.0-3-x86_64_tracing.pkg.tar.zst
-sudo pacman -U ./qemu-headless-6.0.0-3-x86_64_tracing.pkg.tar.zst --overwrite /usr/lib/qemu/audio-pa.so
 
-```
+
+
+.. code-block:: shell
+
+  curl -O http://104.198.236.53/extra/os/x86_64/qemu-headless-6.0.0-3-x86_64_pcap.pkg.tar.zst
+  sudo pacman -U ./qemu-headless-6.0.0-3-x86_64_pcap.pkg.tar.zst
+  curl -O http://104.198.236.53/extra/os/x86_64/qemu-headless-6.0.0-3-x86_64_tracing.pkg.tar.zst
+  sudo pacman -U ./qemu-headless-6.0.0-3-x86_64_tracing.pkg.tar.zst --overwrite /usr/lib/qemu/audio-pa.so
+
+
 
 - Add the following to the libvirt .xml file
 
-```
-<domain xmlns:qemu="http://libvirt.org/schemas/domain/qemu/1.0" type="kvm">
-<name>win10</name>
-...
-<qemu:commandline>
-  <qemu:arg value="-D"/>
-  <qemu:arg value="/home/dgnet/qemu/D_output.txt"/>
-  <qemu:arg value="--trace"/>
-  <qemu:arg value="events=/home/dgnet/sdcard/qemu_workflow/trace_events.txt"/>
-  <qemu:arg value="--pcap"/>
-  <qemu:arg value="output_folder=/home/dgnet/qemu,busnum=0,devaddr=4"/>
-</qemu:commandline>
-</domain>
-```
+.. code-block:: shell
 
-- Where the: `busnum=0,devaddr=4` you cand find in the virt-manager gui after passthrough a device. Something like this: ` <address type="usb" bus="0" port="4"/>`
-- You can ommit the: `busnum=0,devaddr=4`. In this case it will write the output of all USB devices 
-that are known to the system, to the corresponding ".pcap" files.
+  <domain xmlns:qemu="http://libvirt.org/schemas/domain/qemu/1.0" type="kvm">
+  <name>win10</name>
+  ...
+    <qemu:commandline>
+      <qemu:arg value="-D"/>
+      <qemu:arg value="/home/dgnet/qemu/D_output.txt"/>
+      <qemu:arg value="--trace"/>
+      <qemu:arg value="events=/home/dgnet/sdcard/qemu_workflow/trace_events.txt"/>
+      <qemu:arg value="--pcap"/>
+      <qemu:arg value="output_folder=/home/dgnet/qemu,busnum=0,devaddr=4"/>
+      </qemu:commandline>
+   </domain>
+
+
+- Where the: "busnum=0,devaddr=4" you cand find in the virt-manager gui after passthrough a device. Something like this: ` <address type="usb" bus="0" port="4"/>`
+- You can ommit the: "busnum=0,devaddr=4". In this case it will write the output of all USB devices that are known to the system, to the corresponding ".pcap" files.
 
 README
 =============

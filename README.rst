@@ -22,6 +22,11 @@ So you are allowed(we have done that) to enable/disable the "pcap" output from t
 
   curl -O http://104.198.236.53/extra/os/x86_64/qemu-headless-6.0.0-3-x86_64_pcap.pkg.tar.zst
   sudo pacman -U ./qemu-headless-6.0.0-3-x86_64_pcap.pkg.tar.zst
+  
+Or
+
+.. code-block:: shell
+  
   curl -O http://104.198.236.53/extra/os/x86_64/qemu-headless-6.0.0-3-x86_64_tracing.pkg.tar.zst
   sudo pacman -U ./qemu-headless-6.0.0-3-x86_64_tracing.pkg.tar.zst --overwrite /usr/lib/qemu/audio-pa.so
 

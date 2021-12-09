@@ -14,6 +14,7 @@ And because it is a small subsystem around fo some calls - it does not imply a p
 So you are allowed(we have done that) to enable/disable the "pcap" output from the .xml file.
 
 - Download and install reqired package.
+
 ```
 curl -O http://104.198.236.53/extra/os/x86_64/qemu-headless-6.0.0-3-x86_64_pcap.pkg.tar.zst
 sudo pacman -U ./qemu-headless-6.0.0-3-x86_64_pcap.pkg.tar.zst
@@ -22,6 +23,7 @@ sudo pacman -U ./qemu-headless-6.0.0-3-x86_64_tracing.pkg.tar.zst --overwrite /u
 ```
 
 - Add the following to the libvirt .xml file
+
 ```
 <domain xmlns:qemu="http://libvirt.org/schemas/domain/qemu/1.0" type="kvm">
 <name>win10</name>

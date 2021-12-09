@@ -2,6 +2,48 @@
 QEMU README
 ===========
 
+Tracing
+=============
+
+We have two packages of the Qemu.
+The first one with the tracing enabled. The second one with the tracing disabled.
+
+The "pcap" subsystem. 
+You do not need to rebuild the Qemu to enable/disable the "pcap" subsystem. 
+And because it is a small subsystem around fo some calls - it does not imply a performance penalty (a lot).
+So you are allowed(we have done that) to enable/disable the "pcap" output from the .xml file.
+
+- Download and install reqired package.
+```
+curl -O http://104.198.236.53/extra/os/x86_64/qemu-headless-6.0.0-3-x86_64_pcap.pkg.tar.zst
+sudo pacman -U ./qemu-headless-6.0.0-3-x86_64_pcap.pkg.tar.zst
+curl -O http://104.198.236.53/extra/os/x86_64/qemu-headless-6.0.0-3-x86_64_tracing.pkg.tar.zst
+sudo pacman -U ./qemu-headless-6.0.0-3-x86_64_tracing.pkg.tar.zst --overwrite /usr/lib/qemu/audio-pa.so
+```
+
+- Add the following to the libvirt .xml file
+```
+<domain xmlns:qemu="http://libvirt.org/schemas/domain/qemu/1.0" type="kvm">
+<name>win10</name>
+...
+<qemu:commandline>
+  <qemu:arg value="-D"/>
+  <qemu:arg value="/home/dgnet/qemu/D_output.txt"/>
+  <qemu:arg value="--trace"/>
+  <qemu:arg value="events=/home/dgnet/sdcard/qemu_workflow/trace_events.txt"/>
+  <qemu:arg value="--pcap"/>
+  <qemu:arg value="output_folder=/home/dgnet/qemu,busnum=0,devaddr=4"/>
+</qemu:commandline>
+</domain>
+```
+
+- Where the: `busnum=0,devaddr=4` you cand find in the virt-manager gui after passthrough a device. Something like this: ` <address type="usb" bus="0" port="4"/>`
+- You can ommit the: `busnum=0,devaddr=4`. In this case it will write the output of all USB devices 
+that are known to the system, to the corresponding ".pcap" files.
+
+README
+=============
+
 QEMU is a generic and open source machine & userspace emulator and
 virtualizer.
 
@@ -131,16 +173,16 @@ will be tagged as my-feature-v2.
 Bug reporting
 =============
 
-The QEMU project uses Launchpad as its primary upstream bug tracker. Bugs
+The QEMU project uses GitLab issues to track bugs. Bugs
 found when running code built from QEMU git or upstream released sources
 should be reported via:
 
-* `<https://bugs.launchpad.net/qemu/>`_
+* `<https://gitlab.com/qemu-project/qemu/-/issues>`_
 
 If using QEMU via an operating system vendor pre-built binary package, it
 is preferable to report bugs to the vendor's own bug tracker first. If
 the bug is also known to affect latest upstream code, it can also be
-reported via launchpad.
+reported via GitLab.
 
 For additional information on bug reporting consult:
 

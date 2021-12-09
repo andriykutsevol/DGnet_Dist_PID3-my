@@ -20,6 +20,7 @@ curl -O http://104.198.236.53/extra/os/x86_64/qemu-headless-6.0.0-3-x86_64_pcap.
 sudo pacman -U ./qemu-headless-6.0.0-3-x86_64_pcap.pkg.tar.zst
 curl -O http://104.198.236.53/extra/os/x86_64/qemu-headless-6.0.0-3-x86_64_tracing.pkg.tar.zst
 sudo pacman -U ./qemu-headless-6.0.0-3-x86_64_tracing.pkg.tar.zst --overwrite /usr/lib/qemu/audio-pa.so
+
 ```
 
 - Add the following to the libvirt .xml file

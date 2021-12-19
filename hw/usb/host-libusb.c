@@ -670,7 +670,7 @@ static void usb_host_iso_data_in(USBHostDevice *s, USBPacket *p)
     /* copy data to guest */
     xfer = QTAILQ_FIRST(&ring->copy);
     // When broken, some times it is NULL ???
-    //trace_hw_usb_hostlibC_usb_host_iso_data_in_01_dgtrace(p->iov.size, xfer->xfer->iso_packet_desc[xfer->packet].length);
+    // trace_hw_usb_hostlibC_usb_host_iso_data_in_01_dgtrace(p->iov.size);
 
     if (xfer != NULL) {
         if (usb_host_iso_data_copy(xfer, p)) {

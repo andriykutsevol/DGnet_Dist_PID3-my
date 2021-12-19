@@ -666,6 +666,7 @@ void usb_packet_addbuf(USBPacket *p, void *ptr, size_t len)
 
 void usb_packet_copy(USBPacket *p, void *ptr, size_t bytes)
 {
+    trace_hw_usb_coreC_usb_packet_copy_0_dgtrace(bytes, p->actual_length);
     QEMUIOVector *iov = p->combined ? &p->combined->iov : &p->iov;
 
     assert(p->actual_length >= 0);
@@ -673,16 +674,21 @@ void usb_packet_copy(USBPacket *p, void *ptr, size_t bytes)
     switch (p->pid) {
     case USB_TOKEN_SETUP:
     case USB_TOKEN_OUT:
+        trace_hw_usb_coreC_usb_packet_copy_1_dgtrace(bytes, p->actual_length);
         iov_to_buf(iov->iov, iov->niov, p->actual_length, ptr, bytes);
+        trace_hw_usb_coreC_usb_packet_copy_2_dgtrace(bytes, p->actual_length);
         break;
     case USB_TOKEN_IN:
+        trace_hw_usb_coreC_usb_packet_copy_3_dgtrace(bytes, p->actual_length);
         iov_from_buf(iov->iov, iov->niov, p->actual_length, ptr, bytes);
+        trace_hw_usb_coreC_usb_packet_copy_4_dgtrace(bytes, p->actual_length);
         break;
     default:
         fprintf(stderr, "%s: invalid pid: %x\n", __func__, p->pid);
         abort();
     }
     p->actual_length += bytes;
+    trace_hw_usb_coreC_usb_packet_copy_999_dgtrace(bytes, p->actual_length);
 }
 
 void usb_packet_skip(USBPacket *p, size_t bytes)

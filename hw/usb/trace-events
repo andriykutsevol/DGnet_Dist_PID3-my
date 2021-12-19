@@ -513,6 +513,11 @@ hw_usb_hostlibC_usb_host_auto_check_999_dgtrace(void) ""
 
 hw_usb_hostlibC_usb_host_iso_data_copy_0_dgtrace(int p_iov_size) "p->iov.size: %d"
 hw_usb_hostlibC_usb_host_iso_data_copy_1_dgtrace(int p_iov_size, int psize) "p->iov.size: %d, psize: %d"
+hw_usb_hostlibC_usb_host_iso_data_copy_2_dgtrace(int p_iov_size, int psize) "p->iov.size: %d, psize: %d"
+hw_usb_hostlibC_usb_host_iso_data_copy_3_dgtrace(int p_iov_size, int psize) "p->iov.size: %d, psize: %d"
+hw_usb_hostlibC_usb_host_iso_data_copy_4_dgtrace(int p_iov_size, int psize) "p->iov.size: %d, psize: %d"
+hw_usb_hostlibC_usb_host_iso_data_copy_5_dgtrace(int p_iov_size, int psize) "p->iov.size: %d, psize: %d"
+hw_usb_hostlibC_usb_host_iso_data_copy_6_dgtrace(int p_iov_size, int psize) "p->iov.size: %d, psize: %d"
 hw_usb_hostlibC_usb_host_iso_data_copy_999_dgtrace(int p_iov_size) "p->iov.size: %d"
 
 

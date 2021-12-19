@@ -684,7 +684,7 @@ static void usb_host_iso_data_in(USBHostDevice *s, USBPacket *p)
 
     /* submit empty bufs to host */
     while ((xfer = QTAILQ_FIRST(&ring->unused)) != NULL) {
-        trace_hw_usb_hostlibC_usb_host_iso_data_in_3_dgtrace(p->iov.size, xfer->xfer->iso_packet_desc[xfer->packet].length);
+        trace_hw_usb_hostlibC_usb_host_iso_data_in_3_dgtrace(p->iov.size);
         QTAILQ_REMOVE(&ring->unused, xfer, next);
         usb_host_iso_reset_xfer(xfer);
         rc = libusb_submit_transfer(xfer->xfer);

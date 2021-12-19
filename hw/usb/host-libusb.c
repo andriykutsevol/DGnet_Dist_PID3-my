@@ -672,13 +672,13 @@ static void usb_host_iso_data_in(USBHostDevice *s, USBPacket *p)
 
     if (xfer != NULL) {
         if (usb_host_iso_data_copy(xfer, p)) {
-            //trace_hw_usb_hostlibC_usb_host_iso_data_in_1_dgtrace(p->iov.size, xfer->xfer->iso_packet_desc[xfer->packet].length);
+            trace_hw_usb_hostlibC_usb_host_iso_data_in_1_dgtrace(p->iov.size, xfer->xfer->iso_packet_desc[xfer->packet].length);
             QTAILQ_REMOVE(&ring->copy, xfer, next);
             QTAILQ_INSERT_TAIL(&ring->unused, xfer, next);
         }
     }
 
-    //trace_hw_usb_hostlibC_usb_host_iso_data_in_2_dgtrace(p->iov.size);
+    trace_hw_usb_hostlibC_usb_host_iso_data_in_2_dgtrace(p->iov.size);
 
     /* submit empty bufs to host */
     while ((xfer = QTAILQ_FIRST(&ring->unused)) != NULL) {

@@ -615,27 +615,39 @@ static void usb_host_iso_free_all(USBHostDevice *s)
 
 static bool usb_host_iso_data_copy(USBHostIsoXfer *xfer, USBPacket *p)
 {
+    
+    trace_hw_usb_hostlibC_usb_host_iso_data_copy_0_dgtrace(p->iov.size);
     unsigned int psize;
     unsigned char *buf;
+
 
     buf = libusb_get_iso_packet_buffer_simple(xfer->xfer, xfer->packet);
     if (p->pid == USB_TOKEN_OUT) {
         psize = p->iov.size;
+        trace_hw_usb_hostlibC_usb_host_iso_data_copy_1_dgtrace(p->iov.size, psize);
         if (psize > xfer->ring->ep->max_packet_size) {
             /* should not happen (guest bug) */
             psize = xfer->ring->ep->max_packet_size;
+            trace_hw_usb_hostlibC_usb_host_iso_data_copy_2_dgtrace(p->iov.size, psize);
         }
         xfer->xfer->iso_packet_desc[xfer->packet].length = psize;
+        trace_hw_usb_hostlibC_usb_host_iso_data_copy_3_dgtrace(p->iov.size, psize);
     } else {
         psize = xfer->xfer->iso_packet_desc[xfer->packet].actual_length;
+        trace_hw_usb_hostlibC_usb_host_iso_data_copy_4_dgtrace(p->iov.size, psize);
         if (psize > p->iov.size) {
             /* should not happen (guest bug) */
             psize = p->iov.size;
+            trace_hw_usb_hostlibC_usb_host_iso_data_copy_5_dgtrace(p->iov.size, psize);
         }
     }
+    trace_hw_usb_hostlibC_usb_host_iso_data_copy_6_dgtrace(p->iov.size, psize);
     usb_packet_copy(p, buf, psize);
     xfer->packet++;
     xfer->copy_complete = (xfer->packet == xfer->xfer->num_iso_packets);
+
+    trace_hw_usb_hostlibC_usb_host_iso_data_copy_999_dgtrace(p->iov.size);
+
     return xfer->copy_complete;
 }
 

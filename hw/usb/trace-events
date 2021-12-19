@@ -511,6 +511,12 @@ hw_usb_hostlibC_usb_host_auto_check_9_dgtrace(void) ""
 hw_usb_hostlibC_usb_host_auto_check_10_dgtrace(void) ""
 hw_usb_hostlibC_usb_host_auto_check_999_dgtrace(void) ""
 
+hw_usb_hostlibC_usb_host_iso_data_copy_0_dgtrace(int p_iov_size) "p->iov.size: %d"
+hw_usb_hostlibC_usb_host_iso_data_copy_1_dgtrace(int p_iov_size, int psize) "p->iov.size: %d, psize: %d"
+hw_usb_hostlibC_usb_host_iso_data_copy_999_dgtrace(int p_iov_size) "p->iov.size: %d"
+
+
+
 # dev-serial.c
 usb_serial_reset(int bus, int addr) "dev %d:%u reset"
 usb_serial_handle_control(int bus, int addr, int request, int value) "dev %d:%u got control 0x%x, value 0x%x"

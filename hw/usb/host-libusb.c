@@ -1636,18 +1636,33 @@ static void usb_host_handle_data(USBDevice *udev, USBPacket *p)
                                        INTR_TIMEOUT);
         break;
     case USB_ENDPOINT_XFER_ISOC:
+        trace_usb_host_req_complete_5_1(s->bus_num, s->addr, p,
+                                    p->status, p->actual_length);
         if (p->pid == USB_TOKEN_IN) {
+            trace_usb_host_req_complete_5_2(s->bus_num, s->addr, p,
+                                        p->status, p->actual_length);            
             usb_host_iso_data_in(s, p);
+
+            trace_usb_host_req_complete_5_3(s->bus_num, s->addr, p,
+                                        p->status, p->actual_length); 
+
         } else {
+            trace_usb_host_req_complete_5_4(s->bus_num, s->addr, p,
+                                        p->status, p->actual_length);
+
             usb_host_iso_data_out(s, p);
+
+            trace_usb_host_req_complete_5_5(s->bus_num, s->addr, p,
+                                        p->status, p->actual_length);
+
         }
-        trace_usb_host_req_complete_5(s->bus_num, s->addr, p,
+        trace_usb_host_req_complete_5_6(s->bus_num, s->addr, p,
                                     p->status, p->actual_length);
         return;
     default:
         p->status = USB_RET_STALL;
-        trace_usb_host_req_complete_6(s->bus_num, s->addr, p,
-                                    p->status, p->actual_length);
+            trace_usb_host_req_complete_6(s->bus_num, s->addr, p,
+                                        p->status, p->actual_length);
         return;
     }
 
@@ -1661,6 +1676,9 @@ static void usb_host_handle_data(USBDevice *udev, USBPacket *p)
         }
         return;
     }
+
+    trace_usb_host_req_complete_8(s->bus_num, s->addr, p,
+                                        p->status, p->actual_length);    
 
     p->status = USB_RET_ASYNC;
 }

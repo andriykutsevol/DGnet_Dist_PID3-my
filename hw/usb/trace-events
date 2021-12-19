@@ -37,12 +37,12 @@ hw_usb_coreC_usb_packet_complete_5_dgtrace(void) ""
 hw_usb_coreC_usb_packet_complete_6_dgtrace(void) ""
 hw_usb_coreC_usb_packet_complete_999_dgtrace(void) ""
 
-hw_usb_coreC_usb_packet_copy_0_dgtrace(int bytes, p_actual_length) "bytes: %d, p_actual_length: %d"
-hw_usb_coreC_usb_packet_copy_1_dgtrace(int bytes, p_actual_length) "bytes: %d, p_actual_length: %d"
-hw_usb_coreC_usb_packet_copy_2_dgtrace(int bytes, p_actual_length) "bytes: %d, p_actual_length: %d"
-hw_usb_coreC_usb_packet_copy_3_dgtrace(int bytes, p_actual_length) "bytes: %d, p_actual_length: %d"
-hw_usb_coreC_usb_packet_copy_4_dgtrace(int bytes, p_actual_length) "bytes: %d, p_actual_length: %d"
-hw_usb_coreC_usb_packet_copy_999_dgtrace(int bytes, p_actual_length) "bytes: %d, p_actual_length: %d"
+hw_usb_coreC_usb_packet_copy_0_dgtrace(int bytes, int p_actual_length) "bytes: %d, p_actual_length: %d"
+hw_usb_coreC_usb_packet_copy_1_dgtrace(int bytes, int p_actual_length) "bytes: %d, p_actual_length: %d"
+hw_usb_coreC_usb_packet_copy_2_dgtrace(int bytes, int p_actual_length) "bytes: %d, p_actual_length: %d"
+hw_usb_coreC_usb_packet_copy_3_dgtrace(int bytes, int p_actual_length) "bytes: %d, p_actual_length: %d"
+hw_usb_coreC_usb_packet_copy_4_dgtrace(int bytes, int p_actual_length) "bytes: %d, p_actual_length: %d"
+hw_usb_coreC_usb_packet_copy_999_dgtrace(int bytes, int p_actual_length) "bytes: %d, p_actual_length: %d"
 
 
 # bus.c

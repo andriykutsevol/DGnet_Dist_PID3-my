@@ -653,6 +653,10 @@ static bool usb_host_iso_data_copy(USBHostIsoXfer *xfer, USBPacket *p)
 
 static void usb_host_iso_data_in(USBHostDevice *s, USBPacket *p)
 {
+    
+    
+    hw_usb_hostlibC_usb_host_iso_data_in_0_dgtrace(p->iov.size);
+
     USBHostIsoRing *ring;
     USBHostIsoXfer *xfer;
     bool disconnect = false;
@@ -665,6 +669,7 @@ static void usb_host_iso_data_in(USBHostDevice *s, USBPacket *p)
 
     /* copy data to guest */
     xfer = QTAILQ_FIRST(&ring->copy);
+
     if (xfer != NULL) {
         if (usb_host_iso_data_copy(xfer, p)) {
             QTAILQ_REMOVE(&ring->copy, xfer, next);
@@ -694,6 +699,9 @@ static void usb_host_iso_data_in(USBHostDevice *s, USBPacket *p)
     if (disconnect) {
         usb_host_nodev(s);
     }
+
+    hw_usb_hostlibC_usb_host_iso_data_in_999_dgtrace(p->iov.size);
+
 }
 
 static void usb_host_iso_data_out(USBHostDevice *s, USBPacket *p)

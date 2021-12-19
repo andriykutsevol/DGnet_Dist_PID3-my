@@ -520,6 +520,11 @@ hw_usb_hostlibC_usb_host_iso_data_copy_5_dgtrace(int p_iov_size, int psize) "p->
 hw_usb_hostlibC_usb_host_iso_data_copy_6_dgtrace(int p_iov_size, int psize) "p->iov.size: %d, psize: %d"
 hw_usb_hostlibC_usb_host_iso_data_copy_999_dgtrace(int p_iov_size) "p->iov.size: %d"
 
+hw_usb_hostlibC_usb_host_iso_data_in_0_dgtrace(int p_iov_size) "p->iov.size: %d"
+hw_usb_hostlibC_usb_host_iso_data_in_999_dgtrace(int p_iov_size) "p->iov.size: %d"
+
+hw_usb_hostlibC_usb_host_iso_data_out_0_dgtrace(int p_iov_size) "p->iov.size: %d"
+hw_usb_hostlibC_usb_host_iso_data_out_999_dgtrace(int p_iov_size) "p->iov.size: %d"
 
 
 # dev-serial.c

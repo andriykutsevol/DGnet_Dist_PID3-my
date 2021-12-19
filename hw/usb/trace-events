@@ -521,6 +521,7 @@ hw_usb_hostlibC_usb_host_iso_data_copy_6_dgtrace(int p_iov_size, int psize) "p->
 hw_usb_hostlibC_usb_host_iso_data_copy_999_dgtrace(int p_iov_size) "p->iov.size: %d"
 
 hw_usb_hostlibC_usb_host_iso_data_in_0_dgtrace(int p_iov_size) "p->iov.size: %d"
+hw_usb_hostlibC_usb_host_iso_data_int_1_dgtrace(int p_iov_size, int length) "p->iov.size: %d, xfer->xfer->iso_packet_desc[xfer->packet].length: %d"
 hw_usb_hostlibC_usb_host_iso_data_in_999_dgtrace(int p_iov_size) "p->iov.size: %d"
 
 hw_usb_hostlibC_usb_host_iso_data_out_0_dgtrace(int p_iov_size) "p->iov.size: %d"

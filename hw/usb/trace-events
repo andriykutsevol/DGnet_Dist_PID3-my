@@ -406,7 +406,15 @@ usb_host_claim_interface(int bus, int addr, int config, int interface) "dev %d:%
 usb_host_release_interface(int bus, int addr, int interface) "dev %d:%d, if %d"
 usb_host_req_control(int bus, int addr, void *p, int req, int value, int index) "dev %d:%d, packet %p, req 0x%x, value %d, index %d"
 usb_host_req_data(int bus, int addr, void *p, int in, int ep, int size) "dev %d:%d, packet %p, in %d, ep %d, size %d"
-usb_host_req_complete(int bus, int addr, void *p, int status, int length) "dev %d:%d, packet %p, status %d, length %d"
+
+usb_host_req_complete_1(int bus, int addr, void *p, int status, int length) "dev %d:%d, packet %p, status %d, length %d"
+usb_host_req_complete_2(int bus, int addr, void *p, int status, int length) "dev %d:%d, packet %p, status %d, length %d"
+usb_host_req_complete_3(int bus, int addr, void *p, int status, int length) "dev %d:%d, packet %p, status %d, length %d"
+usb_host_req_complete_4(int bus, int addr, void *p, int status, int length) "dev %d:%d, packet %p, status %d, length %d"
+usb_host_req_complete_5(int bus, int addr, void *p, int status, int length) "dev %d:%d, packet %p, status %d, length %d"
+usb_host_req_complete_6(int bus, int addr, void *p, int status, int length) "dev %d:%d, packet %p, status %d, length %d"
+usb_host_req_complete_7(int bus, int addr, void *p, int status, int length) "dev %d:%d, packet %p, status %d, length %d"
+
 usb_host_req_emulated(int bus, int addr, void *p, int status) "dev %d:%d, packet %p, status %d"
 usb_host_req_canceled(int bus, int addr, void *p) "dev %d:%d, packet %p"
 usb_host_iso_start(int bus, int addr, int ep) "dev %d:%d, ep %d"

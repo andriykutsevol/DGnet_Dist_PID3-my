@@ -622,6 +622,7 @@ static bool usb_host_iso_data_copy(USBHostIsoXfer *xfer, USBPacket *p)
 
 
     buf = libusb_get_iso_packet_buffer_simple(xfer->xfer, xfer->packet);
+    trace_hw_usb_hostlibC_usb_host_iso_data_copy_01_dgtrace(p->iov.size, xfer->packet, xfer->xfer->iso_packet_desc[xfer->packet].length);
     if (p->pid == USB_TOKEN_OUT) {
         psize = p->iov.size;
         trace_hw_usb_hostlibC_usb_host_iso_data_copy_1_dgtrace(p->iov.size, psize);

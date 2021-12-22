@@ -538,6 +538,11 @@ hw_usb_hostlibC_usb_host_iso_data_out_0_dgtrace(int p_iov_size) "p->iov.size: %d
 hw_usb_hostlibC_usb_host_iso_data_out_1_dgtrace(int p_iov_size, int length) "p->iov.size: %d, xfer->xfer->iso_packet_desc[xfer->packet].length: %d"
 hw_usb_hostlibC_usb_host_iso_data_out_999_dgtrace(int p_iov_size) "p->iov.size: %d"
 
+hw_usb_hostlibC_usb_host_iso_find_0_dgtrace(void) ""
+hw_usb_hostlibC_usb_host_iso_find_1_dgtrace(void) ""
+hw_usb_hostlibC_usb_host_iso_find_2_dgtrace(void) ""
+hw_usb_hostlibC_usb_host_iso_find_3_dgtrace(void) ""
+
 
 # dev-serial.c
 usb_serial_reset(int bus, int addr) "dev %d:%u reset"

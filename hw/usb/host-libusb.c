@@ -616,7 +616,7 @@ static void usb_host_iso_free_all(USBHostDevice *s)
 static bool usb_host_iso_data_copy(USBHostIsoXfer *xfer, USBPacket *p)
 {
     
-    trace_hw_usb_hostlibC_usb_host_iso_data_copy_0_dgtrace(p->iov.size);
+    trace_hw_usb_hostlibC_usb_host_iso_data_copy_0_dgtrace(p->iov.size, xfer->packet, xfer->xfer->iso_packet_desc[xfer->packet].length);
     unsigned int psize;
     unsigned char *buf;
 

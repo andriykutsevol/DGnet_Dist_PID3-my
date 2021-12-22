@@ -667,6 +667,7 @@ static void usb_host_iso_data_in(USBHostDevice *s, USBPacket *p)
 
     ring = usb_host_iso_find(s, p->ep);
     if (ring == NULL) {
+        trace_hw_usb_hostlibC_usb_host_iso_data_in_00_dgtrace();
         ring = usb_host_iso_alloc(s, p->ep);
     }
 

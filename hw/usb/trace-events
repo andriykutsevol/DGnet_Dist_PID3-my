@@ -540,7 +540,7 @@ hw_usb_hostlibC_usb_host_iso_data_out_999_dgtrace(int p_iov_size) "p->iov.size: 
 
 hw_usb_hostlibC_usb_host_iso_find_0_dgtrace(void) ""
 hw_usb_hostlibC_usb_host_iso_find_1_dgtrace(void) ""
-hw_usb_hostlibC_usb_host_iso_find_2_dgtrace(void) ""
+hw_usb_hostlibC_usb_host_iso_find_2_dgtrace(int ring_ep_nr) "ring->ep->nr: %d"
 hw_usb_hostlibC_usb_host_iso_find_3_dgtrace(void) ""
 
 

@@ -671,7 +671,7 @@ static void usb_host_iso_data_in(USBHostDevice *s, USBPacket *p)
     xfer = QTAILQ_FIRST(&ring->copy);
 
     if (xfer != NULL) {
-        trace_hw_usb_hostlibC_usb_host_iso_data_in_01_dgtrace(p->iov.size, xfer->packet, xfer->xfer->iso_packet_desc[xfer->packet].length));
+        trace_hw_usb_hostlibC_usb_host_iso_data_in_01_dgtrace(p->iov.size, xfer->packet, xfer->xfer->iso_packet_desc[xfer->packet].length);
         if (usb_host_iso_data_copy(xfer, p)) {
             trace_hw_usb_hostlibC_usb_host_iso_data_in_1_dgtrace(p->iov.size, xfer->xfer->iso_packet_desc[xfer->packet].length);
             QTAILQ_REMOVE(&ring->copy, xfer, next);

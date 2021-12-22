@@ -525,7 +525,9 @@ hw_usb_hostlibC_usb_host_iso_data_copy_999_dgtrace(int p_iov_size) "p->iov.size:
 
 hw_usb_hostlibC_usb_host_iso_data_in_0_dgtrace(int p_iov_size) "p->iov.size: %d"
 hw_usb_hostlibC_usb_host_iso_data_in_01_dgtrace(int p_iov_size, int xfer_packet, int length) "p->iov.size: %d, xfer->packet: %d, xfer->xfer->iso_packet_desc[xfer->packet].length: %d"
+hw_usb_hostlibC_usb_host_iso_data_in_001_dgtrace(int p_iov_size, int xfer_packet, int length) "p->iov.size: %d, xfer->packet: %d, xfer->xfer->iso_packet_desc[xfer->packet].actual_length: %d"
 hw_usb_hostlibC_usb_host_iso_data_in_02_dgtrace(int p_iov_size, int xfer_packet, int length) "p->iov.size: %d, xfer->packet: %d, xfer->xfer->iso_packet_desc[xfer->packet].length: %d"
+hw_usb_hostlibC_usb_host_iso_data_in_002_dgtrace(int p_iov_size, int xfer_packet, int length) "p->iov.size: %d, xfer->packet: %d, xfer->xfer->iso_packet_desc[xfer->packet].actual_length: %d"
 hw_usb_hostlibC_usb_host_iso_data_in_1_dgtrace(int p_iov_size, int length) "p->iov.size: %d, xfer->xfer->iso_packet_desc[xfer->packet].length: %d"
 hw_usb_hostlibC_usb_host_iso_data_in_2_dgtrace(int p_iov_size) "p->iov.size: %d"
 hw_usb_hostlibC_usb_host_iso_data_in_3_dgtrace(int p_iov_size) "p->iov.size: %d"

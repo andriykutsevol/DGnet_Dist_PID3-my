@@ -677,6 +677,7 @@ static void usb_host_iso_data_in(USBHostDevice *s, USBPacket *p)
             QTAILQ_REMOVE(&ring->copy, xfer, next);
             QTAILQ_INSERT_TAIL(&ring->unused, xfer, next);
         }
+        trace_hw_usb_hostlibC_usb_host_iso_data_in_02_dgtrace(p->iov.size, xfer->packet, xfer->xfer->iso_packet_desc[xfer->packet].length);
     }
 
     trace_hw_usb_hostlibC_usb_host_iso_data_in_2_dgtrace(p->iov.size);

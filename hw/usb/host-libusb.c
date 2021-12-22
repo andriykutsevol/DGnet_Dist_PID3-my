@@ -562,7 +562,7 @@ static USBHostIsoRing *usb_host_iso_find(USBHostDevice *s, USBEndpoint *ep)
     QTAILQ_FOREACH(ring, &s->isorings, next) {
         trace_hw_usb_hostlibC_usb_host_iso_find_1_dgtrace();
         if (ring->ep == ep) {
-            trace_hw_usb_hostlibC_usb_host_iso_find_2_dgtrace(ring->ep->nr, ring->ep->pid, ring->ep->type, ring->ep->ifnum, ring->ep->maxpacket_size, ring->ep->max_streams, ring->ep->pipeline, ring->ep->halted);
+            trace_hw_usb_hostlibC_usb_host_iso_find_2_dgtrace(ring->ep->nr, ring->ep->pid, ring->ep->type, ring->ep->ifnum, ring->ep->max_packet_size, ring->ep->max_streams, ring->ep->pipeline, ring->ep->halted);
             return ring;
         }
     }

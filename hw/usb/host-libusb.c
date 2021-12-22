@@ -555,18 +555,18 @@ static USBHostIsoRing *usb_host_iso_alloc(USBHostDevice *s, USBEndpoint *ep)
 static USBHostIsoRing *usb_host_iso_find(USBHostDevice *s, USBEndpoint *ep)
 {
     
-    hw_usb_hostlibC_usb_host_iso_find_0_dgtrace();
+    trace_hw_usb_hostlibC_usb_host_iso_find_0_dgtrace();
     
     USBHostIsoRing *ring;
 
     QTAILQ_FOREACH(ring, &s->isorings, next) {
-        hw_usb_hostlibC_usb_host_iso_find_1_dgtrace();
+        trace_hw_usb_hostlibC_usb_host_iso_find_1_dgtrace();
         if (ring->ep == ep) {
-            hw_usb_hostlibC_usb_host_iso_find_2_dgtrace();
+            trace_hw_usb_hostlibC_usb_host_iso_find_2_dgtrace();
             return ring;
         }
     }
-    hw_usb_hostlibC_usb_host_iso_find_3_dgtrace();
+    trace_hw_usb_hostlibC_usb_host_iso_find_3_dgtrace();
     return NULL;
 }
 

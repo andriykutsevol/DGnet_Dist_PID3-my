@@ -184,7 +184,7 @@ void usb_device_handle_data(USBDevice *dev, USBPacket *p)
         klass->handle_data(dev, p);
     }
 
-    hw_usb_busC_usb_device_handle_data_999_dgtrace();
+    trace_hw_usb_busC_usb_device_handle_data_999_dgtrace();
 }
 
 const char *usb_device_get_product_desc(USBDevice *dev)

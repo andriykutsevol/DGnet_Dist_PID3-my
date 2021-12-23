@@ -523,7 +523,7 @@ hw_usb_hostlibC_usb_host_iso_data_copy_5_dgtrace(int p_iov_size, int psize) "p->
 hw_usb_hostlibC_usb_host_iso_data_copy_6_dgtrace(int p_iov_size, int psize) "p->iov.size: %d, psize: %d"
 hw_usb_hostlibC_usb_host_iso_data_copy_999_dgtrace(int p_iov_size) "p->iov.size: %d"
 
-hw_usb_hostlibC_usb_host_iso_data_in_0_dgtrace(int p_iov_size, const char *libusbapiversion) "p->iov.size: %d, LIBUSB_API_VERSION: %s"
+hw_usb_hostlibC_usb_host_iso_data_in_0_dgtrace(int p_iov_size, int) "p->iov.size: %d, LIBUSB_API_VERSION: %d"
 hw_usb_hostlibC_usb_host_iso_data_in_00_dgtrace(void) ""
 hw_usb_hostlibC_usb_host_iso_data_in_01_dgtrace(int p_iov_size, int xfer_packet, int length) "p->iov.size: %d, xfer->packet: %d, xfer->xfer->iso_packet_desc[xfer->packet].length: %d"
 hw_usb_hostlibC_usb_host_iso_data_in_001_dgtrace(int p_iov_size, int xfer_packet, int length) "p->iov.size: %d, xfer->packet: %d, xfer->xfer->iso_packet_desc[xfer->packet].actual_length: %d"

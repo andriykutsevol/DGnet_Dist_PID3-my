@@ -77,7 +77,7 @@ hw_usb_busC_usb_new_0_dgtrace(const char *name) "name %s"
 
 hw_usb_busC_usb_device_handle_data_0_dgtrace(void) ""
 hw_usb_busC_usb_device_handle_data_1_dgtrace(void) ""
-hw_usb_busC_usb_device_handle_data_99_dgtrace(void) ""
+hw_usb_busC_usb_device_handle_data_999_dgtrace(void) ""
 
 
 # pcap.c
@@ -416,7 +416,8 @@ usb_host_set_config(int bus, int addr, int config) "dev %d:%d, config %d"
 usb_host_set_interface(int bus, int addr, int interface, int alt) "dev %d:%d, interface %d, alt %d"
 usb_host_claim_interface(int bus, int addr, int config, int interface) "dev %d:%d, config %d, if %d"
 usb_host_release_interface(int bus, int addr, int interface) "dev %d:%d, if %d"
-usb_host_req_control(int bus, int addr, void *p, int req, int value, int index) "dev %d:%d, packet %p, req 0x%x, value %d, index %d"
+
+trace_hw_usb_hostlibC_usb_host_handle_control_0_dgtrace(int bus, int addr, void *p, int req, int value, int index) "dev %d:%d, packet %p, req 0x%x, value %d, index %d"
 
 
 

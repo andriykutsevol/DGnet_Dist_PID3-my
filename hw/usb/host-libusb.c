@@ -513,6 +513,9 @@ usb_host_req_complete_iso(struct libusb_transfer *transfer)
 
 static USBHostIsoRing *usb_host_iso_alloc(USBHostDevice *s, USBEndpoint *ep)
 {
+    
+    trace_hw_usb_hostlibC_usb_host_iso_alloc_0_dgtrace();
+    
     USBHostIsoRing *ring = g_new0(USBHostIsoRing, 1);
     USBHostIsoXfer *xfer;
     /* FIXME: check interval (for now assume one xfer per frame) */
@@ -527,6 +530,9 @@ static USBHostIsoRing *usb_host_iso_alloc(USBHostDevice *s, USBEndpoint *ep)
     QTAILQ_INSERT_TAIL(&s->isorings, ring, next);
 
     for (i = 0; i < s->iso_urb_count; i++) {
+
+        trace_hw_usb_hostlibC_usb_host_iso_alloc_1_dgtrace();
+
         xfer = g_new0(USBHostIsoXfer, 1);
         xfer->ring = ring;
         xfer->xfer = libusb_alloc_transfer(packets);
@@ -543,6 +549,8 @@ static USBHostIsoRing *usb_host_iso_alloc(USBHostDevice *s, USBEndpoint *ep)
         xfer->xfer->num_iso_packets = packets;
         xfer->xfer->length = ring->ep->max_packet_size * packets;
         xfer->xfer->buffer = g_malloc0(xfer->xfer->length);
+
+        trace_hw_usb_hostlibC_usb_host_iso_alloc_2_dgtrace(xfer->xfer->iso_packet_desc[0].actual_length);
 
         QTAILQ_INSERT_TAIL(&ring->unused, xfer, next);
     }
@@ -680,6 +688,8 @@ static void usb_host_iso_data_in(USBHostDevice *s, USBPacket *p)
 
     if (xfer != NULL) {
         trace_hw_usb_hostlibC_usb_host_iso_data_in_01_dgtrace(p->iov.size, xfer->packet, xfer->xfer->iso_packet_desc[xfer->packet].length);
+        // At this point the data has bo be trensferred already.
+        // actual_length - Amount of data that was actually transferred.
         trace_hw_usb_hostlibC_usb_host_iso_data_in_001_dgtrace(p->iov.size, xfer->packet, xfer->xfer->iso_packet_desc[xfer->packet].actual_length);
         if (usb_host_iso_data_copy(xfer, p)) {
             trace_hw_usb_hostlibC_usb_host_iso_data_in_1_dgtrace(p->iov.size, xfer->xfer->iso_packet_desc[xfer->packet].length);

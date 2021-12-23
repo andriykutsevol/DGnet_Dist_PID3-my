@@ -556,6 +556,9 @@ hw_usb_hostlibC_usb_host_iso_find_1_dgtrace(void) ""
 hw_usb_hostlibC_usb_host_iso_find_2_dgtrace(int ring_ep_nr, int ring_ep_pid, int ring_ep_type, int ring_ep_ifnum, int ring_ep_maxpacket_size, int ring_ep_max_streams, int ring_ep_pipeline, int ring_ep_halted) "ring->ep->nr: %d, ring_ep_pid: %d, ring_ep_type: %d, ring_ep_ifnum: %d, ring_ep_maxpacket_size: %d, ring_ep_max_streams: %d, ring_ep_pipeline: %d, ring_ep_halted: %d"
 hw_usb_hostlibC_usb_host_iso_find_3_dgtrace(void) ""
 
+hw_usb_hostlibC_usb_host_iso_alloc_0_dgtrace(void) ""
+hw_usb_hostlibC_usb_host_iso_alloc_1_dgtrace(void) ""
+hw_usb_hostlibC_usb_host_iso_alloc_2_dgtrace(int actual_length) "actual_length: %d"
 
 # dev-serial.c
 usb_serial_reset(int bus, int addr) "dev %d:%u reset"

@@ -427,8 +427,7 @@ static void LIBUSB_CALL usb_host_req_complete_ctrl(struct libusb_transfer *xfer)
                 conf->bmAttributes &= ~USB_CFG_ATT_WAKEUP;
         }
     }
-    trace_usb_host_req_complete_1(s->bus_num, s->addr, r->p,
-                                r->p->status, r->p->actual_length);
+    //trace_usb_host_req_complete_1(s->bus_num, s->addr, r->p, r->p->status, r->p->actual_length);
     usb_generic_async_ctrl_complete(USB_DEVICE(s), r->p);
 
 out:
@@ -452,8 +451,7 @@ static void LIBUSB_CALL usb_host_req_complete_data(struct libusb_transfer *xfer)
     if (r->in && xfer->actual_length) {
         usb_packet_copy(r->p, r->buffer, xfer->actual_length);
     }
-    trace_usb_host_req_complete_2(s->bus_num, s->addr, r->p,
-                                r->p->status, r->p->actual_length);
+    //trace_usb_host_req_complete_2(s->bus_num, s->addr, r->p, r->p->status, r->p->actual_length);
     if (usb_host_use_combining(r->p->ep)) {
         usb_combined_input_packet_complete(USB_DEVICE(s), r->p);
     } else {
@@ -474,8 +472,7 @@ static void usb_host_req_abort(USBHostRequest *r)
 
     if (inflight) {
         r->p->status = USB_RET_NODEV;
-        trace_usb_host_req_complete_3(s->bus_num, s->addr, r->p,
-                                    r->p->status, r->p->actual_length);
+        //trace_usb_host_req_complete_3(s->bus_num, s->addr, r->p, r->p->status, r->p->actual_length);
         if (r->p->ep->nr == 0) {
             usb_generic_async_ctrl_complete(USB_DEVICE(s), r->p);
         } else {

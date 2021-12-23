@@ -417,7 +417,7 @@ usb_host_set_interface(int bus, int addr, int interface, int alt) "dev %d:%d, in
 usb_host_claim_interface(int bus, int addr, int config, int interface) "dev %d:%d, config %d, if %d"
 usb_host_release_interface(int bus, int addr, int interface) "dev %d:%d, if %d"
 
-trace_hw_usb_hostlibC_usb_host_handle_control_0_dgtrace(int bus, int addr, void *p, int req, int value, int index) "dev %d:%d, packet %p, req 0x%x, value %d, index %d"
+hw_usb_hostlibC_usb_host_handle_control_0_dgtrace(int bus, int addr, void *p, int req, int value, int index) "dev %d:%d, packet %p, req 0x%x, value %d, index %d"
 
 
 

@@ -183,6 +183,7 @@ static void usb_host_attach_kernel(USBHostDevice *s);
 # define HAVE_SUPER_PLUS 1
 #endif
 
+
 static const char *speed_name[] = {
     [LIBUSB_SPEED_UNKNOWN] = "?",
     [LIBUSB_SPEED_LOW]     = "1.5",
@@ -1618,6 +1619,9 @@ static void usb_host_handle_control(USBDevice *udev, USBPacket *p,
 
 static void usb_host_handle_data(USBDevice *udev, USBPacket *p)
 {
+    
+    trace_hw_usb_hostlibC_usb_host_handle_data_0_dgtrace();
+    
     USBHostDevice *s = USB_HOST_DEVICE(udev);
     USBHostRequest *r;
     size_t size;
@@ -1628,24 +1632,25 @@ static void usb_host_handle_data(USBDevice *udev, USBPacket *p)
         return;
     }
 
-    trace_usb_host_req_data(s->bus_num, s->addr, p,
+    trace_hw_usb_hostlibC_usb_host_handle_data_00_dgtrace(s->bus_num, s->addr, p,
                             p->pid == USB_TOKEN_IN,
                             p->ep->nr, p->iov.size);
 
     if (s->dh == NULL) {
         p->status = USB_RET_NODEV;
-        trace_usb_host_req_emulated(s->bus_num, s->addr, p, p->status);
+        trace_hw_usb_hostlibC_usb_host_handle_data_001_dgtrace(s->bus_num, s->addr, p, p->status);
         return;
     }
     if (p->ep->halted) {
         p->status = USB_RET_STALL;
-        trace_usb_host_req_emulated(s->bus_num, s->addr, p, p->status);
+        trace_hw_usb_hostlibC_usb_host_handle_data_002_dgtrace(s->bus_num, s->addr, p, p->status);
         return;
     }
 
     switch (usb_ep_get_type(udev, p->pid, p->ep->nr)) {
     case USB_ENDPOINT_XFER_BULK:
         size = usb_packet_size(p);
+        trace_hw_usb_hostlibC_usb_host_handle_data_1_dgtrace(size);
         r = usb_host_req_alloc(s, p, p->pid == USB_TOKEN_IN, size);
         if (!r->in) {
             usb_packet_copy(p, r->buffer, size);
@@ -1653,16 +1658,19 @@ static void usb_host_handle_data(USBDevice *udev, USBPacket *p)
         ep = p->ep->nr | (r->in ? USB_DIR_IN : 0);
         if (p->stream) {
 #ifdef HAVE_STREAMS
+            trace_hw_usb_hostlibC_usb_host_handle_data_2_dgtrace();
             libusb_fill_bulk_stream_transfer(r->xfer, s->dh, ep, p->stream,
                                              r->buffer, size,
                                              usb_host_req_complete_data, r,
                                              BULK_TIMEOUT);
 #else
+            trace_hw_usb_hostlibC_usb_host_handle_data_3_dgtrace();
             usb_host_req_free(r);
             p->status = USB_RET_STALL;
             return;
 #endif
         } else {
+            trace_hw_usb_hostlibC_usb_host_handle_data_4_dgtrace();
             libusb_fill_bulk_transfer(r->xfer, s->dh, ep,
                                       r->buffer, size,
                                       usb_host_req_complete_data, r,
@@ -1670,10 +1678,13 @@ static void usb_host_handle_data(USBDevice *udev, USBPacket *p)
         }
         break;
     case USB_ENDPOINT_XFER_INT:
+        trace_hw_usb_hostlibC_usb_host_handle_data_5_dgtrace();
         r = usb_host_req_alloc(s, p, p->pid == USB_TOKEN_IN, p->iov.size);
         if (!r->in) {
+            trace_hw_usb_hostlibC_usb_host_handle_data_5_1_dgtrace();
             usb_packet_copy(p, r->buffer, p->iov.size);
         }
+        trace_hw_usb_hostlibC_usb_host_handle_data_5_2_dgtrace();
         ep = p->ep->nr | (r->in ? USB_DIR_IN : 0);
         libusb_fill_interrupt_transfer(r->xfer, s->dh, ep,
                                        r->buffer, p->iov.size,
@@ -1681,32 +1692,32 @@ static void usb_host_handle_data(USBDevice *udev, USBPacket *p)
                                        INTR_TIMEOUT);
         break;
     case USB_ENDPOINT_XFER_ISOC:
-        trace_usb_host_req_complete_5_1(s->bus_num, s->addr, p,
+        trace_hw_usb_hostlibC_usb_host_handle_data_6_1(s->bus_num, s->addr, p,
                                     p->status, p->actual_length);
         if (p->pid == USB_TOKEN_IN) {
-            trace_usb_host_req_complete_5_2(s->bus_num, s->addr, p,
+            trace_hw_usb_hostlibC_usb_host_handle_data_6_2(s->bus_num, s->addr, p,
                                         p->status, p->actual_length);            
             usb_host_iso_data_in(s, p);
 
-            trace_usb_host_req_complete_5_3(s->bus_num, s->addr, p,
+            trace_hw_usb_hostlibC_usb_host_handle_data_6_3(s->bus_num, s->addr, p,
                                         p->status, p->actual_length); 
 
         } else {
-            trace_usb_host_req_complete_5_4(s->bus_num, s->addr, p,
+            trace_hw_usb_hostlibC_usb_host_handle_data_6_4(s->bus_num, s->addr, p,
                                         p->status, p->actual_length);
 
             usb_host_iso_data_out(s, p);
 
-            trace_usb_host_req_complete_5_5(s->bus_num, s->addr, p,
+            trace_hw_usb_hostlibC_usb_host_handle_data_6_5(s->bus_num, s->addr, p,
                                         p->status, p->actual_length);
 
         }
-        trace_usb_host_req_complete_5_6(s->bus_num, s->addr, p,
+        trace_hw_usb_hostlibC_usb_host_handle_data_6_6(s->bus_num, s->addr, p,
                                     p->status, p->actual_length);
         return;
     default:
         p->status = USB_RET_STALL;
-            trace_usb_host_req_complete_6(s->bus_num, s->addr, p,
+            trace_hw_usb_hostlibC_usb_host_handle_data_7(s->bus_num, s->addr, p,
                                         p->status, p->actual_length);
         return;
     }
@@ -1714,7 +1725,7 @@ static void usb_host_handle_data(USBDevice *udev, USBPacket *p)
     rc = libusb_submit_transfer(r->xfer);
     if (rc != 0) {
         p->status = USB_RET_NODEV;
-        trace_usb_host_req_complete_7(s->bus_num, s->addr, p,
+        trace_hw_usb_hostlibC_usb_host_handle_data_8(s->bus_num, s->addr, p,
                                     p->status, p->actual_length);
         if (rc == LIBUSB_ERROR_NO_DEVICE) {
             usb_host_nodev(s);
@@ -1722,7 +1733,7 @@ static void usb_host_handle_data(USBDevice *udev, USBPacket *p)
         return;
     }
 
-    trace_usb_host_req_complete_8(s->bus_num, s->addr, p,
+    trace_hw_usb_hostlibC_usb_host_handle_data_999(s->bus_num, s->addr, p,
                                         p->status, p->actual_length);    
 
     p->status = USB_RET_ASYNC;

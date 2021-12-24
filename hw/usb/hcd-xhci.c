@@ -1743,6 +1743,7 @@ static int xhci_submit(XHCIState *xhci, XHCITransfer *xfer, XHCIEPContext *epctx
     switch(epctx->type) {
     case ET_INTR_OUT:
     case ET_INTR_IN:
+        trace_hw_usb_hostlibC_xhci_submit_1_dgtrace();
         xfer->pkts = 0;
         xfer->iso_xfer = false;
         xfer->timed_xfer = true;
@@ -1755,12 +1756,14 @@ static int xhci_submit(XHCIState *xhci, XHCITransfer *xfer, XHCIEPContext *epctx
         break;
     case ET_BULK_OUT:
     case ET_BULK_IN:
+        trace_hw_usb_hostlibC_xhci_submit_2_dgtrace();
         xfer->pkts = 0;
         xfer->iso_xfer = false;
         xfer->timed_xfer = false;
         break;
     case ET_ISO_OUT:
     case ET_ISO_IN:
+        trace_hw_usb_hostlibC_xhci_submit_3_dgtrace();
         xfer->pkts = 1;
         xfer->iso_xfer = true;
         xfer->timed_xfer = true;
@@ -1772,6 +1775,7 @@ static int xhci_submit(XHCIState *xhci, XHCITransfer *xfer, XHCIEPContext *epctx
         }
         break;
     default:
+        trace_hw_usb_hostlibC_xhci_submit_4_dgtrace();
         trace_usb_xhci_unimplemented("endpoint type", epctx->type);
         return -1;
     }
@@ -1779,7 +1783,7 @@ static int xhci_submit(XHCIState *xhci, XHCITransfer *xfer, XHCIEPContext *epctx
     if (xhci_setup_packet(xfer) < 0) {
         return -1;
     }
-    trace_hw_usb_hcdxhciC_xhci_submit_1_dgtrace("call 'usb_handle_packet'");
+    trace_hw_usb_hcdxhciC_xhci_submit_5_dgtrace("call 'usb_handle_packet'");
     usb_handle_packet(xfer->packet.ep->dev, &xfer->packet);
     xhci_try_complete_packet(xfer);
     trace_hw_usb_hcdxhciC_xhci_submit_999_dgtrace();

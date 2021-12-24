@@ -1636,8 +1636,7 @@ static int xhci_fire_ctl_transfer(XHCIState *xhci, XHCITransfer *xfer)
     trb_setup = &xfer->trbs[0];
     trb_status = &xfer->trbs[xfer->trb_count-1];
 
-    trace_usb_xhci_xfer_start(xfer, xfer->epctx->slotid,
-                              xfer->epctx->epid, xfer->streamid);
+    trace_hw_usb_hcdxhciC_xhci_fire_ctl_transfer_0_dgtrace(xfer, xfer->epctx->slotid, xfer->epctx->epid, xfer->streamid);
 
     /* at most one Event Data TRB allowed after STATUS */
     if (TRB_TYPE(*trb_status) == TR_EVDATA && xfer->trb_count > 2) {
@@ -1676,9 +1675,10 @@ static int xhci_fire_ctl_transfer(XHCIState *xhci, XHCITransfer *xfer)
     }
     xfer->packet.parameter = trb_setup->parameter;
 
-    trace_hw_usb_hcdxhciC_xhci_fire_ctl_transfer_0_dgtrace("call 'usb_handle_packet'");
+    trace_hw_usb_hcdxhciC_xhci_fire_ctl_transfer_1_dgtrace("call 'usb_handle_packet'");
     usb_handle_packet(xfer->packet.ep->dev, &xfer->packet);
     xhci_try_complete_packet(xfer);
+    trace_hw_usb_hcdxhciC_xhci_fire_ctl_transfer_999_dgtrace();
     return 0;
 }
 
@@ -1734,6 +1734,8 @@ static int xhci_submit(XHCIState *xhci, XHCITransfer *xfer, XHCIEPContext *epctx
 {
     uint64_t mfindex;
 
+    trace_hw_usb_hostlibC_xhci_submit_0_dgtrace();
+
     DPRINTF("xhci_submit(slotid=%d,epid=%d)\n", epctx->slotid, epctx->epid);
 
     xfer->in_xfer = epctx->type>>2;
@@ -1777,17 +1779,23 @@ static int xhci_submit(XHCIState *xhci, XHCITransfer *xfer, XHCIEPContext *epctx
     if (xhci_setup_packet(xfer) < 0) {
         return -1;
     }
-    trace_hw_usb_hcdxhciC_xhci_submit_0_dgtrace("call 'usb_handle_packet'");
+    trace_hw_usb_hcdxhciC_xhci_submit_1_dgtrace("call 'usb_handle_packet'");
     usb_handle_packet(xfer->packet.ep->dev, &xfer->packet);
     xhci_try_complete_packet(xfer);
+    trace_hw_usb_hcdxhciC_xhci_submit_999_dgtrace();
     return 0;
 }
 
 static int xhci_fire_transfer(XHCIState *xhci, XHCITransfer *xfer, XHCIEPContext *epctx)
 {
-    trace_usb_xhci_xfer_start(xfer, xfer->epctx->slotid,
+    trace_hw_usb_hcdxhciC_xhci_fire_transfer_0_dgnet(xfer, xfer->epctx->slotid,
                               xfer->epctx->epid, xfer->streamid);
-    return xhci_submit(xhci, xfer, epctx);
+
+    int ret_val = xhci_submit(xhci, xfer, epctx);
+
+    trace_hw_usb_hcdxhciC_xhci_fire_transfer_999_dgnet(ret_val);
+
+    return ret_val;
 }
 
 static void xhci_kick_ep(XHCIState *xhci, unsigned int slotid,

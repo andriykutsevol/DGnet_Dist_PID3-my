@@ -254,7 +254,7 @@ usb_xhci_ep_kick(uint32_t slotid, uint32_t epid, uint32_t streamid) "slotid %d, 
 usb_xhci_ep_stop(uint32_t slotid, uint32_t epid) "slotid %d, epid %d"
 usb_xhci_ep_reset(uint32_t slotid, uint32_t epid) "slotid %d, epid %d"
 usb_xhci_ep_state(uint32_t slotid, uint32_t epid, const char *os, const char *ns) "slotid %d, epid %d, %s -> %s"
-usb_xhci_xfer_start(void *xfer, uint32_t slotid, uint32_t epid, uint32_t streamid) "%p: slotid %d, epid %d, streamid %d"
+
 usb_xhci_xfer_async(void *xfer) "%p"
 usb_xhci_xfer_nak(void *xfer) "%p"
 usb_xhci_xfer_retry(void *xfer) "%p"
@@ -263,8 +263,20 @@ usb_xhci_xfer_error(void *xfer, uint32_t ret) "%p: ret %d"
 usb_xhci_unimplemented(const char *item, int nr) "%s (0x%x)"
 usb_xhci_enforced_limit(const char *item) "%s"
 
-hw_usb_hcdxhciC_xhci_fire_ctl_transfer_0_dgtrace(const char *msg) "msg: %s"
-hw_usb_hcdxhciC_xhci_submit_0_dgtrace(const char *msg) "msg: %s"
+hw_usb_hostlibC_xhci_submit_0_dgtrace(void) ""
+hw_usb_hcdxhciC_xhci_submit_1_dgtrace(const char *msg) "msg: %s"
+hw_usb_hostlibC_xhci_submit_999_dgtrace(void) ""
+
+
+hw_usb_hcdxhciC_xhci_fire_transfer_0_dgnet(void *xfer, uint32_t slotid, uint32_t epid, uint32_t streamid) "%p: slotid %d, epid %d, streamid %d"
+hw_usb_hcdxhciC_xhci_fire_transfer_999_dgnet(int ret_val) "rxhci_submit ret_val: %d"
+
+
+hw_usb_hcdxhciC_xhci_fire_ctl_transfer_0_dgtrace(void *xfer, uint32_t slotid, uint32_t epid, uint32_t streamid) "%p: slotid %d, epid %d, streamid %d"
+hw_usb_hcdxhciC_xhci_fire_ctl_transfer_1_dgtrace(const char *msg) "msg: %s"
+hw_usb_hcdxhciC_xhci_fire_ctl_transfer_999_dgtrace(void) ""
+
+
 hw_usb_hcdxhciC_xhci_kick_epctx_0_dgtrace(const char *msg) "msg: %s"
 hw_usb_hcdxhciC_xhci_kick_epctx_1_dgtrace(const char *msg) "msg: %s"
 hw_usb_hcdxhciC_xhci_kick_ep_0_dgtrace(const char *msg) "msg: %s"
@@ -559,6 +571,10 @@ hw_usb_hostlibC_usb_host_iso_find_3_dgtrace(void) ""
 hw_usb_hostlibC_usb_host_iso_alloc_0_dgtrace(void) ""
 hw_usb_hostlibC_usb_host_iso_alloc_1_dgtrace(void) ""
 hw_usb_hostlibC_usb_host_iso_alloc_2_dgtrace(int actual_length) "actual_length: %d"
+
+
+
+
 
 # dev-serial.c
 usb_serial_reset(int bus, int addr) "dev %d:%u reset"

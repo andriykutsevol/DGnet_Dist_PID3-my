@@ -263,11 +263,12 @@ usb_xhci_xfer_error(void *xfer, uint32_t ret) "%p: ret %d"
 usb_xhci_unimplemented(const char *item, int nr) "%s (0x%x)"
 usb_xhci_enforced_limit(const char *item) "%s"
 
-hw_usb_hostlibC_xhci_submit_0_dgtrace(void) ""
-hw_usb_hostlibC_xhci_submit_1_dgtrace(void) ""
-hw_usb_hostlibC_xhci_submit_2_dgtrace(void) ""
-hw_usb_hostlibC_xhci_submit_3_dgtrace(void) ""
-hw_usb_hostlibC_xhci_submit_4_dgtrace(void) ""
+hw_usb_hcdxhciC_xhci_submit_0_dgtrace(void) ""
+hw_usb_hcdxhciC_xhci_submit_1_dgtrace(void) ""
+hw_usb_hcdxhciC_xhci_submit_2_dgtrace(void) ""
+hw_usb_hcdxhciC_xhci_submit_3_dgtrace(void) ""
+hw_usb_hcdxhciC_xhci_submit_4_dgtrace(void) ""
+
 hw_usb_hcdxhciC_xhci_submit_5_dgtrace(const char *msg) "msg: %s"
 hw_usb_hcdxhciC_xhci_submit_999_dgtrace(void) ""
 

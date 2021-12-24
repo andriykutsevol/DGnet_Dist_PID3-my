@@ -1771,6 +1771,7 @@ static int xhci_submit(XHCIState *xhci, XHCITransfer *xfer, XHCIEPContext *epctx
         xhci_calc_iso_kick(xhci, xfer, epctx, mfindex);
         xhci_check_intr_iso_kick(xhci, xfer, epctx, mfindex);
         if (xfer->running_retry) {
+            trace_hw_usb_hcdxhciC_xhci_submit_3_1_dgtrace();
             return -1;
         }
         break;
@@ -1781,6 +1782,7 @@ static int xhci_submit(XHCIState *xhci, XHCITransfer *xfer, XHCIEPContext *epctx
     }
 
     if (xhci_setup_packet(xfer) < 0) {
+        trace_hw_usb_hcdxhciC_xhci_submit_4_2_dgtrace();
         return -1;
     }
     trace_hw_usb_hcdxhciC_xhci_submit_5_dgtrace("call 'usb_handle_packet'");

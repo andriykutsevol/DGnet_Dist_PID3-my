@@ -550,9 +550,9 @@ static USBHostIsoRing *usb_host_iso_alloc(USBHostDevice *s, USBEndpoint *ep)
         xfer->xfer->length = ring->ep->max_packet_size * packets;
         xfer->xfer->buffer = g_malloc0(xfer->xfer->length);
 
-        int iso_packet_desc_size = sizeof(xfer->xfer->iso_packet_desc) / sizeof(xfer->xfer->iso_packet_desc[0]);
-
-        trace_hw_usb_hostlibC_usb_host_iso_alloc_2_dgtrace(iso_packet_desc_size, xfer->xfer->iso_packet_desc[0].actual_length);
+        // int iso_packet_desc_size = sizeof(xfer->xfer->iso_packet_desc) / sizeof(xfer->xfer->iso_packet_desc[0]);
+        // trace_hw_usb_hostlibC_usb_host_iso_alloc_2_dgtrace(iso_packet_desc_size, xfer->xfer->iso_packet_desc[0].actual_length);
+        trace_hw_usb_hostlibC_usb_host_iso_alloc_2_dgtrace(12345, xfer->xfer->iso_packet_desc[0].actual_length);
 
         QTAILQ_INSERT_TAIL(&ring->unused, xfer, next);
     }

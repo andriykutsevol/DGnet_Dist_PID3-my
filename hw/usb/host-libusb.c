@@ -550,7 +550,9 @@ static USBHostIsoRing *usb_host_iso_alloc(USBHostDevice *s, USBEndpoint *ep)
         xfer->xfer->length = ring->ep->max_packet_size * packets;
         xfer->xfer->buffer = g_malloc0(xfer->xfer->length);
 
-        trace_hw_usb_hostlibC_usb_host_iso_alloc_2_dgtrace(xfer->xfer->iso_packet_desc[0].actual_length);
+        int iso_packet_desc_size = sizeof(xfer->xfer->iso_packet_desc) / sizeof(xfer->xfer->iso_packet_desc[0]);
+
+        trace_hw_usb_hostlibC_usb_host_iso_alloc_2_dgtrace(iso_packet_desc_size, xfer->xfer->iso_packet_desc[0].actual_length);
 
         QTAILQ_INSERT_TAIL(&ring->unused, xfer, next);
     }
@@ -1063,7 +1065,8 @@ static int usb_host_open(USBHostDevice *s, libusb_device *dev, int hostfd)
             libusb_speed = LIBUSB_SPEED_SUPER;
             break;
         case 6: /* super plus */
-        trace_hw_usb_hostlibC_usb_host_open_15_dgtrace();
+            trace_hw_usb_hostlibC_usb_host_open_15_dgtrace();
+            break;
 #ifdef HAVE_SUPER_PLUS
             trace_hw_usb_hostlibC_usb_host_open_16_dgtrace();
             libusb_speed = LIBUSB_SPEED_SUPER_PLUS;

@@ -583,8 +583,8 @@ hw_usb_hostlibC_usb_host_iso_alloc_1_dgtrace(void) ""
 hw_usb_hostlibC_usb_host_iso_alloc_2_dgtrace(int iso_packet_desc_size, int actual_length) "iso_packet_desc_size: %d, actual_length: %d"
 
 hw_usb_hostlibC_usb_host_req_complete_iso_0_dgtrace(void) ""
-hw_usb_hostlibC_usb_host_req_complete_iso_0_dgtrace(void) ""
-hw_usb_hostlibC_usb_host_req_complete_iso_0_dgtrace(void) ""
+hw_usb_hostlibC_usb_host_req_complete_iso_1_dgtrace(void) ""
+hw_usb_hostlibC_usb_host_req_complete_iso_999_dgtrace(void) ""
 
 
 

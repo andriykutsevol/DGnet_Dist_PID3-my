@@ -669,7 +669,6 @@ static bool usb_host_iso_data_copy(USBHostIsoXfer *xfer, USBPacket *p)
 static void usb_host_iso_data_in(USBHostDevice *s, USBPacket *p)
 {
     
-    
     trace_hw_usb_hostlibC_usb_host_iso_data_in_0_dgtrace(p->iov.size, LIBUSB_API_VERSION);
 
     USBHostIsoRing *ring;

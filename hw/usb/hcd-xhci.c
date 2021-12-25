@@ -1828,6 +1828,7 @@ static void xhci_kick_ep(XHCIState *xhci, unsigned int slotid,
     }
     trace_hw_usb_hcdxhciC_xhci_kick_ep_0_dgtrace("call xhci_kick_epctx()");
     xhci_kick_epctx(epctx, streamid);
+    trace_hw_usb_hcdxhciC_xhci_kick_ep_999_dgtrace();
 }
 
 static bool xhci_slot_ok(XHCIState *xhci, int slotid)
@@ -1839,6 +1840,9 @@ static bool xhci_slot_ok(XHCIState *xhci, int slotid)
 
 static void xhci_kick_epctx(XHCIEPContext *epctx, unsigned int streamid)
 {
+    
+    trace_hw_usb_hcdxhciC_xhci_kick_epctx_0_dgtrace();
+    
     XHCIState *xhci = epctx->xhci;
     XHCIStreamContext *stctx = NULL;
     XHCITransfer *xfer;
@@ -1878,7 +1882,7 @@ static void xhci_kick_epctx(XHCIEPContext *epctx, unsigned int streamid)
             if (xhci_setup_packet(xfer) < 0) {
                 return;
             }
-            trace_hw_usb_hcdxhciC_xhci_kick_epctx_0_dgtrace("call usb_handle_packet()");
+            trace_hw_usb_hcdxhciC_xhci_kick_epctx_1_dgtrace("call usb_handle_packet()");
             usb_handle_packet(xfer->packet.ep->dev, &xfer->packet);
             assert(xfer->packet.status != USB_RET_NAK);
             xhci_try_complete_packet(xfer);
@@ -1887,7 +1891,7 @@ static void xhci_kick_epctx(XHCIEPContext *epctx, unsigned int streamid)
             if (xhci_setup_packet(xfer) < 0) {
                 return;
             }
-            trace_hw_usb_hcdxhciC_xhci_kick_epctx_1_dgtrace("call usb_handle_packet()");
+            trace_hw_usb_hcdxhciC_xhci_kick_epctx_2_dgtrace("call usb_handle_packet()");
             usb_handle_packet(xfer->packet.ep->dev, &xfer->packet);
             if (xfer->packet.status == USB_RET_NAK) {
                 xhci_xfer_unmap(xfer);

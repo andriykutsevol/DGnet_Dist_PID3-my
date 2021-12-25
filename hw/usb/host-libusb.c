@@ -489,9 +489,11 @@ static void usb_host_req_abort(USBHostRequest *r)
 static void LIBUSB_CALL
 usb_host_req_complete_iso(struct libusb_transfer *transfer)
 {
+    trace_hw_usb_hostlibC_usb_host_req_complete_iso_0_dgtrace();
     USBHostIsoXfer *xfer = transfer->user_data;
 
     if (!xfer) {
+        trace_hw_usb_hostlibC_usb_host_req_complete_iso_1_dgtrace();
         /* USBHostIsoXfer released while inflight */
         g_free(transfer->buffer);
         libusb_free_transfer(transfer);
@@ -509,6 +511,7 @@ usb_host_req_complete_iso(struct libusb_transfer *transfer)
     } else {
         QTAILQ_INSERT_TAIL(&xfer->ring->unused, xfer, next);
     }
+    trace_hw_usb_hostlibC_usb_host_req_complete_iso_999_dgtrace();
 }
 
 static USBHostIsoRing *usb_host_iso_alloc(USBHostDevice *s, USBEndpoint *ep)

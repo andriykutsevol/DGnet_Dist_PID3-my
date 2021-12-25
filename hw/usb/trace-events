@@ -291,7 +291,10 @@ hw_usb_hcdxhciC_xhci_kick_ep_0_dgtrace(const char *msg) "msg: %s"
 hw_usb_hcdxhciC_xhci_kick_ep_999_dgtrace(void) ""
 
 hw_usb_hcdxhciC_xhci_doorbell_write_0_dgtrace(const char *msg) "msg: %s"
+hw_usb_hcdxhciC_xhci_doorbell_write_999_dgtrace(void) ""
+
 hw_usb_hcdxhciC_xhci_wakeup_endpoint_0_dgtrace(const char *msg) "msg: %s"
+hw_usb_hcdxhciC_xhci_wakeup_endpoint_999_dgtrace(void) ""
 
 hw_usb_hcdxhciC_usb_xhci_realize_0_dgtrace(char *msg) "DeviceState: canonical_path: %s"
 hw_usb_hcdxhciC_usb_xhci_realize_1_dgtrace(void) ""

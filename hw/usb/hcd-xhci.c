@@ -3136,6 +3136,7 @@ static void xhci_doorbell_write(void *ptr, hwaddr reg,
         } else {
             trace_hw_usb_hcdxhciC_xhci_doorbell_write_0_dgtrace("call xhci_kick_ep()");
             xhci_kick_ep(xhci, reg, epid, streamid);
+            trace_hw_usb_hcdxhciC_xhci_doorbell_write_999_dgtrace();
         }
     }
 }
@@ -3291,6 +3292,7 @@ static void xhci_wakeup_endpoint(USBBus *bus, USBEndpoint *ep,
     }
     trace_hw_usb_hcdxhciC_xhci_wakeup_endpoint_0_dgtrace("call xhci_kick_ep()");
     xhci_kick_ep(xhci, slotid, xhci_find_epid(ep), stream);
+    trace_hw_usb_hcdxhciC_xhci_wakeup_endpoint_999_dgtrace();
 }
 
 static USBBusOps xhci_bus_ops = {

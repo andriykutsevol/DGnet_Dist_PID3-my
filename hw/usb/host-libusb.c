@@ -427,7 +427,7 @@ static void LIBUSB_CALL usb_host_req_complete_ctrl(struct libusb_transfer *xfer)
                 conf->bmAttributes &= ~USB_CFG_ATT_WAKEUP;
         }
     }
-    trace_usb_host_req_complete_1(s->bus_num, s->addr, r->p, r->p->status, r->p->actual_length);
+    //trace_usb_host_req_complete_1(s->bus_num, s->addr, r->p, r->p->status, r->p->actual_length);
     usb_generic_async_ctrl_complete(USB_DEVICE(s), r->p);
 
 out:

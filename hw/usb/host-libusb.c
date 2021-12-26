@@ -451,7 +451,7 @@ static void LIBUSB_CALL usb_host_req_complete_data(struct libusb_transfer *xfer)
     if (r->in && xfer->actual_length) {
         usb_packet_copy(r->p, r->buffer, xfer->actual_length);
     }
-    trace_usb_host_req_complete_2(s->bus_num, s->addr, r->p, r->p->status, r->p->actual_length);
+    //trace_usb_host_req_complete_2(s->bus_num, s->addr, r->p, r->p->status, r->p->actual_length);
     if (usb_host_use_combining(r->p->ep)) {
         usb_combined_input_packet_complete(USB_DEVICE(s), r->p);
     } else {

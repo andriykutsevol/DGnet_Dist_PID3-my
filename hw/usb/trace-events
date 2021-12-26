@@ -286,6 +286,8 @@ hw_usb_hcdxhciC_xhci_fire_ctl_transfer_999_dgtrace(void) ""
 hw_usb_hcdxhciC_xhci_kick_epctx_0_dgtrace(void) ""
 hw_usb_hcdxhciC_xhci_kick_epctx_1_dgtrace(const char *msg) "msg: %s"
 hw_usb_hcdxhciC_xhci_kick_epctx_2_dgtrace(const char *msg) "msg: %s"
+hw_usb_hcdxhciC_xhci_kick_epctx_3_dgtrace(void) ""
+hw_usb_hcdxhciC_xhci_kick_epctx_4_dgtrace(int length) "xhci_ring_chain_length: %d"
 
 hw_usb_hcdxhciC_xhci_kick_ep_0_dgtrace(const char *msg) "msg: %s"
 hw_usb_hcdxhciC_xhci_kick_ep_999_dgtrace(void) ""
@@ -295,6 +297,13 @@ hw_usb_hcdxhciC_xhci_doorbell_write_999_dgtrace(void) ""
 
 hw_usb_hcdxhciC_xhci_wakeup_endpoint_0_dgtrace(const char *msg) "msg: %s"
 hw_usb_hcdxhciC_xhci_wakeup_endpoint_999_dgtrace(void) ""
+
+
+hw_usb_hcdxhciC_xhci_ring_fetch_0_dgtrace(void) ""
+hw_usb_hcdxhciC_xhci_ring_fetch_1_dgtrace(void) ""
+hw_usb_hcdxhciC_xhci_ring_fetch_999_1_dgtrace(void) ""
+hw_usb_hcdxhciC_xhci_ring_fetch_999_2_dgtrace(void) ""
+hw_usb_hcdxhciC_xhci_ring_fetch_999_3_dgtrace(void) ""
 
 hw_usb_hcdxhciC_usb_xhci_realize_0_dgtrace(char *msg) "DeviceState: canonical_path: %s"
 hw_usb_hcdxhciC_usb_xhci_realize_1_dgtrace(void) ""

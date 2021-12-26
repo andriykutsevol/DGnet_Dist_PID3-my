@@ -671,9 +671,13 @@ static void xhci_ring_init(XHCIState *xhci, XHCIRing *ring,
 static TRBType xhci_ring_fetch(XHCIState *xhci, XHCIRing *ring, XHCITRB *trb,
                                dma_addr_t *addr)
 {
+
+    trace_hw_usb_hcdxhciC_xhci_ring_fetch_0_dgtrace();
+
     uint32_t link_cnt = 0;
 
     while (1) {
+        trace_hw_usb_hcdxhciC_xhci_ring_fetch_1_dgtrace();
         TRBType type;
         dma_memory_read(xhci->as, ring->dequeue, trb, TRB_SIZE);
         trb->addr = ring->dequeue;
@@ -686,6 +690,7 @@ static TRBType xhci_ring_fetch(XHCIState *xhci, XHCIRing *ring, XHCITRB *trb,
                                  trb->parameter, trb->status, trb->control);
 
         if ((trb->control & TRB_C) != ring->ccs) {
+            trace_hw_usb_hcdxhciC_xhci_ring_fetch_999_1_dgtrace();
             return 0;
         }
 
@@ -696,10 +701,12 @@ static TRBType xhci_ring_fetch(XHCIState *xhci, XHCIRing *ring, XHCITRB *trb,
                 *addr = ring->dequeue;
             }
             ring->dequeue += TRB_SIZE;
+            trace_hw_usb_hcdxhciC_xhci_ring_fetch_999_2_dgtrace();
             return type;
         } else {
             if (++link_cnt > TRB_LINK_LIMIT) {
                 trace_usb_xhci_enforced_limit("trb-link");
+                trace_hw_usb_hcdxhciC_xhci_ring_fetch_999_3_dgtrace();
                 return 0;
             }
             ring->dequeue = xhci_mask64(trb->parameter);
@@ -1933,6 +1940,7 @@ static void xhci_kick_epctx(XHCIEPContext *epctx, unsigned int streamid)
 
     epctx->kick_active++;
     while (1) {
+        trace_hw_usb_hcdxhciC_xhci_kick_epctx_3_dgtrace();
         length = xhci_ring_chain_length(xhci, ring);
         if (length <= 0) {
             if (epctx->type == ET_ISO_OUT || epctx->type == ET_ISO_IN) {
@@ -1953,6 +1961,7 @@ static void xhci_kick_epctx(XHCIEPContext *epctx, unsigned int streamid)
         }
 
         for (i = 0; i < length; i++) {
+            trace_hw_usb_hcdxhciC_xhci_kick_epctx_4_dgtrace(length);
             TRBType type;
             type = xhci_ring_fetch(xhci, ring, &xfer->trbs[i], NULL);
             if (!type) {

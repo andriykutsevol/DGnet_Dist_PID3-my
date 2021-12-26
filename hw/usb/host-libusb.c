@@ -492,10 +492,6 @@ usb_host_req_complete_iso(struct libusb_transfer *transfer)
     trace_hw_usb_hostlibC_usb_host_req_complete_iso_0_dgtrace();
     USBHostIsoXfer *xfer = transfer->user_data;
 
-    //trace_hw_usb_hostlibC_usb_host_req_complete_iso_00_dgtrace(xfer->copy_complete, xfer->xfer->length, xfer->xfer->actual_length);
-    trace_hw_usb_hostlibC_usb_host_req_complete_iso_00_dgtrace(xfer->packet);
-    //trace_hw_usb_hostlibC_usb_host_req_complete_iso_01_dgtrace(xfer->packet, xfer->xfer->iso_packet_desc[xfer->packet].actual_length);
-
     if (!xfer) {
         trace_hw_usb_hostlibC_usb_host_req_complete_iso_1_dgtrace();
         /* USBHostIsoXfer released while inflight */
@@ -505,6 +501,11 @@ usb_host_req_complete_iso(struct libusb_transfer *transfer)
     }
 
     QTAILQ_REMOVE(&xfer->ring->inflight, xfer, next);
+
+    //trace_hw_usb_hostlibC_usb_host_req_complete_iso_00_dgtrace(xfer->copy_complete, xfer->xfer->length, xfer->xfer->actual_length);
+    trace_hw_usb_hostlibC_usb_host_req_complete_iso_00_dgtrace(xfer->packet);
+    //trace_hw_usb_hostlibC_usb_host_req_complete_iso_01_dgtrace(xfer->packet, xfer->xfer->iso_packet_desc[xfer->packet].actual_length);
+
     if (QTAILQ_EMPTY(&xfer->ring->inflight)) {
         USBHostDevice *s = xfer->ring->host;
         trace_usb_host_iso_stop(s->bus_num, s->addr, xfer->ring->ep->nr);

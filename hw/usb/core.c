@@ -120,6 +120,8 @@ void usb_wakeup(USBEndpoint *ep, unsigned int stream)
     USBDevice *dev = ep->dev;
     USBBus *bus = usb_bus_from_device(dev);
 
+    trace_hw_usb_coreC_usb_wakeup_0_dgtrace();
+
     if (!phase_check(PHASE_MACHINE_READY)) {
         /*
          * This is machine init cold plug.  No need to wakeup anyone,
@@ -134,6 +136,7 @@ void usb_wakeup(USBEndpoint *ep, unsigned int stream)
     if (bus->ops->wakeup_endpoint) {
         bus->ops->wakeup_endpoint(bus, ep, stream);
     }
+    trace_hw_usb_coreC_usb_wakeup_999_dgtrace();
 }
 
 /**********************/

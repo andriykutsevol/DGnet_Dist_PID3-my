@@ -492,6 +492,8 @@ usb_host_req_complete_iso(struct libusb_transfer *transfer)
     trace_hw_usb_hostlibC_usb_host_req_complete_iso_0_dgtrace();
     USBHostIsoXfer *xfer = transfer->user_data;
 
+    
+
     if (!xfer) {
         trace_hw_usb_hostlibC_usb_host_req_complete_iso_1_dgtrace();
         /* USBHostIsoXfer released while inflight */

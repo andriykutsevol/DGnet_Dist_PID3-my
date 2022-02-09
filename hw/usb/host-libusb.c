@@ -884,6 +884,8 @@ static void usb_host_speed_compat(USBHostDevice *s)
 
 static void usb_host_ep_update(USBHostDevice *s)
 {
+    trace_hw_usb_hostlibC_usb_host_ep_update_0_dgtrace();
+    
     static const char *tname[] = {
         [USB_ENDPOINT_XFER_CONTROL] = "control",
         [USB_ENDPOINT_XFER_ISOC]    = "isoc",
@@ -967,6 +969,9 @@ static void usb_host_ep_update(USBHostDevice *s)
     }
 
     libusb_free_config_descriptor(conf);
+
+    trace_hw_usb_hostlibC_usb_host_ep_update_999_dgtrace();
+
 }
 
 static int usb_host_open(USBHostDevice *s, libusb_device *dev, int hostfd)

@@ -437,6 +437,7 @@ out:
     }
 }
 
+
 static void LIBUSB_CALL usb_host_req_complete_data(struct libusb_transfer *xfer)
 {
     USBHostRequest *r = xfer->user_data;

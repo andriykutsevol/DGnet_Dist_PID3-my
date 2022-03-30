@@ -892,7 +892,6 @@ static void usb_host_ep_update(USBHostDevice *s)
             libusb_get_ss_endpoint_companion_descriptor(NULL, endp, &endp_ss_comp);
             uint16_t wBytesPerInterval = 0;
             if (endp_ss_comp){
-                trace_hw_usb_hostlibC_usb_host_ep_update_7_2_dgtrace(endp_ss_comp->wBytesPerInterval);
                 wBytesPerInterval = endp_ss_comp->wBytesPerInterval;
             }
 

@@ -887,8 +887,20 @@ static void usb_host_ep_update(USBHostDevice *s)
             trace_usb_host_parse_endpoint(s->bus_num, s->addr, ep,
                                           (devep & USB_DIR_IN) ? "in" : "out",
                                           tname[type], true);
+
+
+            libusb_get_ss_endpoint_companion_descriptor(NULL, endp, &endp_ss_comp);
+            uint16_t wBytesPerInterval = 0;
+            if (endp_ss_comp){
+                trace_hw_usb_hostlibC_usb_host_ep_update_7_2_dgtrace(endp_ss_comp->wBytesPerInterval);
+                wBytesPerInterval = endp_ss_comp->wBytesPerInterval;
+            }
+
             usb_ep_set_max_packet_size(udev, pid, ep,
-                                       endp->wMaxPacketSize);
+                                       endp->wMaxPacketSize, wBytesPerInterval);
+
+
+
             usb_ep_set_type(udev, pid, ep, type);
             usb_ep_set_ifnum(udev, pid, ep, i);
             usb_ep_set_halted(udev, pid, ep, 0);

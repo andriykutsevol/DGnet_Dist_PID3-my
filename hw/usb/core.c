@@ -780,8 +780,12 @@ void usb_ep_set_max_packet_size(USBDevice *dev, int pid, int ep,
         //MJPG
         //microframes = 21;  // 3840x2160
         
+        // Solution 1
         //microframes = wBytesPerInterval / raw;
-        microframes = (wBytesPerInterval >> 10);
+        //microframes = (wBytesPerInterval >> 10);
+
+        // Solution 2
+        uep->max_packet_size = wBytesPerInterval
     }else{
         switch ((raw >> 11) & 3) {
         case 1:
@@ -794,8 +798,9 @@ void usb_ep_set_max_packet_size(USBDevice *dev, int pid, int ep,
             microframes = 1;
             break;
         }
+        uep->max_packet_size = size * microframes;
     }
-    uep->max_packet_size = size * microframes;
+    
 }
 
 void usb_ep_set_max_streams(USBDevice *dev, int pid, int ep, uint8_t raw)

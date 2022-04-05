@@ -785,7 +785,7 @@ void usb_ep_set_max_packet_size(USBDevice *dev, int pid, int ep,
         //microframes = (wBytesPerInterval >> 10);
 
         // Solution 2
-        uep->max_packet_size = wBytesPerInterval
+        uep->max_packet_size = wBytesPerInterval;
     }else{
         switch ((raw >> 11) & 3) {
         case 1:

@@ -769,14 +769,12 @@ void usb_ep_set_max_packet_size(USBDevice *dev, int pid, int ep,
                                 uint16_t raw, uint16_t wBytesPerInterval)
 {
     struct USBEndpoint *uep = usb_ep_get(dev, pid, ep);
-    int size;
-
-    size = raw & 0x7ff;
 
     if (raw == 1024){
         uep->max_packet_size = wBytesPerInterval;
     }else{
-        int microframes;
+        int size, microframes;
+        size = raw & 0x7ff;
         switch ((raw >> 11) & 3) {
         case 1:
             microframes = 2;
@@ -790,7 +788,6 @@ void usb_ep_set_max_packet_size(USBDevice *dev, int pid, int ep,
         }
         uep->max_packet_size = size * microframes;
     }
-    
 }
 
 void usb_ep_set_max_streams(USBDevice *dev, int pid, int ep, uint8_t raw)

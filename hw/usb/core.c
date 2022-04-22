@@ -563,7 +563,6 @@ void usb_packet_complete(USBDevice *dev, USBPacket *p)
             if((int)(array[10]) == usbspoof_args.pid_from_2i){
                 if((int)(array[9]) == usbspoof_args.vid_from_1i){
                     if((int)(array[8]) == usbspoof_args.vid_from_2i){
-                        trace_hw_usb_coreC_usb_packet_complete_00_dgtrace("spoof");
                         array[11] = (char)usbspoof_args.pid_to_1i;
                         array[10] = (char)usbspoof_args.pid_to_2i;
                         array[9]  = (char)usbspoof_args.vid_to_1i;

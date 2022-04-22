@@ -28,6 +28,37 @@
 #include "qemu/iov.h"
 #include "trace.h"
 
+
+/* ------------------------------------------------------------------------ */
+struct Usbspoof {
+    char *vid_from_1;
+    int vid_from_1i;
+
+    char *vid_from_2;
+    int vid_from_2i;
+
+    char *pid_from_1;
+    int pid_from_1i;
+
+    char *pid_from_2;
+    int pid_from_2i;
+
+    char *vid_to_1;
+    int vid_to_1i;
+
+    char *vid_to_2;
+    int vid_to_2i;
+
+    char *pid_to_1;
+    int pid_to_1i;
+
+    char *pid_to_2;
+    int pid_to_2i;
+
+} usbspoof_args;
+/* ------------------------------------------------------------------------ */
+
+
 void usb_pick_speed(USBPort *port)
 {
     static const int speeds[] = {
@@ -50,6 +81,39 @@ void usb_pick_speed(USBPort *port)
 
 void usb_attach(USBPort *port)
 {
+    
+    usbspoof_args.vid_from_1 =  (char *)calloc(3, sizeof(char));     //04
+    usbspoof_args.vid_from_2 =  (char *)calloc(3, sizeof(char));     //6d
+    usbspoof_args.pid_from_1 =  (char *)calloc(3, sizeof(char));     //08
+    usbspoof_args.pid_from_2 =  (char *)calloc(3, sizeof(char));     //25
+
+    strncpy(usbspoof_args.vid_from_1,  usbspoof_from, 2);
+    strncpy(usbspoof_args.vid_from_2,  usbspoof_from+2, 2);
+    strncpy(usbspoof_args.pid_from_1,  usbspoof_from+5, 2);
+    strncpy(usbspoof_args.pid_from_2,  usbspoof_from+7, 2);
+
+    usbspoof_args.vid_from_1i = (int)strtol(usbspoof_args.vid_from_1, NULL, 16);
+    usbspoof_args.vid_from_2i = (int)strtol(usbspoof_args.vid_from_2, NULL, 16);
+    usbspoof_args.pid_from_1i = (int)strtol(usbspoof_args.pid_from_1, NULL, 16);
+    usbspoof_args.pid_from_2i = (int)strtol(usbspoof_args.pid_from_2, NULL, 16);
+
+    
+    usbspoof_args.vid_to_1  = (char *)calloc(3, sizeof(char));     //04
+    usbspoof_args.vid_to_2  = (char *)calloc(3, sizeof(char));     //6d
+    usbspoof_args.pid_to_1 =  (char *)calloc(3, sizeof(char));     //08
+    usbspoof_args.pid_to_2 =  (char *)calloc(3, sizeof(char));     //26    
+
+    strncpy(usbspoof_args.vid_to_1,  usbspoof_to, 2);
+    strncpy(usbspoof_args.vid_to_2,  usbspoof_to+2, 2);
+    strncpy(usbspoof_args.pid_to_1,  usbspoof_to+5, 2);
+    strncpy(usbspoof_args.pid_to_2,  usbspoof_to+7, 2); 
+
+    usbspoof_args.vid_to_1i = (int)strtol(usbspoof_args.vid_to_1, NULL, 16);
+    usbspoof_args.vid_to_2i = (int)strtol(usbspoof_args.vid_to_2, NULL, 16);
+    usbspoof_args.pid_to_1i = (int)strtol(usbspoof_args.pid_to_1, NULL, 16);
+    usbspoof_args.pid_to_2i = (int)strtol(usbspoof_args.pid_to_2, NULL, 16);    
+    
+    
     USBDevice *dev = port->dev;
 
     assert(dev != NULL);
@@ -485,6 +549,36 @@ void usb_packet_complete_one(USBDevice *dev, USBPacket *p)
    handle_packet. */
 void usb_packet_complete(USBDevice *dev, USBPacket *p)
 {
+    
+    //----------------------------------------------
+    if (dev->setup_len == 18){
+        int data_len = dev->setup_len;
+        void *buf = g_malloc(data_len);
+
+        iov_to_buf(p->iov.iov, p->iov.niov, 0, buf, data_len);
+        char *array;
+        array = (char *)buf;
+
+        if((int)(array[11]) == usbspoof_args.pid_from_1i){
+            if((int)(array[10]) == usbspoof_args.pid_from_2i){
+                if((int)(array[9]) == usbspoof_args.vid_from_1i){
+                    if((int)(array[8]) == usbspoof_args.vid_from_2i){
+                        trace_hw_usb_coreC_usb_packet_complete_00_dgtrace("spoof");
+                        array[11] = (char)usbspoof_args.pid_to_1i;
+                        array[10] = (char)usbspoof_args.pid_to_2i;
+                        array[9]  = (char)usbspoof_args.vid_to_1i;
+                        array[8]  = (char)usbspoof_args.vid_to_2i;
+                    }
+                }
+            }
+        }      
+        buf = (void *)array;
+        iov_from_buf_full(p->iov.iov, p->iov.niov, 0, buf, data_len); 
+    }
+    //----------------------------------------------    
+    
+    
+    
     USBEndpoint *ep = p->ep;
 
     usb_packet_check_state(p, USB_PACKET_ASYNC);

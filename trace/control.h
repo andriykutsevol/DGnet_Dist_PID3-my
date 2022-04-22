@@ -221,6 +221,10 @@ void trace_enable_events(const char *line_buf);
  */
 extern QemuOptsList qemu_trace_opts;
 
+
+extern QemuOptsList qemu_usbspoof_opts;
+void usbspoof_opt_parse(const char *optarg);
+
 /**
  * trace_opt_parse:
  * @optarg: A string argument of --trace command line argument

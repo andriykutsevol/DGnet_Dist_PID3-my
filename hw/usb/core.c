@@ -558,8 +558,8 @@ void usb_packet_complete(USBDevice *dev, USBPacket *p)
             void *buf = g_malloc(data_len);
 
             iov_to_buf(p->iov.iov, p->iov.niov, 0, buf, data_len);
-            char *array;
-            array = (char *)buf;
+            unsigned char *array;
+            array = (unsigned char *)buf;
 
             if((int)(array[11]) == usbspoof_args.pid_from_1i){
                 if((int)(array[10]) == usbspoof_args.pid_from_2i){

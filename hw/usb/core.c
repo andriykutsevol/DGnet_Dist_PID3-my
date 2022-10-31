@@ -585,8 +585,8 @@ void usb_packet_complete(USBDevice *dev, USBPacket *p)
             unsigned char *array;
             array = (unsigned char *)buf;
 
+            dgnetP_usb_core_c("hw/usb/core.c: usb_packet_complete(): 3: %d : %d \n", (int)(array[11]), usbspoof_args.pid_from_1i);
             if((int)(array[11]) == usbspoof_args.pid_from_1i){
-                dgnetP_usb_core_c("hw/usb/core.c: usb_packet_complete(): 3: (int)(array[11]): %d \n", (int)(array[11]));
                 if((int)(array[10]) == usbspoof_args.pid_from_2i){
                     //dgnetP_usb_core_c("hw/usb/core.c: usb_packet_complete(): 4: (int)(array[10]): %d \n", (int)(array[10]));
                     if((int)(array[9]) == usbspoof_args.vid_from_1i){

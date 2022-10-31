@@ -582,8 +582,8 @@ void usb_packet_complete(USBDevice *dev, USBPacket *p)
             void *buf = g_malloc(data_len);
 
             iov_to_buf(p->iov.iov, p->iov.niov, 0, buf, data_len);
-            unsigned char *array;
-            array = (unsigned char *)buf;
+            char *array;
+            array = (char *)buf;
 
             dgnetP_usb_core_c("hw/usb/core.c: usb_packet_complete(): 3: %d : %d \n", (int)(array[11]), usbspoof_args.pid_from_1i);
             dgnetP_usb_core_c("hw/usb/core.c: usb_packet_complete(): 4: %d : %d \n", (int)(array[10]), usbspoof_args.pid_from_2i);

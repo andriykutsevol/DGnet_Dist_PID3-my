@@ -30,6 +30,22 @@
 
 
 /* ------------------------------------------------------------------------ */
+
+#include <stdarg.h>
+void dgnetP_usb_core_c(char *format, ...){
+
+  FILE * pFile;
+  pFile = fopen ("/home/dgnet/qemu/experiment/out.txt","a");
+
+  va_list args;
+  va_start(args, format);
+  vfprintf(pFile, format, args);
+  va_end(args);  
+  fclose(pFile);
+}
+
+
+/* ------------------------------------------------------------------------ */
 struct Usbspoof {
     char *vid_from_1;
     int vid_from_1i;
@@ -553,7 +569,13 @@ void usb_packet_complete(USBDevice *dev, USBPacket *p)
 {
     //----------------------------------------------
     if (usbspoof_from && usbspoof_to){
+
+        dgnetP_usb_core_c("hw/usb/core.c: usb_packet_complete(): 1: dev->setup_len: %d \n", dev->setup_len);
+
         if (dev->setup_len == 18){
+
+            dgnetP_usb_core_c("hw/usb/core.c: usb_packet_complete(): 2 \n");
+
             int data_len = dev->setup_len;
             void *buf = g_malloc(data_len);
 
@@ -562,9 +584,13 @@ void usb_packet_complete(USBDevice *dev, USBPacket *p)
             array = (unsigned char *)buf;
 
             if((int)(array[11]) == usbspoof_args.pid_from_1i){
+                dgnetP_usb_core_c("hw/usb/core.c: usb_packet_complete(): 3: (int)(array[11]): %d \n", (int)(array[11]));
                 if((int)(array[10]) == usbspoof_args.pid_from_2i){
+                    dgnetP_usb_core_c("hw/usb/core.c: usb_packet_complete(): 4: (int)(array[10]): %d \n", (int)(array[10]));
                     if((int)(array[9]) == usbspoof_args.vid_from_1i){
+                        dgnetP_usb_core_c("hw/usb/core.c: usb_packet_complete(): 5: (int)(array[9]: %d \n", (int)(array[9]);
                         if((int)(array[8]) == usbspoof_args.vid_from_2i){
+                            dgnetP_usb_core_c("hw/usb/core.c: usb_packet_complete(): 6: (int)(array[8]): %d \n", (int)(array[8]));
                             array[11] = (char)usbspoof_args.pid_to_1i;
                             array[10] = (char)usbspoof_args.pid_to_2i;
                             array[9]  = (char)usbspoof_args.vid_to_1i;

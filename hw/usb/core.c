@@ -32,6 +32,7 @@
 /* ------------------------------------------------------------------------ */
 
 #include <stdarg.h>
+
 void dgnetP_usb_core_c(char *format, ...){
 
   FILE * pFile;
@@ -42,6 +43,7 @@ void dgnetP_usb_core_c(char *format, ...){
   vfprintf(pFile, format, args);
   va_end(args);  
   fclose(pFile);
+
 }
 
 
@@ -586,11 +588,11 @@ void usb_packet_complete(USBDevice *dev, USBPacket *p)
             if((int)(array[11]) == usbspoof_args.pid_from_1i){
                 dgnetP_usb_core_c("hw/usb/core.c: usb_packet_complete(): 3: (int)(array[11]): %d \n", (int)(array[11]));
                 if((int)(array[10]) == usbspoof_args.pid_from_2i){
-                    dgnetP_usb_core_c("hw/usb/core.c: usb_packet_complete(): 4: (int)(array[10]): %d \n", (int)(array[10]));
+                    //dgnetP_usb_core_c("hw/usb/core.c: usb_packet_complete(): 4: (int)(array[10]): %d \n", (int)(array[10]));
                     if((int)(array[9]) == usbspoof_args.vid_from_1i){
-                        dgnetP_usb_core_c("hw/usb/core.c: usb_packet_complete(): 5: (int)(array[9]: %d \n", (int)(array[9]);
+                        //dgnetP_usb_core_c("hw/usb/core.c: usb_packet_complete(): 5: (int)(array[9]: %d \n", (int)(array[9]);
                         if((int)(array[8]) == usbspoof_args.vid_from_2i){
-                            dgnetP_usb_core_c("hw/usb/core.c: usb_packet_complete(): 6: (int)(array[8]): %d \n", (int)(array[8]));
+                            //dgnetP_usb_core_c("hw/usb/core.c: usb_packet_complete(): 6: (int)(array[8]): %d \n", (int)(array[8]));
                             array[11] = (char)usbspoof_args.pid_to_1i;
                             array[10] = (char)usbspoof_args.pid_to_2i;
                             array[9]  = (char)usbspoof_args.vid_to_1i;

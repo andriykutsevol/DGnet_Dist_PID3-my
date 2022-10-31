@@ -4415,6 +4415,17 @@ SRST
   .. include:: ../qemu-option-trace.rst.inc
 
 ERST
+
+DEF("usbspoof", HAS_ARG, QEMU_OPTION_usbspoof,
+    "-usbspoof [[from=]<pattern>][,to=<pattern>]"
+    "                Replace vid and pid of USB device from to\n",
+    QEMU_ARCH_ALL)
+SRST
+``-usbspoof [[from=]pattern][,to=<pattern>]``
+    Replace vid and pid of USB device from to.
+ERST
+
+
 DEF("plugin", HAS_ARG, QEMU_OPTION_plugin,
     "-plugin [file=]<file>[,arg=<string>]\n"
     "                load a plugin\n",

@@ -42,6 +42,27 @@ static uint32_t next_vcpu_id;
 static bool init_trace_on_startup;
 static char *trace_opts_file;
 
+char *usbspoof_from;
+char *usbspoof_to;
+
+QemuOptsList qemu_usbspoof_opts = {
+    .name = "usbspoof",
+    .implied_opt_name = "from",
+    .head = QTAILQ_HEAD_INITIALIZER(qemu_usbspoof_opts.head),
+    .desc = {
+        {
+            .name = "from",
+            .type = QEMU_OPT_STRING,
+        },{
+            .name = "to",
+            .type = QEMU_OPT_STRING,
+        },
+        { /* end of list */ }
+    },
+};
+
+
+
 QemuOptsList qemu_trace_opts = {
     .name = "trace",
     .implied_opt_name = "enable",
@@ -306,6 +327,24 @@ void trace_opt_parse(const char *optarg)
     trace_opts_file = g_strdup(qemu_opt_get(opts, "file"));
     qemu_opts_del(opts);
 }
+
+
+void usbspoof_opt_parse(const char *optarg)
+{
+    QemuOpts *opts = qemu_opts_parse_noisily(qemu_find_opts("usbspoof"),
+                                    optarg, true);                                        
+    usbspoof_from = (char* )calloc(256, sizeof(char));
+    sprintf(usbspoof_from, "%s/",qemu_opt_get(opts, "from"));
+
+
+    usbspoof_to = (char* )calloc(10, sizeof(char));
+    sprintf(usbspoof_to, "%s",qemu_opt_get(opts, "to"));
+
+    
+    qemu_opts_del(opts);
+}
+
+
 
 uint32_t trace_get_vcpu_event_count(void)
 {

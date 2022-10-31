@@ -215,6 +215,10 @@ struct USBEndpoint {
     QTAILQ_HEAD(, USBPacket) queue;
 };
 
+
+extern char *usbspoof_from;
+extern char *usbspoof_to;
+
 enum USBDeviceFlags {
     USB_DEV_FLAG_IS_HOST,
     USB_DEV_FLAG_MSOS_DESC_ENABLE,

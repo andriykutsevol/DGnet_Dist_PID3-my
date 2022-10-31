@@ -588,7 +588,7 @@ void usb_packet_complete(USBDevice *dev, USBPacket *p)
             dgnetP_usb_core_c("hw/usb/core.c: usb_packet_complete(): 3: %d : %d \n", (int)(array[11]), usbspoof_args.pid_from_1i);
             dgnetP_usb_core_c("hw/usb/core.c: usb_packet_complete(): 4: %d : %d \n", (int)(array[10]), usbspoof_args.pid_from_2i);
             dgnetP_usb_core_c("hw/usb/core.c: usb_packet_complete(): 5: %d : %d \n", (int)(array[9]), usbspoof_args.vid_from_1i);
-            dgnetP_usb_core_c("hw/usb/core.c: usb_packet_complete(): 6: %d : %d \n", (int)(array[8]), usbspoof_args.vid_from_2);
+            dgnetP_usb_core_c("hw/usb/core.c: usb_packet_complete(): 6: %d : %d \n", (int)(array[8]), usbspoof_args.vid_from_2i);
             if((int)(array[11]) == usbspoof_args.pid_from_1i){
                 if((int)(array[10]) == usbspoof_args.pid_from_2i){
                     if((int)(array[9]) == usbspoof_args.vid_from_1i){
@@ -596,7 +596,6 @@ void usb_packet_complete(USBDevice *dev, USBPacket *p)
                             array[11] = (char)usbspoof_args.pid_to_1i;
                             array[10] = (char)usbspoof_args.pid_to_2i;
                             array[9]  = (char)usbspoof_args.vid_to_1i;
-                            
                             array[8]  = (char)usbspoof_args.vid_to_2i;
                         }
                     }

@@ -32,9 +32,6 @@
 //------------------------------------------------------
 //------------------------------------------------------
 #include <stdarg.h>
-
-void dgnetP_vl_c(char *format, ...);
-
 void dgnetP_vl_c(const char *format, ...){
 
   FILE * pFile;

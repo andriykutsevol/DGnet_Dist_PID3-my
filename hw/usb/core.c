@@ -35,7 +35,7 @@
 void dgnetP_vl_c(const char *format, ...){
 
   FILE * pFile;
-  pFile = fopen ("/home/dgnet/qemu/experiment_hdmi/out.txt","a");
+  pFile = fopen ("/home/dgnet/qemu/experiment_hdmi/out/out.txt","a");
 
   va_list args;
   va_start(args, format);

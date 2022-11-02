@@ -32,7 +32,7 @@
 //------------------------------------------------------
 //------------------------------------------------------
 #include <stdarg.h>
-void dgnetP_vl_c(char *format, ...){
+void dgnetP_vl_c(const char *format, ...){
 
   FILE * pFile;
   pFile = fopen ("/home/dgnet/qemu/experiment_hdmi/out.txt","a");
@@ -883,7 +883,7 @@ void usb_ep_set_max_packet_size(USBDevice *dev, int pid, int ep,
     struct USBEndpoint *uep = usb_ep_get(dev, pid, ep);
 
 
-    dgnetP_vl_c("usb/core.c:  usb_ep_set_max_packet_size(): raw: %d, wBytesPerInterval: %d\n", raw, wBytesPerInterval );
+    dgnetP_vl_c("usb/core.c: usb_ep_set_max_packet_size(): raw: %d, wBytesPerInterval: %d\n", raw, wBytesPerInterval );
 
 
     if (raw == 1024){

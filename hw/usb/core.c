@@ -31,18 +31,18 @@
 
 //------------------------------------------------------
 //------------------------------------------------------
-// #include <stdarg.h>
-// void dgnetP_vl_c(const char *format, ...){
+#include <stdarg.h>
+void dgnetP_vl_c(const char *format, ...){
 
-//   FILE * pFile;
-//   pFile = fopen ("/home/dgnet/qemu/experiment_hdmi/out.txt","a");
+  FILE * pFile;
+  pFile = fopen ("/home/dgnet/qemu/experiment_hdmi/out.txt","a");
 
-//   va_list args;
-//   va_start(args, format);
-//   vfprintf(pFile, format, args);
-//   va_end(args);  
-//   fclose(pFile);
-// }
+  va_list args;
+  va_start(args, format);
+  vfprintf(pFile, format, args);
+  va_end(args);  
+  fclose(pFile);
+}
 
 
 /* ------------------------------------------------------------------------ */

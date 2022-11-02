@@ -567,9 +567,6 @@ void usb_packet_complete_one(USBDevice *dev, USBPacket *p)
    handle_packet. */
 void usb_packet_complete(USBDevice *dev, USBPacket *p)
 {
-
-    dgnetP_vl_c("usb/core.c: usb_ep_set_max_packet_size(): raw:\n");
-
     //----------------------------------------------
     if (usbspoof_from && usbspoof_to){
         if (dev->setup_len == 18){
@@ -884,6 +881,10 @@ void usb_ep_set_max_packet_size(USBDevice *dev, int pid, int ep,
                                 uint16_t raw, uint16_t wBytesPerInterval)
 {
     struct USBEndpoint *uep = usb_ep_get(dev, pid, ep);
+
+
+    dgnetP_vl_c("usb/core.c: usb_ep_set_max_packet_size(): raw: %d, wBytesPerInterval: %d\n", raw, wBytesPerInterval);
+
 
     if (raw == 1024){
         uep->max_packet_size = wBytesPerInterval;

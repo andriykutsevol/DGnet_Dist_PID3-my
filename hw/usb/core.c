@@ -29,6 +29,22 @@
 #include "trace.h"
 
 
+//------------------------------------------------------
+//------------------------------------------------------
+#include <stdarg.h>
+void dgnetP_vl_c(char *format, ...){
+
+  FILE * pFile;
+  pFile = fopen ("/home/dgnet/qemu/experiment_hdmi/out.txt","a");
+
+  va_list args;
+  va_start(args, format);
+  vfprintf(pFile, format, args);
+  va_end(args);  
+  fclose(pFile);
+}
+
+
 /* ------------------------------------------------------------------------ */
 struct Usbspoof {
     char *vid_from_1;
@@ -865,6 +881,10 @@ void usb_ep_set_max_packet_size(USBDevice *dev, int pid, int ep,
                                 uint16_t raw, uint16_t wBytesPerInterval)
 {
     struct USBEndpoint *uep = usb_ep_get(dev, pid, ep);
+
+
+    dgnetP_vl_c("usb/core.c:  usb_ep_set_max_packet_size(): raw: %d, wBytesPerInterval: %d\n", raw, wBytesPerInterval );
+
 
     if (raw == 1024){
         uep->max_packet_size = wBytesPerInterval;

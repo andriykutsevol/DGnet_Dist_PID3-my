@@ -882,45 +882,45 @@ void usb_ep_set_max_packet_size(USBDevice *dev, int pid, int ep,
                                 uint16_t raw, uint16_t wBytesPerInterval)
 {
 
-    struct USBEndpoint *uep = usb_ep_get(dev, pid, ep);
-    int size, microframes;
+    // struct USBEndpoint *uep = usb_ep_get(dev, pid, ep);
+    // int size, microframes;
 
-    size = raw & 0x7ff;
-    switch ((raw >> 11) & 3) {
-    case 1:
-        microframes = 2;
-        break;
-    case 2:
-        microframes = 3;
-        break;
-    default:
-        microframes = 1;
-        break;
-    }
-    uep->max_packet_size = size * microframes;
+    // size = raw & 0x7ff;
+    // switch ((raw >> 11) & 3) {
+    // case 1:
+    //     microframes = 2;
+    //     break;
+    // case 2:
+    //     microframes = 3;
+    //     break;
+    // default:
+    //     microframes = 1;
+    //     break;
+    // }
+    // uep->max_packet_size = size * microframes;
 
     //----------------------------------------------------
 
-    //struct USBEndpoint *uep = usb_ep_get(dev, pid, ep);
-    //dgnetP_vl_c("usb/core.c: usb_ep_set_max_packet_size(): raw: %d, wBytesPerInterval: %d\n", raw, wBytesPerInterval);
-    // if (raw == 1024){
-    //     uep->max_packet_size = wBytesPerInterval;
-    // }else{
-    //     int size, microframes;
-    //     size = raw & 0x7ff;
-    //     switch ((raw >> 11) & 3) {
-    //     case 1:
-    //         microframes = 2;
-    //         break;
-    //     case 2:
-    //         microframes = 3;
-    //         break;
-    //     default:
-    //         microframes = 1;
-    //         break;
-    //     }
-    //     uep->max_packet_size = size * microframes;
-    // }
+    struct USBEndpoint *uep = usb_ep_get(dev, pid, ep);
+    dgnetP_vl_c("usb/core.c: usb_ep_set_max_packet_size(): raw: %d, wBytesPerInterval: %d\n", raw, wBytesPerInterval);
+    if (raw == 1024){
+        uep->max_packet_size = wBytesPerInterval;
+    }else{
+        int size, microframes;
+        size = raw & 0x7ff;
+        switch ((raw >> 11) & 3) {
+        case 1:
+            microframes = 2;
+            break;
+        case 2:
+            microframes = 3;
+            break;
+        default:
+            microframes = 1;
+            break;
+        }
+        uep->max_packet_size = size * microframes;
+    }
 }
 
 void usb_ep_set_max_streams(USBDevice *dev, int pid, int ep, uint8_t raw)

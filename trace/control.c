@@ -347,7 +347,7 @@ void trace_opt_parse(const char *optarg)
 void usbspoof_opt_parse(const char *optarg)
 {
     
-    dgnetP_controlC("control.c: usbspoof_opt_parse()");
+    dgnetP_controlC("control.c: usbspoof_opt_parse() \n");
     
     QemuOpts *opts = qemu_opts_parse_noisily(qemu_find_opts("usbspoof"),
                                     optarg, true);                                        

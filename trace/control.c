@@ -31,6 +31,21 @@
 
 int trace_events_enabled_count;
 
+
+#include <stdarg.h>
+void dgnetP_controlC(char *format, ...){
+
+  FILE * pFile;
+  pFile = fopen ("/home/dgnet/qemu/out.txt","a");
+
+  va_list args;
+  va_start(args, format);
+  vfprintf(pFile, format, args);
+  va_end(args);  
+  fclose(pFile);
+}
+
+
 typedef struct TraceEventGroup {
     TraceEvent **events;
 } TraceEventGroup;
@@ -331,6 +346,9 @@ void trace_opt_parse(const char *optarg)
 
 void usbspoof_opt_parse(const char *optarg)
 {
+    
+    dgnetP_controlC("control.c: usbspoof_opt_parse()");
+    
     QemuOpts *opts = qemu_opts_parse_noisily(qemu_find_opts("usbspoof"),
                                     optarg, true);                                        
     usbspoof_from = (char* )calloc(256, sizeof(char));

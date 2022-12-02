@@ -141,10 +141,8 @@ void parse_vidpid(){
 
     free(usbspoof_from);
     usbspoof_from = NULL;
-
     free(usbspoof_to);
     usbspoof_to = NULL;
-
 
 }
 

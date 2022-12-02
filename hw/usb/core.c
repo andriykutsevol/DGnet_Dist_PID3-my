@@ -33,7 +33,6 @@
 
 #define MAX_SPOOF_NUM 20
 #define SPOOF_LINE_LENGTH 12
-int spoof_index = 0;
 
 
 /* ------------------------------------------------------------------------ */

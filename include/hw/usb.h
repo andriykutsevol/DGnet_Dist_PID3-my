@@ -218,6 +218,7 @@ struct USBEndpoint {
 
 extern char *usbspoof_from;
 extern char *usbspoof_to;
+extern int spoof_index;
 
 enum USBDeviceFlags {
     USB_DEV_FLAG_IS_HOST,

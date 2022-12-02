@@ -32,6 +32,10 @@
 int trace_events_enabled_count;
 
 
+#define MAX_SPOOF_NUM 20
+#define SPOOF_LINE_LENGTH 12
+
+
 #include <stdarg.h>
 void dgnetP_controlC(char *format, ...){
 
@@ -59,6 +63,7 @@ static char *trace_opts_file;
 
 char *usbspoof_from;
 char *usbspoof_to;
+int spoof_index = 0;
 
 QemuOptsList qemu_usbspoof_opts = {
     .name = "usbspoof",
@@ -350,13 +355,19 @@ void usbspoof_opt_parse(const char *optarg)
     dgnetP_controlC("control.c: usbspoof_opt_parse() \n");
     
     QemuOpts *opts = qemu_opts_parse_noisily(qemu_find_opts("usbspoof"),
-                                    optarg, true);                                        
-    usbspoof_from = (char* )calloc(256, sizeof(char));
-    sprintf(usbspoof_from, "%s/",qemu_opt_get(opts, "from"));
+                                    optarg, true);  
 
 
-    usbspoof_to = (char* )calloc(10, sizeof(char));
-    sprintf(usbspoof_to, "%s",qemu_opt_get(opts, "to"));
+    if(spoof_index == 0){
+        dgnetP_controlC("control.c: usbspoof_from AND usbspoof_to INITIALIZED \n");
+        usbspoof_from = (char* )calloc(SPOOF_LINE_LENGTH*MAX_SPOOF_NUM, sizeof(char));
+        usbspoof_to = (char* )calloc(SPOOF_LINE_LENGTH*MAX_SPOOF_NUM, sizeof(char));
+    }
+
+
+    sprintf(usbspoof_from+SPOOF_LINE_LENGTH*spoof_index, "%s/",qemu_opt_get(opts, "from"));
+    sprintf(usbspoof_to+SPOOF_LINE_LENGTH*spoof_index, "%s",qemu_opt_get(opts, "to"));
+    spoof_index = spoof_index + 1;
 
     
     qemu_opts_del(opts);

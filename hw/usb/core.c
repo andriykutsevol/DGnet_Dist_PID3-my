@@ -603,6 +603,7 @@ void usb_packet_complete(USBDevice *dev, USBPacket *p)
             array = (unsigned char *)buf;
 
             int tmp_spoof_index = spoof_index;
+            
             while (tmp_spoof_index-- > 0){
 
                 if((int)(array[11]) == usbspoof_args.pid_from_1i[tmp_spoof_index]){

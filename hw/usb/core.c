@@ -608,7 +608,7 @@ void usb_packet_complete(USBDevice *dev, USBPacket *p)
                                 array[10] = (char)usbspoof_args.pid_to_2i[tmp_spoof_index];
                                 array[9]  = (char)usbspoof_args.vid_to_1i[tmp_spoof_index];
                                 array[8]  = (char)usbspoof_args.vid_to_2i[tmp_spoof_index];
-                                break
+                                break;
                             }
                         }
                     }

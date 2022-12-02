@@ -32,7 +32,7 @@
 int trace_events_enabled_count;
 
 
-#define MAX_SPOOF_NUM 20
+#define MAX_SPOOF_NUM 30
 #define SPOOF_LINE_LENGTH 12
 
 
@@ -61,8 +61,8 @@ static uint32_t next_vcpu_id;
 static bool init_trace_on_startup;
 static char *trace_opts_file;
 
-char *usbspoof_from;
-char *usbspoof_to;
+char *usbspoof_from = NULL;
+char *usbspoof_to = NULL;
 int spoof_index = 0;
 
 QemuOptsList qemu_usbspoof_opts = {

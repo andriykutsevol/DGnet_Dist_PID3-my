@@ -31,7 +31,7 @@
 
 /* ------------------------------------------------------------------------ */
 
-#define MAX_SPOOF_NUM 20
+#define MAX_SPOOF_NUM 30
 #define SPOOF_LINE_LENGTH 12
 
 
@@ -95,6 +95,8 @@ void parse_vidpid(){
     pid_to_2 =  (char *)calloc(3, sizeof(char));     //26  
 
     int tmp_spoof_index = spoof_index;
+
+
     while (tmp_spoof_index-- > 0){
 
         printf("===============================\n");
@@ -137,6 +139,12 @@ void parse_vidpid(){
     free(pid_to_1);
     free(pid_to_2);
 
+    free(usbspoof_from);
+    usbspoof_from = NULL;
+
+    free(usbspoof_to);
+    usbspoof_to = NULL;
+
 
 }
 
@@ -146,7 +154,7 @@ void parse_vidpid(){
 void usb_attach(USBPort *port)
 {
     
-    if (spoof_index > 0){
+    if (usbspoof_from){
         parse_vidpid();
     }  
     

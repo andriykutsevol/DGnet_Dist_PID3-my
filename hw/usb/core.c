@@ -107,10 +107,10 @@ void parse_vidpid(){
         strncpy(pid_from_1,  usbspoof_from+SPOOF_LINE_LENGTH*tmp_spoof_index+5, 2);
         strncpy(pid_from_2,  usbspoof_from+SPOOF_LINE_LENGTH*tmp_spoof_index+7, 2);
 
-        usbspoof_args->vid_from_1i[tmp_spoof_index] = (int)strtol(vid_from_1, NULL, 16);
-        usbspoof_args->vid_from_2i[tmp_spoof_index] = (int)strtol(vid_from_2, NULL, 16);
-        usbspoof_args->pid_from_1i[tmp_spoof_index] = (int)strtol(pid_from_1, NULL, 16);
-        usbspoof_args->pid_from_2i[tmp_spoof_index] = (int)strtol(pid_from_2, NULL, 16);
+        usbspoof_args.vid_from_1i[tmp_spoof_index] = (int)strtol(vid_from_1, NULL, 16);
+        usbspoof_args.vid_from_2i[tmp_spoof_index] = (int)strtol(vid_from_2, NULL, 16);
+        usbspoof_args.pid_from_1i[tmp_spoof_index] = (int)strtol(pid_from_1, NULL, 16);
+        usbspoof_args.pid_from_2i[tmp_spoof_index] = (int)strtol(pid_from_2, NULL, 16);
 
         //---------------------------------------------------------
 
@@ -121,10 +121,10 @@ void parse_vidpid(){
         strncpy(pid_to_1,  usbspoof_to+SPOOF_LINE_LENGTH*tmp_spoof_index+5, 2);
         strncpy(pid_to_2,  usbspoof_to+SPOOF_LINE_LENGTH*tmp_spoof_index+7, 2); 
 
-        usbspoof_args->vid_to_1i[tmp_spoof_index] = (int)strtol(vid_to_1, NULL, 16);
-        usbspoof_args->vid_to_2i[tmp_spoof_index] = (int)strtol(vid_to_2, NULL, 16);
-        usbspoof_args->pid_to_1i[tmp_spoof_index] = (int)strtol(pid_to_1, NULL, 16);
-        usbspoof_args->pid_to_2i[tmp_spoof_index] = (int)strtol(pid_to_2, NULL, 16);
+        usbspoof_args.vid_to_1i[tmp_spoof_index] = (int)strtol(vid_to_1, NULL, 16);
+        usbspoof_args.vid_to_2i[tmp_spoof_index] = (int)strtol(vid_to_2, NULL, 16);
+        usbspoof_args.pid_to_1i[tmp_spoof_index] = (int)strtol(pid_to_1, NULL, 16);
+        usbspoof_args.pid_to_2i[tmp_spoof_index] = (int)strtol(pid_to_2, NULL, 16);
 
     }
 

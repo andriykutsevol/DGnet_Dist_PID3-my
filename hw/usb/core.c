@@ -152,7 +152,7 @@ void parse_vidpid(){
 void usb_attach(USBPort *port)
 {
     
-    if (usbspoof_from){         // We call parse_vidpid() once.
+    if (usbspoof_from){         // dgnet: We call parse_vidpid() once.
         parse_vidpid();
     }  
     

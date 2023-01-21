@@ -336,6 +336,10 @@ usb_host_parse_endpoint(int bus, int addr, int ep, const char *dir, const char *
 usb_host_parse_error(int bus, int addr, const char *errmsg) "dev %d:%d, msg %s"
 usb_host_remote_wakeup_removed(int bus, int addr) "dev %d:%d"
 
+hw_usb_host_libusbC_usb_host_handle_control_0_dgtrace(const char *msg) "%s";
+hw_usb_host_libusbC_usb_host_handle_control_1_dgtrace(const char *msg) "%s";
+
+
 # dev-serial.c
 usb_serial_reset(int bus, int addr) "dev %d:%u reset"
 usb_serial_handle_control(int bus, int addr, int request, int value) "dev %d:%u got control 0x%x, value 0x%x"

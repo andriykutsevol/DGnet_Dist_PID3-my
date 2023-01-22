@@ -6,7 +6,6 @@ usb_packet_state_fault(int bus, const char *port, int ep, void *p, const char *o
 
 hw_usb_coreC_usb_ep_set_max_packet_size_0_dgtrace(int raw, int wBytesPerInterval) "raw %d, wBytesPerInterval: %d"
 
-
 # bus.c
 usb_port_claim(int bus, const char *port) "bus %d, port %s"
 usb_port_attach(int bus, const char *port, const char *devspeed, const char *portspeed) "bus %d, port %s, devspeed %s, portspeed %s"
@@ -244,6 +243,12 @@ usb_set_config(int addr, int config, int ret) "dev %d, config %d, ret %d"
 usb_set_interface(int addr, int iface, int alt, int ret) "dev %d, interface %d, altsetting %d, ret %d"
 usb_clear_device_feature(int addr, int feature, int ret) "dev %d, feature %d, ret %d"
 usb_set_device_feature(int addr, int feature, int ret) "dev %d, feature %d, ret %d"
+
+hw_usb_descC_usb_desc_endpoint_0_dgtrace(int flags, int len) "flags %d, len: %d"
+hw_usb_descC_usb_desc_endpoint_1_dgtrace(int superlen, int flags, int usb_desc_flag_super) "superlen: %d, flags: %d, USB_DESC_FLAG_SUPER: %d"
+
+
+
 
 # dev-hub.c
 usb_hub_reset(int addr) "dev %d"

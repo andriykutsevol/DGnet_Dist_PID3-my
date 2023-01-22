@@ -204,9 +204,15 @@ int usb_desc_iface(const USBDescIface *iface, int flags,
 int usb_desc_endpoint(const USBDescEndpoint *ep, int flags,
                       uint8_t *dest, size_t len)
 {
+    
+    trace_hw_usb_descC_usb_desc_endpoint_0_dgtrace(flags, len);
+    
     uint8_t bLength = ep->is_audio ? 0x09 : 0x07;
     uint8_t extralen = ep->extra ? ep->extra[0] : 0;
     uint8_t superlen = (flags & USB_DESC_FLAG_SUPER) ? 0x06 : 0;
+
+    trace_hw_usb_descC_usb_desc_endpoint_1_dgtrace(superlen, flags, USB_DESC_FLAG_SUPER);
+
     USBDescriptor *d = (void *)dest;
 
     if (len < bLength + extralen + superlen) {

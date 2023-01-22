@@ -253,7 +253,7 @@ int usb_desc_endpoint(const USBDescEndpoint *ep, int flags,
     }
 
     if (ep->extra) {
-        race_hw_usb_descC_usb_desc_endpoint_4_dgtrace("ep->extra");
+        trace_hw_usb_descC_usb_desc_endpoint_4_dgtrace("ep->extra");
         memcpy(dest + bLength + superlen, ep->extra, extralen);
     }
 

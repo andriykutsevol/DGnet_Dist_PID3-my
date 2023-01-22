@@ -249,7 +249,6 @@ hw_usb_descC_usb_desc_endpoint_1_dgtrace(int superlen, int flags, int usb_desc_f
 
 
 
-
 # dev-hub.c
 usb_hub_reset(int addr) "dev %d"
 usb_hub_control(int addr, int request, int value, int index, int length) "dev %d, req 0x%x, value %d, index %d, langth %d"

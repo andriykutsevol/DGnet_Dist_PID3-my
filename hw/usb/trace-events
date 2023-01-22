@@ -246,8 +246,9 @@ usb_set_device_feature(int addr, int feature, int ret) "dev %d, feature %d, ret 
 
 hw_usb_descC_usb_desc_endpoint_0_dgtrace(int flags, int len) "flags %d, len: %d"
 hw_usb_descC_usb_desc_endpoint_1_dgtrace(int superlen, int flags, int usb_desc_flag_super) "superlen: %d, flags: %d, USB_DESC_FLAG_SUPER: %d"
-
-
+hw_usb_descC_usb_desc_endpoint_2_dgtrace(void) ""
+hw_usb_descC_usb_desc_endpoint_3_dgtrace(int ep_max_burst) "ep->bMaxBurst: %d"
+hw_usb_descC_usb_desc_endpoint_4_dgtrace(const char *msg) "msg: %d"
 
 # dev-hub.c
 usb_hub_reset(int addr) "dev %d"

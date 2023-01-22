@@ -233,12 +233,18 @@ int usb_desc_endpoint(const USBDescEndpoint *ep, int flags,
     }
 
     if (superlen) {
+
+        trace_hw_usb_descC_usb_desc_endpoint_2_dgtrace();
+
         USBDescriptor *d = (void *)(dest + bLength);
 
         d->bLength                       = 0x06;
         d->bDescriptorType               = USB_DT_ENDPOINT_COMPANION;
 
         d->u.super_endpoint.bMaxBurst    = ep->bMaxBurst;
+
+        trace_hw_usb_descC_usb_desc_endpoint_3_dgtrace(ep->bMaxBurst);
+
         d->u.super_endpoint.bmAttributes = ep->bmAttributes_super;
         d->u.super_endpoint.wBytesPerInterval_lo =
             usb_lo(ep->wBytesPerInterval);
@@ -247,6 +253,7 @@ int usb_desc_endpoint(const USBDescEndpoint *ep, int flags,
     }
 
     if (ep->extra) {
+        race_hw_usb_descC_usb_desc_endpoint_4_dgtrace("ep->extra");
         memcpy(dest + bLength + superlen, ep->extra, extralen);
     }
 

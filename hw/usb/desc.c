@@ -257,6 +257,7 @@ int usb_desc_endpoint(const USBDescEndpoint *ep, int flags,
         memcpy(dest + bLength + superlen, ep->extra, extralen);
     }
 
+    trace_hw_usb_descC_usb_desc_endpoint_999_dgtrace();
     return bLength + extralen + superlen;
 }
 

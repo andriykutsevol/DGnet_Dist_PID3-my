@@ -249,6 +249,7 @@ hw_usb_descC_usb_desc_endpoint_1_dgtrace(int superlen, int flags, int usb_desc_f
 hw_usb_descC_usb_desc_endpoint_2_dgtrace(void) ""
 hw_usb_descC_usb_desc_endpoint_3_dgtrace(int ep_max_burst) "ep->bMaxBurst: %d"
 hw_usb_descC_usb_desc_endpoint_4_dgtrace(const char *msg) "msg: %d"
+hw_usb_descC_usb_desc_endpoint_999_dgtrace(void) ""
 
 # dev-hub.c
 usb_hub_reset(int addr) "dev %d"

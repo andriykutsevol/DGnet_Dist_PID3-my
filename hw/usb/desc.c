@@ -677,7 +677,7 @@ int usb_desc_get_descriptor(USBDevice *dev, USBPacket *p,
             ret = usb_desc_config(dev->device->confs + index, flags,
                                   buf, sizeof(buf));
         }
-        trace_hw_usb_descC_usb_desc_get_descriptor_3_dgtrace(dev->addr, index, len, ret);
+        trace_hw_usb_descC_usb_desc_get_descriptor_3_dgtrace(dev->addr, index, len, ret, flags);
         break;
     case USB_DT_STRING:
         ret = usb_desc_string(dev, index, buf, sizeof(buf));

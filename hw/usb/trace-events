@@ -231,12 +231,6 @@ usb_dwc2_reset_hold(void) "=== RESET hold ==="
 usb_dwc2_reset_exit(void) "=== RESET exit ==="
 
 # desc.c
-usb_desc_device(int addr, int len, int ret) "dev %d query device, len %d, ret %d"
-usb_desc_device_qualifier(int addr, int len, int ret) "dev %d query device qualifier, len %d, ret %d"
-usb_desc_config(int addr, int index, int len, int ret) "dev %d query config %d, len %d, ret %d"
-usb_desc_other_speed_config(int addr, int index, int len, int ret) "dev %d query config %d, len %d, ret %d"
-usb_desc_string(int addr, int index, int len, int ret) "dev %d query string %d, len %d, ret %d"
-usb_desc_bos(int addr, int len, int ret) "dev %d bos, len %d, ret %d"
 usb_desc_msos(int addr, int index, int len, int ret) "dev %d msos, index 0x%x, len %d, ret %d"
 usb_set_addr(int addr) "dev %d"
 usb_set_config(int addr, int config, int ret) "dev %d, config %d, ret %d"
@@ -250,6 +244,16 @@ hw_usb_descC_usb_desc_endpoint_2_dgtrace(void) ""
 hw_usb_descC_usb_desc_endpoint_3_dgtrace(int ep_max_burst) "ep->bMaxBurst: %d"
 hw_usb_descC_usb_desc_endpoint_4_dgtrace(const char *msg) "msg: %d"
 hw_usb_descC_usb_desc_endpoint_999_dgtrace(void) ""
+
+hw_usb_descC_usb_desc_get_descriptor_0_dgtrace(int dev_flags) "dev->flags: %d"
+hw_usb_descC_usb_desc_get_descriptor_1_dgtrace(int dev_flags) "dev->flags: %d"
+hw_usb_descC_usb_desc_get_descriptor_2_dgtrace(int addr, int len, int ret) "dev %d query device, len %d, ret %d"
+hw_usb_descC_usb_desc_get_descriptor_3_dgtrace(int addr, int index, int len, int ret) "dev %d query config %d, len %d, ret %d"
+hw_usb_descC_usb_desc_get_descriptor_4_dgtrace(int addr, int index, int len, int ret) "dev %d query string %d, len %d, ret %d"
+hw_usb_descC_usb_desc_get_descriptor_5_dgtrace(int addr, int len, int ret) "dev %d query device qualifier, len %d, ret %d"
+hw_usb_descC_usb_desc_get_descriptor_6_dgtrace(int addr, int index, int len, int ret) "dev %d query config %d, len %d, ret %d"
+hw_usb_descC_usb_desc_get_descriptor_7_dgtrace(int addr, int len, int ret) "dev %d bos, len %d, ret %d"
+
 
 # dev-hub.c
 usb_hub_reset(int addr) "dev %d"

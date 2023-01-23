@@ -643,6 +643,9 @@ int usb_desc_string(USBDevice *dev, int index, uint8_t *dest, size_t len)
 int usb_desc_get_descriptor(USBDevice *dev, USBPacket *p,
                             int value, uint8_t *dest, size_t len)
 {
+    
+    trace_hw_usb_descC_usb_desc_get_descriptor_0_dgtrace(dev->flags);
+    
     bool msos = (dev->flags & (1 << USB_DEV_FLAG_MSOS_DESC_IN_USE));
     const USBDesc *desc = usb_device_get_usb_desc(dev);
     const USBDescDevice *other_dev;
@@ -662,27 +665,29 @@ int usb_desc_get_descriptor(USBDevice *dev, USBPacket *p,
         flags |= USB_DESC_FLAG_SUPER;
     }
 
+    trace_hw_usb_descC_usb_desc_get_descriptor_1_dgtrace(dev->flags);
+
     switch(type) {
     case USB_DT_DEVICE:
         ret = usb_desc_device(&desc->id, dev->device, msos, buf, sizeof(buf));
-        trace_usb_desc_device(dev->addr, len, ret);
+        trace_hw_usb_descC_usb_desc_get_descriptor_2_dgtrace(dev->addr, len, ret);
         break;
     case USB_DT_CONFIG:
         if (index < dev->device->bNumConfigurations) {
             ret = usb_desc_config(dev->device->confs + index, flags,
                                   buf, sizeof(buf));
         }
-        trace_usb_desc_config(dev->addr, index, len, ret);
+        trace_hw_usb_descC_usb_desc_get_descriptor_3_dgtrace(dev->addr, index, len, ret);
         break;
     case USB_DT_STRING:
         ret = usb_desc_string(dev, index, buf, sizeof(buf));
-        trace_usb_desc_string(dev->addr, index, len, ret);
+        trace_hw_usb_descC_usb_desc_get_descriptor_4_dgtrace(dev->addr, index, len, ret);
         break;
     case USB_DT_DEVICE_QUALIFIER:
         if (other_dev != NULL) {
             ret = usb_desc_device_qualifier(other_dev, buf, sizeof(buf));
         }
-        trace_usb_desc_device_qualifier(dev->addr, len, ret);
+        trace_hw_usb_descC_usb_desc_get_descriptor_5_dgtrace(dev->addr, len, ret);
         break;
     case USB_DT_OTHER_SPEED_CONFIG:
         if (other_dev != NULL && index < other_dev->bNumConfigurations) {
@@ -690,11 +695,11 @@ int usb_desc_get_descriptor(USBDevice *dev, USBPacket *p,
                                   buf, sizeof(buf));
             buf[0x01] = USB_DT_OTHER_SPEED_CONFIG;
         }
-        trace_usb_desc_other_speed_config(dev->addr, index, len, ret);
+        trace_hw_usb_descC_usb_desc_get_descriptor_6_dgtrace(dev->addr, index, len, ret);
         break;
     case USB_DT_BOS:
         ret = usb_desc_bos(desc, buf, sizeof(buf));
-        trace_usb_desc_bos(dev->addr, len, ret);
+        trace_hw_usb_descC_usb_desc_get_descriptor_7_dgtrace(dev->addr, len, ret);
         break;
 
     case USB_DT_DEBUG:

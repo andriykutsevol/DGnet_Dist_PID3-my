@@ -165,6 +165,10 @@ void usb_device_handle_reset(USBDevice *dev)
 void usb_device_handle_control(USBDevice *dev, USBPacket *p, int request,
                                int value, int index, int length, uint8_t *data)
 {
+    
+    trace_hw_usb_busC_usb_device_handle_control_0_dgtrace(dev->device->bcdUSB);
+    
+    
     USBDeviceClass *klass = USB_DEVICE_GET_CLASS(dev);
     if (klass->handle_control) {
         klass->handle_control(dev, p, request, value, index, length, data);

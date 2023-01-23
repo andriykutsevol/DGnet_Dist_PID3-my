@@ -260,10 +260,10 @@ hw_usb_descC_usb_desc_handle_control_0_dgtrace(int dev_device_bcdUSB) "dev->devi
 
 
 # dev-audio.c
-hw_usb_dev_audio_usb_audio_handle_control_0_dgtrace(void) ""
+#hw_usb_dev_audio_usb_audio_handle_control_0_dgtrace(void) ""
 
 #dev-hid.c
-hw_usb_dev_hid_usb_hid_handle_control_0_dgtrace(void) ""
+#hw_usb_dev_hid_usb_hid_handle_control_0_dgtrace(void) ""
 
 
 # dev-hub.c

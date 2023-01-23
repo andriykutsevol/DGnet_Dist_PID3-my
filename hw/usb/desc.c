@@ -663,6 +663,7 @@ int usb_desc_get_descriptor(USBDevice *dev, USBPacket *p,
     flags = 0;
     if (dev->device->bcdUSB >= 0x0300) {
         flags |= USB_DESC_FLAG_SUPER;
+        trace_hw_usb_descC_usb_desc_get_descriptor_01_dgtrace(flags, USB_DESC_FLAG_SUPER);
     }
 
     trace_hw_usb_descC_usb_desc_get_descriptor_1_dgtrace(dev->flags, flags, dev->device->bcdUSB);

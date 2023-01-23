@@ -256,6 +256,9 @@ hw_usb_descC_usb_desc_get_descriptor_6_dgtrace(int addr, int index, int len, int
 hw_usb_descC_usb_desc_get_descriptor_7_dgtrace(int addr, int len, int ret) "dev %d bos, len %d, ret %d"
 
 
+hw_usb_descC_usb_desc_handle_control_0_dgtrace(int dev_device_bcdUSB) "dev->device->bcdUSB: %d"
+
+
 # dev-hub.c
 usb_hub_reset(int addr) "dev %d"
 usb_hub_control(int addr, int request, int value, int index, int length) "dev %d, req 0x%x, value %d, index %d, langth %d"

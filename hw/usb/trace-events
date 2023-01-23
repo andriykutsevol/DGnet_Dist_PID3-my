@@ -246,7 +246,7 @@ hw_usb_descC_usb_desc_endpoint_4_dgtrace(const char *msg) "msg: %s"
 hw_usb_descC_usb_desc_endpoint_999_dgtrace(void) ""
 
 hw_usb_descC_usb_desc_get_descriptor_0_dgtrace(int dev_flags) "dev->flags: %d"
-hw_usb_descC_usb_desc_get_descriptor_1_dgtrace(int dev_flags, int flags) "dev->flags: %d, flags: %d"
+hw_usb_descC_usb_desc_get_descriptor_1_dgtrace(int dev_flags, int flags, int dev_device_bcdUSB) "dev->flags: %d, flags: %d, dev->device->bcdUSB: %d"
 hw_usb_descC_usb_desc_get_descriptor_2_dgtrace(int addr, int len, int ret) "dev %d query device, len %d, ret %d"
 hw_usb_descC_usb_desc_get_descriptor_3_dgtrace(int addr, int index, int len, int re, int flags) "dev %d query config %d, len %d, ret %d, flags: %d"
 hw_usb_descC_usb_desc_get_descriptor_4_dgtrace(int addr, int index, int len, int ret) "dev %d query string %d, len %d, ret %d"

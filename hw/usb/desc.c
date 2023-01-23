@@ -665,7 +665,7 @@ int usb_desc_get_descriptor(USBDevice *dev, USBPacket *p,
         flags |= USB_DESC_FLAG_SUPER;
     }
 
-    trace_hw_usb_descC_usb_desc_get_descriptor_1_dgtrace(dev->flags, flags);
+    trace_hw_usb_descC_usb_desc_get_descriptor_1_dgtrace(dev->flags, flags, dev->device->bcdUSB);
 
     switch(type) {
     case USB_DT_DEVICE:

@@ -37,6 +37,7 @@
 #include "desc.h"
 #include "audio/audio.h"
 #include "qom/object.h"
+#include "trace.h"
 
 static void usb_audio_reinit(USBDevice *dev, unsigned channels);
 

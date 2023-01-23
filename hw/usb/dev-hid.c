@@ -35,6 +35,7 @@
 #include "hw/usb/hid.h"
 #include "hw/qdev-properties.h"
 #include "qom/object.h"
+#include "trace.h"
 
 struct USBHIDState {
     USBDevice dev;

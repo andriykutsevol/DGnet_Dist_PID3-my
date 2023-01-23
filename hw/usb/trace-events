@@ -259,6 +259,13 @@ hw_usb_descC_usb_desc_get_descriptor_7_dgtrace(int addr, int len, int ret) "dev 
 hw_usb_descC_usb_desc_handle_control_0_dgtrace(int dev_device_bcdUSB) "dev->device->bcdUSB: %d"
 
 
+# dev-audio.c
+hw_usb_dev_audio_usb_audio_handle_control_0_dgtrace(void) ""
+
+#dev-hid.c
+hw_usb_usb_hid_handle_control_0_dgtrace(void) ""
+
+
 # dev-hub.c
 usb_hub_reset(int addr) "dev %d"
 usb_hub_get_port_status(int addr, int nr, int status, int changed) "dev %d, port %d, status 0x%x, changed 0x%x"

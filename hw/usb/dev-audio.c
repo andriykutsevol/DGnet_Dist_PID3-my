@@ -817,6 +817,9 @@ static void usb_audio_handle_control(USBDevice *dev, USBPacket *p,
                                     int request, int value, int index,
                                     int length, uint8_t *data)
 {
+    
+    trace_hw_usb_dev_audio_usb_audio_handle_control_0_dgtrace();
+    
     USBAudioState *s = USB_AUDIO(dev);
     int ret = 0;
 

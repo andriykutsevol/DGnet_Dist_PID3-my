@@ -268,7 +268,7 @@ usb_hub_attach(int addr, int nr) "dev %d, port %d"
 usb_hub_detach(int addr, int nr) "dev %d, port %d"
 usb_hub_status_report(int addr, int status) "dev %d, status 0x%x"
 
-hw_usb_dev_hubC__0_dgtrace(int addr, int request, int value, int index, int length) "dev %d, req 0x%x, value %d, index %d, length %d"
+hw_usb_dev_hubC_usb_hub_handle_control_0_dgtrace(int addr, int request, int value, int index, int length) "dev %d, req 0x%x, value %d, index %d, length %d"
 
 
 # dev-storage.c

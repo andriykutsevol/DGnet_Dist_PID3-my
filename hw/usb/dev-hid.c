@@ -577,7 +577,7 @@ static void usb_hid_handle_control(USBDevice *dev, USBPacket *p,
                int request, int value, int index, int length, uint8_t *data)
 {
     
-    trace_hw_usb_dev_hid_usb_hid_handle_control_0_dgtrace();
+    trace_hw_usb_dev_hid_usb_hid_handle_control_0_dgtrace(dev->device->bcdUSB);
     
     USBHIDState *us = USB_HID(dev);
     HIDState *hs = &us->hid;

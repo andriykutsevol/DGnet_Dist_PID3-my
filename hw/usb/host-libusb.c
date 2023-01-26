@@ -822,6 +822,8 @@ static void usb_host_speed_compat(USBHostDevice *s)
 
 static void usb_host_ep_update(USBHostDevice *s)
 {
+    trace_hw_usb_host_libusbC_usb_host_ep_update_0_dgtrace("START: usb_host_ep_update()");
+    
     static const char *tname[] = {
         [USB_ENDPOINT_XFER_CONTROL] = "control",
         [USB_ENDPOINT_XFER_ISOC]    = "isoc",
@@ -833,6 +835,7 @@ static void usb_host_ep_update(USBHostDevice *s)
     const struct libusb_interface_descriptor *intf;
     const struct libusb_endpoint_descriptor *endp;
 #ifdef HAVE_STREAMS
+    trace_hw_usb_host_libusbC_usb_host_ep_update_1_dgtrace("HAVE_STREAMS");
     struct libusb_ss_endpoint_companion_descriptor *endp_ss_comp;
 #endif
     uint8_t devep, type;
@@ -895,6 +898,11 @@ static void usb_host_ep_update(USBHostDevice *s)
                 wBytesPerInterval = endp_ss_comp->wBytesPerInterval;
             }
 
+            trace_hw_usb_host_libusbC_usb_host_ep_update_2_dgtrace(endp_ss_comp->maxBurst);
+            trace_hw_usb_host_libusbC_usb_host_ep_update_3_dgtrace(endp_ss_comp->bmAttributes_super);
+            trace_hw_usb_host_libusbC_usb_host_ep_update_4_dgtrace(endp_ss_comp->wBytesPerInterval);
+            trace_hw_usb_host_libusbC_usb_host_ep_update_5_dgtrace(endp->wMaxPacketSize);
+
             usb_ep_set_max_packet_size(udev, pid, ep,
                                        endp->wMaxPacketSize, wBytesPerInterval);
 
@@ -915,6 +923,8 @@ static void usb_host_ep_update(USBHostDevice *s)
         }
     }
 
+    
+    trace_hw_usb_host_libusbC_usb_host_ep_update_999_dgtrace("END: usb_host_ep_update()");
     libusb_free_config_descriptor(conf);
 }
 
@@ -1491,14 +1501,14 @@ static void usb_host_handle_control(USBDevice *udev, USBPacket *p,
         r->usb3ep0quirk = true;
     }
 
-    trace_hw_usb_host_libusbC_usb_host_handle_control_0_dgtrace("Before libusb_fill_control_transfer");
+    //trace_hw_usb_host_libusbC_usb_host_handle_control_0_dgtrace("Before libusb_fill_control_transfer");
 
     libusb_fill_control_transfer(r->xfer, s->dh, r->buffer,
                                  usb_host_req_complete_ctrl, r,
                                  CONTROL_TIMEOUT);
     rc = libusb_submit_transfer(r->xfer);
 
-    trace_hw_usb_host_libusbC_usb_host_handle_control_1_dgtrace("AFTER libusb_fill_control_transfer");
+    //trace_hw_usb_host_libusbC_usb_host_handle_control_1_dgtrace("AFTER libusb_fill_control_transfer");
 
     if (rc != 0) {
         p->status = USB_RET_NODEV;

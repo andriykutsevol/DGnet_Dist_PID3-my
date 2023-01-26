@@ -169,7 +169,7 @@ void usb_device_handle_control(USBDevice *dev, USBPacket *p, int request,
     // if (dev->device->bcdUSB){
     //     trace_hw_usb_busC_usb_device_handle_control_0_dgtrace(dev->device->bcdUSB);   // !!! It does not compile
     // }else{
-           trace_hw_usb_busC_usb_device_handle_control_0_dgtrace(0);
+           // trace_hw_usb_busC_usb_device_handle_control_0_dgtrace(0);
     // }
     
 

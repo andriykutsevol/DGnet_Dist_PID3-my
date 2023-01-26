@@ -367,9 +367,9 @@ usb_host_remote_wakeup_removed(int bus, int addr) "dev %d:%d"
 hw_usb_host_libusbC_usb_host_handle_control_0_dgtrace(const char *msg) "%s"
 hw_usb_host_libusbC_usb_host_handle_control_1_dgtrace(const char *msg) "%s"
 
-hw_usb_host_libusbC_usb_host_ep_update_0_dgtrace(cons char *msg) "%s"
-hw_usb_host_libusbC_usb_host_ep_update_1_dgtrace(cons char *msg) "%s"
-hw_usb_host_libusbC_usb_host_ep_update_999_dgtrace(cons char *msg) "%s"
+hw_usb_host_libusbC_usb_host_ep_update_0_dgtrace(const char *msg) "%s"
+hw_usb_host_libusbC_usb_host_ep_update_1_dgtrace(const char *msg) "%s"
+hw_usb_host_libusbC_usb_host_ep_update_999_dgtrace(const char *msg) "%s"
 
 # dev-serial.c
 usb_serial_reset(int bus, int addr) "dev %d:%u reset"

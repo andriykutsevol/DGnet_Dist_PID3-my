@@ -916,9 +916,6 @@ void usb_ep_set_max_packet_size(USBDevice *dev, int pid, int ep,
 {
     struct USBEndpoint *uep = usb_ep_get(dev, pid, ep);
 
-
-    trace_hw_usb_coreC_usb_ep_set_max_packet_size_0_dgtrace(raw, wBytesPerInterval);
-
     if (raw == 1024){
         uep->max_packet_size = wBytesPerInterval;
     }else{
@@ -936,7 +933,12 @@ void usb_ep_set_max_packet_size(USBDevice *dev, int pid, int ep,
             break;
         }
         uep->max_packet_size = size * microframes;
+
+        trace_hw_usb_coreC_usb_ep_set_max_packet_size_0_dgtrace(size, microframes);
+
     }
+
+    trace_hw_usb_coreC_usb_ep_set_max_packet_size_1_dgtrace(raw, wBytesPerInterval, uep->max_packet_size);
 }
 
 void usb_ep_set_max_streams(USBDevice *dev, int pid, int ep, uint8_t raw)

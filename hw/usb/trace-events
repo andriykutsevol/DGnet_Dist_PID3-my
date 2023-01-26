@@ -369,6 +369,10 @@ hw_usb_host_libusbC_usb_host_handle_control_1_dgtrace(const char *msg) "%s"
 
 hw_usb_host_libusbC_usb_host_ep_update_0_dgtrace(const char *msg) "%s"
 hw_usb_host_libusbC_usb_host_ep_update_1_dgtrace(const char *msg) "%s"
+hw_usb_host_libusbC_usb_host_ep_update_2_dgtrace(const char *msg) "%s"
+hw_usb_host_libusbC_usb_host_ep_update_3_dgtrace(const char *msg) "%s"
+hw_usb_host_libusbC_usb_host_ep_update_4_dgtrace(const char *msg) "%s"
+hw_usb_host_libusbC_usb_host_ep_update_5_dgtrace(const char *msg) "%s"
 hw_usb_host_libusbC_usb_host_ep_update_999_dgtrace(const char *msg) "%s"
 
 # dev-serial.c

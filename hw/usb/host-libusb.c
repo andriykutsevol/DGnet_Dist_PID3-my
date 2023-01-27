@@ -822,7 +822,7 @@ static void usb_host_speed_compat(USBHostDevice *s)
 
 static void usb_host_ep_update(USBHostDevice *s)
 {
-    trace_hw_usb_host_libusbC_usb_host_ep_update_0_dgtrace("START: usb_host_ep_update()");
+    trace_hw_usb_host_libusbC_usb_host_ep_update_0_dgtrace("------------------------START: usb_host_ep_update()------------------------");
     
     static const char *tname[] = {
         [USB_ENDPOINT_XFER_CONTROL] = "control",
@@ -851,6 +851,7 @@ static void usb_host_ep_update(USBHostDevice *s)
                                 conf->bConfigurationValue, true);
 
     for (i = 0; i < conf->bNumInterfaces; i++) {
+        trace_hw_usb_host_libusbC_usb_host_ep_update_1_1_dgtrace("FOR: conf->bNumInterfaces", i);
         /*
          * The udev->altsetting array indexes alternate settings
          * by the interface number. Get the 0th alternate setting
@@ -869,6 +870,9 @@ static void usb_host_ep_update(USBHostDevice *s)
                                        intf->bInterfaceNumber,
                                        intf->bAlternateSetting, true);
         for (e = 0; e < intf->bNumEndpoints; e++) {
+            trace_hw_usb_host_libusbC_usb_host_ep_update_1_2_dgtrace("FOR: intf->bNumEndpoints", e);
+
+
             endp = &intf->endpoint[e];
 
             devep = endp->bEndpointAddress;
@@ -924,7 +928,7 @@ static void usb_host_ep_update(USBHostDevice *s)
     }
 
     
-    trace_hw_usb_host_libusbC_usb_host_ep_update_999_dgtrace("END: usb_host_ep_update()");
+    trace_hw_usb_host_libusbC_usb_host_ep_update_999_dgtrace("------------------------END: usb_host_ep_update()------------------------");
     libusb_free_config_descriptor(conf);
 }
 

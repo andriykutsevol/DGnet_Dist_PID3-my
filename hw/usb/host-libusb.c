@@ -1514,12 +1514,12 @@ static void usb_host_handle_control(USBDevice *udev, USBPacket *p,
 
     trace_hw_usb_host_libusbC_usb_host_handle_control_0_dgtrace("Before libusb_fill_control_transfer");
 
-    libusb_fill_control_transfer(r->xfer, s->dh, r->buffer,
+    //libusb_fill_control_transfer(r->xfer, s->dh, r->buffer,
                                  usb_host_req_complete_ctrl, r,
                                  CONTROL_TIMEOUT);
     rc = libusb_submit_transfer(r->xfer);
 
-    trace_hw_usb_host_libusbC_usb_host_handle_control_1_dgtrace("AFTER libusb_fill_control_transfer");
+    //trace_hw_usb_host_libusbC_usb_host_handle_control_1_dgtrace("AFTER libusb_fill_control_transfer");
 
     if (rc != 0) {
         p->status = USB_RET_NODEV;

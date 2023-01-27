@@ -822,7 +822,7 @@ static void usb_host_speed_compat(USBHostDevice *s)
 
 static void usb_host_ep_update(USBHostDevice *s)
 {
-    //trace_hw_usb_host_libusbC_usb_host_ep_update_0_dgtrace("------------------------START: usb_host_ep_update()------------------------");
+    trace_hw_usb_host_libusbC_usb_host_ep_update_0_dgtrace("------------------------START: usb_host_ep_update()------------------------");
     
     static const char *tname[] = {
         [USB_ENDPOINT_XFER_CONTROL] = "control",
@@ -835,7 +835,7 @@ static void usb_host_ep_update(USBHostDevice *s)
     const struct libusb_interface_descriptor *intf;
     const struct libusb_endpoint_descriptor *endp;
 #ifdef HAVE_STREAMS
-    //trace_hw_usb_host_libusbC_usb_host_ep_update_1_dgtrace("HAVE_STREAMS");
+    trace_hw_usb_host_libusbC_usb_host_ep_update_1_dgtrace("HAVE_STREAMS");
     struct libusb_ss_endpoint_companion_descriptor *endp_ss_comp;
 #endif
     uint8_t devep, type;
@@ -851,7 +851,7 @@ static void usb_host_ep_update(USBHostDevice *s)
                                 conf->bConfigurationValue, true);
 
     for (i = 0; i < conf->bNumInterfaces; i++) {
-        //trace_hw_usb_host_libusbC_usb_host_ep_update_1_1_dgtrace("FOR: conf->bNumInterfaces", i);
+        trace_hw_usb_host_libusbC_usb_host_ep_update_1_1_dgtrace("FOR: conf->bNumInterfaces", i);
         /*
          * The udev->altsetting array indexes alternate settings
          * by the interface number. Get the 0th alternate setting

@@ -385,7 +385,7 @@ hw_usb_host_libusbC_usb_host_ep_update_2_dgtrace(int endp_ss_comp_bMaxBurst)    
 hw_usb_host_libusbC_usb_host_ep_update_3_dgtrace(int endp_ss_comp_bmAttributes_super) "  endp_ss_comp->bmAttributes_super: %d"
 hw_usb_host_libusbC_usb_host_ep_update_4_dgtrace(int endp_ss_comp_wBytesPerInterval)  "  endp_ss_comp->wBytesPerInterval: %d"
 hw_usb_host_libusbC_usb_host_ep_update_5_dgtrace(int endp_wMaxPacketSize)             "  endp->wMaxPacketSize: %d"
-hw_usb_host_libusbC_usb_host_ep_update_6_dgtrace(int endp->bInterval)                 "  endp->bInterval: %d"
+hw_usb_host_libusbC_usb_host_ep_update_6_dgtrace(int endp_bInterval)                 "  endp->bInterval: %d"
 hw_usb_host_libusbC_usb_host_ep_update_999_dgtrace(const char *msg) "%s"
 
 # dev-serial.c

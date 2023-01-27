@@ -870,7 +870,7 @@ static void usb_host_ep_update(USBHostDevice *s)
                                        intf->bInterfaceNumber,
                                        intf->bAlternateSetting, true);
         for (e = 0; e < intf->bNumEndpoints; e++) {
-            //trace_hw_usb_host_libusbC_usb_host_ep_update_1_2_dgtrace("FOR: intf->bNumEndpoints", e);
+            trace_hw_usb_host_libusbC_usb_host_ep_update_1_2_dgtrace("FOR: intf->bNumEndpoints", e);
 
 
             endp = &intf->endpoint[e];

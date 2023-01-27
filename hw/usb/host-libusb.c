@@ -1462,7 +1462,7 @@ static void usb_host_handle_control(USBDevice *udev, USBPacket *p,
     USBHostRequest *r;
     int rc;
 
-    trace_usb_host_req_control(s->bus_num, s->addr, p, request, value, index);
+    //trace_usb_host_req_control(s->bus_num, s->addr, p, request, value, index);
 
     if (s->dh == NULL) {
         p->status = USB_RET_NODEV;
@@ -1482,6 +1482,7 @@ static void usb_host_handle_control(USBDevice *udev, USBPacket *p,
         return;
 
     case InterfaceOutRequest | USB_REQ_SET_INTERFACE:
+        trace_usb_host_req_control(s->bus_num, s->addr, p, request, value, index);
         usb_host_set_interface(s, index, value, p);
         trace_usb_host_req_emulated(s->bus_num, s->addr, p, p->status);
         return;

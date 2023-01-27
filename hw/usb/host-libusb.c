@@ -900,11 +900,12 @@ static void usb_host_ep_update(USBHostDevice *s)
             uint16_t wBytesPerInterval = 0;
             if (endp_ss_comp){
                 wBytesPerInterval = endp_ss_comp->wBytesPerInterval;
+                trace_hw_usb_host_libusbC_usb_host_ep_update_2_dgtrace(endp_ss_comp->bMaxBurst);
+                trace_hw_usb_host_libusbC_usb_host_ep_update_3_dgtrace(endp_ss_comp->bmAttributes);
+                trace_hw_usb_host_libusbC_usb_host_ep_update_4_dgtrace(endp_ss_comp->wBytesPerInterval);
             }
 
-            trace_hw_usb_host_libusbC_usb_host_ep_update_2_dgtrace(endp_ss_comp->bMaxBurst);
-            trace_hw_usb_host_libusbC_usb_host_ep_update_3_dgtrace(endp_ss_comp->bmAttributes);
-            trace_hw_usb_host_libusbC_usb_host_ep_update_4_dgtrace(endp_ss_comp->wBytesPerInterval);
+
             trace_hw_usb_host_libusbC_usb_host_ep_update_5_dgtrace(endp->wMaxPacketSize);
             trace_hw_usb_host_libusbC_usb_host_ep_update_6_dgtrace(endp->bInterval);
 

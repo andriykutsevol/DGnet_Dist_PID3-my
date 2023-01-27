@@ -369,7 +369,7 @@ hw_usb_host_libusbC_usb_host_open_0_dgtrace(const char *msg) "%s"
 hw_usb_host_libusbC_usb_host_open_1_dgtrace(const char *msg) "%s"
 hw_usb_host_libusbC_usb_host_set_config_0_dgtrace(const char *msg) "%s"
 hw_usb_host_libusbC_usb_host_set_config_1_dgtrace(const char *msg) "%s"
-hw_usb_host_libusbC_usb_host_set_interface_1_dgtrace(const char *msg) "%s"
+hw_usb_host_libusbC_usb_host_set_interface_0_dgtrace(const char *msg) "%s"
 hw_usb_host_libusbC_usb_host_set_interface_1_dgtrace(const char *msg) "%s"
 
 

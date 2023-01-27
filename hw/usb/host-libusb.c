@@ -906,6 +906,7 @@ static void usb_host_ep_update(USBHostDevice *s)
             trace_hw_usb_host_libusbC_usb_host_ep_update_3_dgtrace(endp_ss_comp->bmAttributes);
             trace_hw_usb_host_libusbC_usb_host_ep_update_4_dgtrace(endp_ss_comp->wBytesPerInterval);
             trace_hw_usb_host_libusbC_usb_host_ep_update_5_dgtrace(endp->wMaxPacketSize);
+            trace_hw_usb_host_libusbC_usb_host_ep_update_6_dgtrace(endp->bInterval);
 
             usb_ep_set_max_packet_size(udev, pid, ep,
                                        endp->wMaxPacketSize, wBytesPerInterval);
@@ -984,7 +985,9 @@ static int usb_host_open(USBHostDevice *s, libusb_device *dev, int hostfd)
     usb_host_get_port(s->dev, s->port, sizeof(s->port));
 
     usb_ep_init(udev);
+    trace_hw_usb_host_libusbC_usb_host_open_0_dgtrace("===================================START: usb_host_ep_update(s)===================================");
     usb_host_ep_update(s);
+    trace_hw_usb_host_libusbC_usb_host_open_1_dgtrace("===================================END: usb_host_ep_update(s)===================================");
 
     libusb_speed = libusb_get_device_speed(dev);
 #if LIBUSB_API_VERSION >= 0x01000107 && defined(CONFIG_LINUX) && \
@@ -1415,7 +1418,9 @@ static void usb_host_set_config(USBHostDevice *s, int config, USBPacket *p)
     if (p->status != USB_RET_SUCCESS) {
         return;
     }
+    trace_hw_usb_host_libusbC_usb_host_set_config_0_dgtrace("===================================START: usb_host_ep_update(s)===================================");
     usb_host_ep_update(s);
+    trace_hw_usb_host_libusbC_usb_host_set_config_1_dgtrace("===================================END: usb_host_ep_update(s)===================================");
 }
 
 static void usb_host_set_interface(USBHostDevice *s, int iface, int alt,
@@ -1444,7 +1449,9 @@ static void usb_host_set_interface(USBHostDevice *s, int iface, int alt,
     }
 
     udev->altsetting[iface] = alt;
+    trace_hw_usb_host_libusbC_usb_host_set_interface_0_dgtrace("===================================START: usb_host_ep_update(s)===================================");
     usb_host_ep_update(s);
+    trace_hw_usb_host_libusbC_usb_host_set_interface_1_dgtrace("===================================END: usb_host_ep_update(s)===================================");
 }
 
 static void usb_host_handle_control(USBDevice *udev, USBPacket *p,

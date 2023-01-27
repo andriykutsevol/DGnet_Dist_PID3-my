@@ -822,7 +822,7 @@ static void usb_host_speed_compat(USBHostDevice *s)
 
 static void usb_host_ep_update(USBHostDevice *s)
 {
-    trace_hw_usb_host_libusbC_usb_host_ep_update_0_dgtrace("------------------------START: usb_host_ep_update()------------------------");
+    //trace_hw_usb_host_libusbC_usb_host_ep_update_0_dgtrace("------------------------START: usb_host_ep_update()------------------------");
     
     static const char *tname[] = {
         [USB_ENDPOINT_XFER_CONTROL] = "control",
@@ -835,7 +835,7 @@ static void usb_host_ep_update(USBHostDevice *s)
     const struct libusb_interface_descriptor *intf;
     const struct libusb_endpoint_descriptor *endp;
 #ifdef HAVE_STREAMS
-    trace_hw_usb_host_libusbC_usb_host_ep_update_1_dgtrace("HAVE_STREAMS");
+    //trace_hw_usb_host_libusbC_usb_host_ep_update_1_dgtrace("HAVE_STREAMS");
     struct libusb_ss_endpoint_companion_descriptor *endp_ss_comp;
 #endif
     uint8_t devep, type;
@@ -902,11 +902,11 @@ static void usb_host_ep_update(USBHostDevice *s)
                 wBytesPerInterval = endp_ss_comp->wBytesPerInterval;
             }
 
-            trace_hw_usb_host_libusbC_usb_host_ep_update_2_dgtrace(endp_ss_comp->bMaxBurst);
-            trace_hw_usb_host_libusbC_usb_host_ep_update_3_dgtrace(endp_ss_comp->bmAttributes);
-            trace_hw_usb_host_libusbC_usb_host_ep_update_4_dgtrace(endp_ss_comp->wBytesPerInterval);
-            trace_hw_usb_host_libusbC_usb_host_ep_update_5_dgtrace(endp->wMaxPacketSize);
-            trace_hw_usb_host_libusbC_usb_host_ep_update_6_dgtrace(endp->bInterval);
+            //trace_hw_usb_host_libusbC_usb_host_ep_update_2_dgtrace(endp_ss_comp->bMaxBurst);
+            //trace_hw_usb_host_libusbC_usb_host_ep_update_3_dgtrace(endp_ss_comp->bmAttributes);
+            //trace_hw_usb_host_libusbC_usb_host_ep_update_4_dgtrace(endp_ss_comp->wBytesPerInterval);
+            //trace_hw_usb_host_libusbC_usb_host_ep_update_5_dgtrace(endp->wMaxPacketSize);
+            //trace_hw_usb_host_libusbC_usb_host_ep_update_6_dgtrace(endp->bInterval);
 
             usb_ep_set_max_packet_size(udev, pid, ep,
                                        endp->wMaxPacketSize, wBytesPerInterval);
@@ -929,7 +929,7 @@ static void usb_host_ep_update(USBHostDevice *s)
     }
 
     
-    trace_hw_usb_host_libusbC_usb_host_ep_update_999_dgtrace("------------------------END: usb_host_ep_update()------------------------");
+    //trace_hw_usb_host_libusbC_usb_host_ep_update_999_dgtrace("------------------------END: usb_host_ep_update()------------------------");
     libusb_free_config_descriptor(conf);
 }
 

@@ -851,7 +851,7 @@ static void usb_host_ep_update(USBHostDevice *s)
                                 conf->bConfigurationValue, true);
 
     for (i = 0; i < conf->bNumInterfaces; i++) {
-        trace_hw_usb_host_libusbC_usb_host_ep_update_1_1_dgtrace("FOR: conf->bNumInterfaces", i);
+        //trace_hw_usb_host_libusbC_usb_host_ep_update_1_1_dgtrace("FOR: conf->bNumInterfaces", i);
         /*
          * The udev->altsetting array indexes alternate settings
          * by the interface number. Get the 0th alternate setting
@@ -870,7 +870,7 @@ static void usb_host_ep_update(USBHostDevice *s)
                                        intf->bInterfaceNumber,
                                        intf->bAlternateSetting, true);
         for (e = 0; e < intf->bNumEndpoints; e++) {
-            trace_hw_usb_host_libusbC_usb_host_ep_update_1_2_dgtrace("FOR: intf->bNumEndpoints", e);
+            //trace_hw_usb_host_libusbC_usb_host_ep_update_1_2_dgtrace("FOR: intf->bNumEndpoints", e);
 
 
             endp = &intf->endpoint[e];
@@ -985,9 +985,9 @@ static int usb_host_open(USBHostDevice *s, libusb_device *dev, int hostfd)
     usb_host_get_port(s->dev, s->port, sizeof(s->port));
 
     usb_ep_init(udev);
-    trace_hw_usb_host_libusbC_usb_host_open_0_dgtrace("===================================START: usb_host_ep_update(s)===================================");
+    //trace_hw_usb_host_libusbC_usb_host_open_0_dgtrace("===================================START: usb_host_ep_update(s)===================================");
     usb_host_ep_update(s);
-    trace_hw_usb_host_libusbC_usb_host_open_1_dgtrace("===================================END: usb_host_ep_update(s)===================================");
+    //trace_hw_usb_host_libusbC_usb_host_open_1_dgtrace("===================================END: usb_host_ep_update(s)===================================");
 
     libusb_speed = libusb_get_device_speed(dev);
 #if LIBUSB_API_VERSION >= 0x01000107 && defined(CONFIG_LINUX) && \
@@ -1418,9 +1418,9 @@ static void usb_host_set_config(USBHostDevice *s, int config, USBPacket *p)
     if (p->status != USB_RET_SUCCESS) {
         return;
     }
-    trace_hw_usb_host_libusbC_usb_host_set_config_0_dgtrace("===================================START: usb_host_ep_update(s)===================================");
+    //trace_hw_usb_host_libusbC_usb_host_set_config_0_dgtrace("===================================START: usb_host_ep_update(s)===================================");
     usb_host_ep_update(s);
-    trace_hw_usb_host_libusbC_usb_host_set_config_1_dgtrace("===================================END: usb_host_ep_update(s)===================================");
+    //trace_hw_usb_host_libusbC_usb_host_set_config_1_dgtrace("===================================END: usb_host_ep_update(s)===================================");
 }
 
 static void usb_host_set_interface(USBHostDevice *s, int iface, int alt,
@@ -1449,9 +1449,9 @@ static void usb_host_set_interface(USBHostDevice *s, int iface, int alt,
     }
 
     udev->altsetting[iface] = alt;
-    trace_hw_usb_host_libusbC_usb_host_set_interface_0_dgtrace("===================================START: usb_host_ep_update(s)===================================");
+    //trace_hw_usb_host_libusbC_usb_host_set_interface_0_dgtrace("===================================START: usb_host_ep_update(s)===================================");
     usb_host_ep_update(s);
-    trace_hw_usb_host_libusbC_usb_host_set_interface_1_dgtrace("===================================END: usb_host_ep_update(s)===================================");
+    //trace_hw_usb_host_libusbC_usb_host_set_interface_1_dgtrace("===================================END: usb_host_ep_update(s)===================================");
 }
 
 static void usb_host_handle_control(USBDevice *udev, USBPacket *p,

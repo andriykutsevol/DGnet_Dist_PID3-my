@@ -4,8 +4,8 @@
 usb_packet_state_change(int bus, const char *port, int ep, void *p, const char *o, const char *n) "bus %d, port %s, ep %d, packet %p, state %s -> %s"
 usb_packet_state_fault(int bus, const char *port, int ep, void *p, const char *o, const char *n) "bus %d, port %s, ep %d, packet %p, state %s, expected %s"
 
-hw_usb_coreC_usb_ep_set_max_packet_size_0_dgtrace(int size, int microframes) "size: %d, microframes: %d"
-hw_usb_coreC_usb_ep_set_max_packet_size_1_dgtrace(int raw, int wBytesPerInterval, int uep_max_packet_size) "raw: %d, wBytesPerInterval: %d, uep->max_packet_size: %d"
+hw_usb_coreC_usb_ep_set_max_packet_size_0_dgtrace(int size, int microframes) "      size: %d, microframes: %d"
+hw_usb_coreC_usb_ep_set_max_packet_size_1_dgtrace(int raw, int wBytesPerInterval, int uep_max_packet_size) "      raw: %d, wBytesPerInterval: %d, uep->max_packet_size: %d"
 
 # bus.c
 usb_port_claim(int bus, const char *port) "bus %d, port %s"
@@ -372,10 +372,10 @@ hw_usb_host_libusbC_usb_host_ep_update_1_dgtrace(const char *msg) "%s"
 hw_usb_host_libusbC_usb_host_ep_update_1_1_dgtrace(const char *msg, int i) "-----------%s:%d-----------"
 hw_usb_host_libusbC_usb_host_ep_update_1_2_dgtrace(const char *msg, int e)"-----------%s:%d-----------"
 
-hw_usb_host_libusbC_usb_host_ep_update_2_dgtrace(int endp_ss_comp_bMaxBurst) "endp_ss_comp->bMaxBurst: %d"
-hw_usb_host_libusbC_usb_host_ep_update_3_dgtrace(int endp_ss_comp_bmAttributes_super) "endp_ss_comp->bmAttributes_super: %d"
-hw_usb_host_libusbC_usb_host_ep_update_4_dgtrace(int endp_ss_comp_wBytesPerInterval) "endp_ss_comp->wBytesPerInterval: %d"
-hw_usb_host_libusbC_usb_host_ep_update_5_dgtrace(int endp_wMaxPacketSize) "endp->wMaxPacketSize: %d"
+hw_usb_host_libusbC_usb_host_ep_update_2_dgtrace(int endp_ss_comp_bMaxBurst)          "  endp_ss_comp->bMaxBurst: %d"
+hw_usb_host_libusbC_usb_host_ep_update_3_dgtrace(int endp_ss_comp_bmAttributes_super) "  endp_ss_comp->bmAttributes_super: %d"
+hw_usb_host_libusbC_usb_host_ep_update_4_dgtrace(int endp_ss_comp_wBytesPerInterval)  "  endp_ss_comp->wBytesPerInterval: %d"
+hw_usb_host_libusbC_usb_host_ep_update_5_dgtrace(int endp_wMaxPacketSize)             "  endp->wMaxPacketSize: %d"
 hw_usb_host_libusbC_usb_host_ep_update_999_dgtrace(const char *msg) "%s"
 
 # dev-serial.c

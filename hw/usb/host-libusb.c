@@ -898,8 +898,10 @@ static void usb_host_ep_update(USBHostDevice *s)
 
             libusb_get_ss_endpoint_companion_descriptor(NULL, endp, &endp_ss_comp);
             uint16_t wBytesPerInterval = 0;
+            uint8_ this_is_superspeed = 0;
             if (endp_ss_comp){
                 wBytesPerInterval = endp_ss_comp->wBytesPerInterval;
+                this_is_superspeed = 1;
                 trace_hw_usb_host_libusbC_usb_host_ep_update_2_dgtrace(endp_ss_comp->bMaxBurst);
                 trace_hw_usb_host_libusbC_usb_host_ep_update_3_dgtrace(endp_ss_comp->bmAttributes);
                 trace_hw_usb_host_libusbC_usb_host_ep_update_4_dgtrace(endp_ss_comp->wBytesPerInterval);
@@ -910,7 +912,7 @@ static void usb_host_ep_update(USBHostDevice *s)
             trace_hw_usb_host_libusbC_usb_host_ep_update_6_dgtrace(endp->bInterval);
 
             usb_ep_set_max_packet_size(udev, pid, ep,
-                                       endp->wMaxPacketSize, wBytesPerInterval);
+                                       endp->wMaxPacketSize, wBytesPerInterval, this_is_superspeed);
 
 
 

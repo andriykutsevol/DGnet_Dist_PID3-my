@@ -832,7 +832,7 @@ static void usb_host_ep_update(USBHostDevice *s)
         [USB_ENDPOINT_XFER_BULK]    = "bulk",
         [USB_ENDPOINT_XFER_INT]     = "int",
     };
-     USBDevice*udev = USB_DEVICE(s);
+    USBDevice *udev = USB_DEVICE(s);
     struct libusb_config_descriptor *conf;
     const struct libusb_interface_descriptor *intf;
     const struct libusb_endpoint_descriptor *endp;
@@ -855,7 +855,7 @@ static void usb_host_ep_update(USBHostDevice *s)
     //-----------------------------------------------------
 
 
-    USBDevice *udev = USB_DEVICE(s);
+    //USBDevice *udev = USB_DEVICE(s);
 
     //int dev_speed = s->parent_obj.speed;
     //int dev_speedmask = s->parent_obj.speedmask;

@@ -409,7 +409,7 @@ static void usb_desc_ep_init(USBDevice *dev)
             endp = &iface->eps[e];
 
             libusb_get_ss_endpoint_companion_descriptor(NULL, endp, &endp_ss_comp);
-            uint8_ this_is_superspeed = 0;
+            uint8_t this_is_superspeed = 0;
             if (endp_ss_comp){
                 wBytesPerInterval = endp_ss_comp->wBytesPerInterval;
                 this_is_superspeed = 1;

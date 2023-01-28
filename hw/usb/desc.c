@@ -397,8 +397,23 @@ static void usb_desc_ep_init(USBDevice *dev)
             ep = iface->eps[e].bEndpointAddress & 0x0f;
             usb_ep_set_type(dev, pid, ep, iface->eps[e].bmAttributes & 0x03);
             usb_ep_set_ifnum(dev, pid, ep, iface->bInterfaceNumber);
+
+
+            struct libusb_ss_endpoint_companion_descriptor *endp_ss_comp;
+            uint16_t wBytesPerInterval = 0;
+            libusb_get_ss_endpoint_companion_descriptor(NULL, iface->eps[e], &endp_ss_comp);
+            uint8_ this_is_superspeed = 0;
+            if (endp_ss_comp){
+                wBytesPerInterval = endp_ss_comp->wBytesPerInterval;
+                this_is_superspeed = 1;
+            }
+
+
             usb_ep_set_max_packet_size(dev, pid, ep,
-                                       iface->eps[e].wMaxPacketSize, iface->eps[e].wBytesPerInterval);
+                                       iface->eps[e].wMaxPacketSize, wBytesPerInterval, this_is_superspeed);
+            
+            
+            
             usb_ep_set_max_streams(dev, pid, ep,
                                    iface->eps[e].bmAttributes_super);
         }

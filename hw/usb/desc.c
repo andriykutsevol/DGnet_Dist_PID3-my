@@ -391,7 +391,7 @@ static void usb_desc_ep_init(USBDevice *dev)
 
     usb_ep_init(dev);
 
-    const struct libusb_endpoint_descriptor *endp;
+    //const struct libusb_endpoint_descriptor *endp;
 
     for (i = 0; i < dev->ninterfaces; i++) {
         iface = dev->ifaces[i];

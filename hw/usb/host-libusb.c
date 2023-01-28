@@ -854,9 +854,6 @@ static void usb_host_ep_update(USBHostDevice *s)
     //-----------------------------------------------------
     //-----------------------------------------------------
 
-
-    //USBDevice *udev = USB_DEVICE(s);
-
     //int dev_speed = s->parent_obj.speed;
     //int dev_speedmask = s->parent_obj.speedmask;
     int dev_speed = udev->speed;
@@ -864,24 +861,24 @@ static void usb_host_ep_update(USBHostDevice *s)
     trace_hw_usb_host_libusbC_usb_host_ep_update_0_1_dgtrace(dev_speed, dev_speedmask);
 
 
-    const USBDesc *desc = udev->usb_desc;
+    // const USBDesc *desc = udev->usb_desc;
 
-    // const USBDesc *desc = usb_device_get_usb_desc(&s->parent_obj);
+    // // const USBDesc *desc = usb_device_get_usb_desc(&s->parent_obj);
 
-    if (desc->full) {
-        //dev->speedmask |= USB_SPEED_MASK_FULL;
-        trace_hw_usb_host_libusbC_usb_host_ep_update_0_2_dgtrace("desc->full");
-    }
-    if (desc->high) {
-        //dev->speedmask |= USB_SPEED_MASK_HIGH;
-        trace_hw_usb_host_libusbC_usb_host_ep_update_0_3_dgtrace("desc->high");
+    // if (desc->full) {
+    //     //dev->speedmask |= USB_SPEED_MASK_FULL;
+    //     trace_hw_usb_host_libusbC_usb_host_ep_update_0_2_dgtrace("desc->full");
+    // }
+    // if (desc->high) {
+    //     //dev->speedmask |= USB_SPEED_MASK_HIGH;
+    //     trace_hw_usb_host_libusbC_usb_host_ep_update_0_3_dgtrace("desc->high");
 
-    }
-    if (desc->super) {
-        //dev->speedmask |= USB_SPEED_MASK_SUPER;
-        trace_hw_usb_host_libusbC_usb_host_ep_update_0_4_dgtrace("desc->super");
+    // }
+    // if (desc->super) {
+    //     //dev->speedmask |= USB_SPEED_MASK_SUPER;
+    //     trace_hw_usb_host_libusbC_usb_host_ep_update_0_4_dgtrace("desc->super");
 
-    }
+    // }
 
 
     //-----------------------------------------------------

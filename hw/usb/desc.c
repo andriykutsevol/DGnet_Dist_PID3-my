@@ -385,7 +385,7 @@ static int usb_desc_bos(const USBDesc *desc, uint8_t *dest, size_t len)
 static void usb_desc_ep_init(USBDevice *dev)
 {
     const USBDescIface *iface;
-    const struct libusb_interface_descriptor *intf;
+    //const struct libusb_interface_descriptor *intf;
 
     int i, e, pid, ep;
 

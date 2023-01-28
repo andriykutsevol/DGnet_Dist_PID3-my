@@ -53,6 +53,9 @@ struct Usbspoof {
 
 void usb_pick_speed(USBPort *port)
 {
+    
+    trace_hw_usb_coreC_usb_pick_speed_0_dgtrace("usb_pick_speed");
+    
     static const int speeds[] = {
         USB_SPEED_SUPER,
         USB_SPEED_HIGH,
@@ -66,6 +69,7 @@ void usb_pick_speed(USBPort *port)
         if ((udev->speedmask & (1 << speeds[i])) &&
             (port->speedmask & (1 << speeds[i]))) {
             udev->speed = speeds[i];
+            trace_hw_usb_coreC_usb_pick_speed_1_dgtrace(udev->speed);
             return;
         }
     }

@@ -406,10 +406,8 @@ static void usb_desc_ep_init(USBDevice *dev)
             usb_ep_set_ifnum(dev, pid, ep, iface->bInterfaceNumber);
 
 
-            struct libusb_ss_endpoint_companion_descriptor *endp_ss_comp;
-            uint16_t wBytesPerInterval = 0;
-
-            
+            //struct libusb_ss_endpoint_companion_descriptor *endp_ss_comp;
+            //uint16_t wBytesPerInterval = 0;
             //endp = &iface->eps[e];
             //libusb_get_ss_endpoint_companion_descriptor(NULL, endp, &endp_ss_comp);
             uint8_t this_is_superspeed = 0;
@@ -418,9 +416,13 @@ static void usb_desc_ep_init(USBDevice *dev)
             //     this_is_superspeed = 1;
             // }
 
+            if (dev->speed == USB_SPEED_SUPER){
+                this_is_superspeed = 1;
+            }
+
 
             usb_ep_set_max_packet_size(dev, pid, ep,
-                                       iface->eps[e].wMaxPacketSize, wBytesPerInterval, this_is_superspeed);
+                                       iface->eps[e].wMaxPacketSize, iface->eps[e].wBytesPerInterval, this_is_superspeed);
             
             
             

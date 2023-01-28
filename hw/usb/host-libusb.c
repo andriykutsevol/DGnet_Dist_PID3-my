@@ -896,6 +896,11 @@ static void usb_host_ep_update(USBHostDevice *s)
                                           tname[type], true);
 
 
+
+            const USBDesc *desc = usb_device_get_usb_desc(dev);
+
+
+
             libusb_get_ss_endpoint_companion_descriptor(NULL, endp, &endp_ss_comp);
             uint16_t wBytesPerInterval = 0;
             uint8_t this_is_superspeed = 0;

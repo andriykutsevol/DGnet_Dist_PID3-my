@@ -385,6 +385,8 @@ static int usb_desc_bos(const USBDesc *desc, uint8_t *dest, size_t len)
 static void usb_desc_ep_init(USBDevice *dev)
 {
     const USBDescIface *iface;
+    const struct libusb_interface_descriptor *intf;
+
     int i, e, pid, ep;
 
     usb_ep_init(dev);
@@ -406,14 +408,15 @@ static void usb_desc_ep_init(USBDevice *dev)
 
             struct libusb_ss_endpoint_companion_descriptor *endp_ss_comp;
             uint16_t wBytesPerInterval = 0;
-            endp = &iface->eps[e];
 
-            libusb_get_ss_endpoint_companion_descriptor(NULL, endp, &endp_ss_comp);
+            
+            //endp = &iface->eps[e];
+            //libusb_get_ss_endpoint_companion_descriptor(NULL, endp, &endp_ss_comp);
             uint8_t this_is_superspeed = 0;
-            if (endp_ss_comp){
-                wBytesPerInterval = endp_ss_comp->wBytesPerInterval;
-                this_is_superspeed = 1;
-            }
+            // if (endp_ss_comp){
+            //     wBytesPerInterval = endp_ss_comp->wBytesPerInterval;
+            //     this_is_superspeed = 1;
+            // }
 
 
             usb_ep_set_max_packet_size(dev, pid, ep,

@@ -847,6 +847,22 @@ static void usb_host_ep_update(USBHostDevice *s)
     if (rc != 0) {
         return;
     }
+
+
+    //-----------------------------------------------------
+    //-----------------------------------------------------
+
+    int dev_speed = s->dev->parent_obj->speed;
+
+    const USBDesc *desc = usb_device_get_usb_desc(s->dev);
+
+
+
+    //-----------------------------------------------------
+    //-----------------------------------------------------
+
+
+    
     trace_usb_host_parse_config(s->bus_num, s->addr,
                                 conf->bConfigurationValue, true);
 
@@ -894,10 +910,6 @@ static void usb_host_ep_update(USBHostDevice *s)
             trace_usb_host_parse_endpoint(s->bus_num, s->addr, ep,
                                           (devep & USB_DIR_IN) ? "in" : "out",
                                           tname[type], true);
-
-
-
-            const USBDesc *desc = usb_device_get_usb_desc(dev);
 
 
 

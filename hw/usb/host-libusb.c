@@ -58,6 +58,8 @@
 #include "hw/qdev-properties.h"
 #include "hw/usb.h"
 
+#include "desc.h"
+
 /* ------------------------------------------------------------------------ */
 
 #define TYPE_USB_HOST_DEVICE "usb-host"

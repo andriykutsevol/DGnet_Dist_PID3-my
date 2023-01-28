@@ -898,7 +898,7 @@ static void usb_host_ep_update(USBHostDevice *s)
 
             libusb_get_ss_endpoint_companion_descriptor(NULL, endp, &endp_ss_comp);
             uint16_t wBytesPerInterval = 0;
-            uint8_ this_is_superspeed = 0;
+            uint8_t this_is_superspeed = 0;
             if (endp_ss_comp){
                 wBytesPerInterval = endp_ss_comp->wBytesPerInterval;
                 this_is_superspeed = 1;

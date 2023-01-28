@@ -406,7 +406,7 @@ static void usb_desc_ep_init(USBDevice *dev)
 
             struct libusb_ss_endpoint_companion_descriptor *endp_ss_comp;
             uint16_t wBytesPerInterval = 0;
-            endp = &&iface->eps[e];
+            endp = &iface->eps[e];
 
             libusb_get_ss_endpoint_companion_descriptor(NULL, endp, &endp_ss_comp);
             uint8_t this_is_superspeed = 0;

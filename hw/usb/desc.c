@@ -4,6 +4,8 @@
 #include "desc.h"
 #include "trace.h"
 
+#include <libusb.h>
+
 /* ------------------------------------------------------------------ */
 
 int usb_desc_device(const USBDescID *id, const USBDescDevice *dev,

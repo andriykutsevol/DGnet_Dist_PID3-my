@@ -863,6 +863,7 @@ static void usb_host_ep_update(USBHostDevice *s)
 
     const USBDesc *desc = usb_device_get_usb_desc(udev);
     
+    const char *asdf = desc->str;
     
     
     // if (desc->full) {

@@ -853,10 +853,25 @@ static void usb_host_ep_update(USBHostDevice *s)
     //-----------------------------------------------------
 
     int dev_speed = s->parent_obj.speed;
-    //trace_hw_usb_host_libusbC_usb_host_ep_update_0_1_dgtrace(dev_speed);
+    int dev_speedmask = s->parent_obj.speedmask;
+    trace_hw_usb_host_libusbC_usb_host_ep_update_0_1_dgtrace(dev_speed, dev_speedmask);
 
     const USBDesc *desc = usb_device_get_usb_desc(&s->parent_obj);
 
+    if (desc->full) {
+        //dev->speedmask |= USB_SPEED_MASK_FULL;
+        trace_hw_usb_host_libusbC_usb_host_ep_update_0_2_dgtrace("desc->full");
+    }
+    if (desc->high) {
+        //dev->speedmask |= USB_SPEED_MASK_HIGH;
+        trace_hw_usb_host_libusbC_usb_host_ep_update_0_3_dgtrace("desc->high");
+
+    }
+    if (desc->super) {
+        //dev->speedmask |= USB_SPEED_MASK_SUPER;
+        trace_hw_usb_host_libusbC_usb_host_ep_update_0_4_dgtrace("desc->super");
+
+    }
 
 
     //-----------------------------------------------------

@@ -7,6 +7,8 @@ usb_packet_state_fault(int bus, const char *port, int ep, void *p, const char *o
 hw_usb_coreC_usb_ep_set_max_packet_size_0_dgtrace(int size, int microframes) "      size: %d, microframes: %d"
 hw_usb_coreC_usb_ep_set_max_packet_size_1_dgtrace(int raw, int wBytesPerInterval, int uep_max_packet_size) "      raw: %d, wBytesPerInterval: %d, uep->max_packet_size: %d"
 
+
+
 # bus.c
 usb_port_claim(int bus, const char *port) "bus %d, port %s"
 usb_port_attach(int bus, const char *port, const char *devspeed, const char *portspeed) "bus %d, port %s, devspeed %s, portspeed %s"
@@ -387,6 +389,14 @@ hw_usb_host_libusbC_usb_host_ep_update_4_dgtrace(int endp_ss_comp_wBytesPerInter
 hw_usb_host_libusbC_usb_host_ep_update_5_dgtrace(int endp_wMaxPacketSize)             "  endp->wMaxPacketSize: %d"
 hw_usb_host_libusbC_usb_host_ep_update_6_dgtrace(int endp_bInterval)                  "  endp->bInterval: %d"
 hw_usb_host_libusbC_usb_host_ep_update_999_dgtrace(const char *msg) "%s"
+
+hw_usb_host_libusbC_usb_host_ep_update_0_1_dgtrace(int dev_speed, int dev_speedmask) "dev_speed: %d, dev_speedmask: %d"
+hw_usb_host_libusbC_usb_host_ep_update_0_2_dgtrace(const char *msg) "%s"
+hw_usb_host_libusbC_usb_host_ep_update_0_3_dgtrace(const char *msg) "%s"
+hw_usb_host_libusbC_usb_host_ep_update_0_4_dgtrace(const char *msg) "%s"
+
+
+
 
 # dev-serial.c
 usb_serial_reset(int bus, int addr) "dev %d:%u reset"

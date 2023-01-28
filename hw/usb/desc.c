@@ -388,6 +388,9 @@ static void usb_desc_ep_init(USBDevice *dev)
     int i, e, pid, ep;
 
     usb_ep_init(dev);
+
+    const struct libusb_endpoint_descriptor *endp;
+
     for (i = 0; i < dev->ninterfaces; i++) {
         iface = dev->ifaces[i];
         if (iface == NULL) {
@@ -403,7 +406,9 @@ static void usb_desc_ep_init(USBDevice *dev)
 
             struct libusb_ss_endpoint_companion_descriptor *endp_ss_comp;
             uint16_t wBytesPerInterval = 0;
-            libusb_get_ss_endpoint_companion_descriptor(NULL, iface->eps[e], &endp_ss_comp);
+            endp = &iface->eps[e];
+
+            libusb_get_ss_endpoint_companion_descriptor(NULL, endp, &endp_ss_comp);
             uint8_ this_is_superspeed = 0;
             if (endp_ss_comp){
                 wBytesPerInterval = endp_ss_comp->wBytesPerInterval;

@@ -855,7 +855,7 @@ static void usb_host_ep_update(USBHostDevice *s)
     int dev_speed = s->parent_obj.speed;
     //trace_hw_usb_host_libusbC_usb_host_ep_update_0_1_dgtrace(dev_speed);
 
-    const USBDesc *desc = usb_device_get_usb_desc(s->parent_obj);
+    const USBDesc *desc = usb_device_get_usb_desc(&s->parent_obj);
 
 
 

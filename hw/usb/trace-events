@@ -10,7 +10,7 @@ hw_usb_coreC_usb_ep_set_max_packet_size_1_dgtrace(int raw, int wBytesPerInterval
 
 
 hw_usb_coreC_usb_pick_speed_0_dgtrace(const char *msg) "%s"
-hw_usb_coreC_usb_pick_speed_0_dgtrace(int udev_speed) "udev->speed: %d"
+hw_usb_coreC_usb_pick_speed_1_dgtrace(int udev_speed) "udev->speed: %d"
 
 # bus.c
 usb_port_claim(int bus, const char *port) "bus %d, port %s"

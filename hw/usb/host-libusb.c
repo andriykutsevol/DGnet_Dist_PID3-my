@@ -864,7 +864,7 @@ static void usb_host_ep_update(USBHostDevice *s)
     const USBDesc *desc = usb_device_get_usb_desc(udev);
     
     const char* const* asdf = desc->str;
-    trace_hw_usb_host_libusbC_usb_host_ep_update_0_2_dgtrace(&asdf);
+    trace_hw_usb_host_libusbC_usb_host_ep_update_0_2_dgtrace(*asdf);
     
     // if (desc->full) {
     //     //dev->speedmask |= USB_SPEED_MASK_FULL;

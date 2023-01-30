@@ -906,7 +906,6 @@ static void usb_host_ep_update(USBHostDevice *s)
         for (e = 0; e < intf->bNumEndpoints; e++) {
             trace_hw_usb_host_libusbC_usb_host_ep_update_1_2_dgtrace("FOR: intf->bNumEndpoints", e);
 
-
             endp = &intf->endpoint[e];
 
             devep = endp->bEndpointAddress;
@@ -929,22 +928,41 @@ static void usb_host_ep_update(USBHostDevice *s)
                                           (devep & USB_DIR_IN) ? "in" : "out",
                                           tname[type], true);
 
+            unit_8 ep_type = usb_ep_get_type(udev, pid, ep);
 
 
             libusb_get_ss_endpoint_companion_descriptor(NULL, endp, &endp_ss_comp);
             uint16_t wBytesPerInterval = 0;
             uint8_t this_is_superspeed = 0;
+            
+            // For SuperSpeed isoch endpoint, it uses wBytesPerInterval from its
+            // endpoint companion descriptor.    
+
             if (endp_ss_comp){
-                wBytesPerInterval = endp_ss_comp->wBytesPerInterval;
                 this_is_superspeed = 1;
-                trace_hw_usb_host_libusbC_usb_host_ep_update_2_dgtrace(endp_ss_comp->bMaxBurst);
-                trace_hw_usb_host_libusbC_usb_host_ep_update_3_dgtrace(endp_ss_comp->bmAttributes);
-                trace_hw_usb_host_libusbC_usb_host_ep_update_4_dgtrace(endp_ss_comp->wBytesPerInterval);
+                hw_usb_host_libusbC_usb_host_ep_update_2_dgtrace("This is superseed");
+                if ((ep_type = USB_ENDPOINT_XFER_ISOC) || (ep_type == USB_ENDPOINT_XFER_INT)){
+                    trace_hw_usb_host_libusbC_usb_host_ep_update_3_dgtrace("superspeed isoc or int endpoint type");
+                    // wBytesPerInterval indicates the total number of bytes that the host can send or receive in a bus interval.
+                    // Even though the maximum number of bytes per bus interval can be calculated as (bMaxBurst+1) * (Mult+1) * wMaxPacketSize, 
+                    // the USB 3.0 specification recommends using the wBytesPerInterval value instead.
+                    // The wBytesPerInterval value must be less than or equal to that calculated value.
+                    wBytesPerInterval = endp_ss_comp->wBytesPerInterval;
+                } else {
+                    trace_hw_usb_host_libusbC_usb_host_ep_update_4_dgtrace("superspeed bulk or control endpoint type");
+                    //wBytesPerInterval is reserved and must be set to
+                    //zero for control and bulk endpoints.                    
+                    wBytesPerInterval = 0;
+                }
+
+                trace_hw_usb_host_libusbC_usb_host_ep_update_5_dgtrace(endp_ss_comp->bMaxBurst);
+                trace_hw_usb_host_libusbC_usb_host_ep_update_6_dgtrace(endp_ss_comp->bmAttributes);
+                trace_hw_usb_host_libusbC_usb_host_ep_update_7_dgtrace(endp_ss_comp->wBytesPerInterval);
             }
 
 
-            trace_hw_usb_host_libusbC_usb_host_ep_update_5_dgtrace(endp->wMaxPacketSize);
-            trace_hw_usb_host_libusbC_usb_host_ep_update_6_dgtrace(endp->bInterval);
+            trace_hw_usb_host_libusbC_usb_host_ep_update_8_dgtrace(endp->wMaxPacketSize);
+            trace_hw_usb_host_libusbC_usb_host_ep_update_9_dgtrace(endp->bInterval);
 
             usb_ep_set_max_packet_size(udev, pid, ep,
                                        endp->wMaxPacketSize, wBytesPerInterval, this_is_superspeed);

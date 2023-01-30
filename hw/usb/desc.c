@@ -406,23 +406,26 @@ static void usb_desc_ep_init(USBDevice *dev)
             usb_ep_set_ifnum(dev, pid, ep, iface->bInterfaceNumber);
 
 
-            //struct libusb_ss_endpoint_companion_descriptor *endp_ss_comp;
-            //uint16_t wBytesPerInterval = 0;
-            //endp = &iface->eps[e];
-            //libusb_get_ss_endpoint_companion_descriptor(NULL, endp, &endp_ss_comp);
             uint8_t this_is_superspeed = 0;
-            // if (endp_ss_comp){
-            //     wBytesPerInterval = endp_ss_comp->wBytesPerInterval;
-            //     this_is_superspeed = 1;
-            // }
+            uint16_t wBytesPerInterval = 0;
 
+  
+            // For SuperSpeed isoch endpoint, it uses wBytesPerInterval from its
+            // endpoint companion descriptor. 
             if (dev->speed == USB_SPEED_SUPER){
                 this_is_superspeed = 1;
+                if ( ((iface->eps[e].bmAttributes & 0x03) == USB_ENDPOINT_XFER_ISOC) || ((iface->eps[e].bmAttributes & 0x03) == USB_ENDPOINT_XFER_INT)){
+                    wBytesPerInterval = iface->eps[e].wBytesPerInterval;
+                }else{
+                    //wBytesPerInterval is reserved and must be set to
+                    //zero for control and bulk endpoints.
+                    wBytesPerInterval = 0;
+                }
             }
 
 
             usb_ep_set_max_packet_size(dev, pid, ep,
-                                       iface->eps[e].wMaxPacketSize, iface->eps[e].wBytesPerInterval, this_is_superspeed);
+                                       iface->eps[e].wMaxPacketSize, wBytesPerInterval, this_is_superspeed);
             
             
             

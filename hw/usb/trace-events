@@ -4,8 +4,11 @@
 usb_packet_state_change(int bus, const char *port, int ep, void *p, const char *o, const char *n) "bus %d, port %s, ep %d, packet %p, state %s -> %s"
 usb_packet_state_fault(int bus, const char *port, int ep, void *p, const char *o, const char *n) "bus %d, port %s, ep %d, packet %p, state %s, expected %s"
 
-hw_usb_coreC_usb_ep_set_max_packet_size_0_dgtrace(int size, int microframes) "      size: %d, microframes: %d"
-hw_usb_coreC_usb_ep_set_max_packet_size_1_dgtrace(int raw, int wBytesPerInterval, int uep_max_packet_size) "      raw: %d, wBytesPerInterval: %d, uep->max_packet_size: %d"
+hw_usb_coreC_usb_ep_set_max_packet_size_0_dgtrace(const char *msg) "%s"
+hw_usb_coreC_usb_ep_set_max_packet_size_1_dgtrace(const char *msg) "%s"
+hw_usb_coreC_usb_ep_set_max_packet_size_2_dgtrace(const char *msg) "%s"
+hw_usb_coreC_usb_ep_set_max_packet_size_3_dgtrace(int size, int microframes) "      size: %d, microframes: %d"
+hw_usb_coreC_usb_ep_set_max_packet_size_4_dgtrace(int raw, int wBytesPerInterval, int uep_max_packet_size) "      raw: %d, wBytesPerInterval: %d, uep->max_packet_size: %d"
 
 
 

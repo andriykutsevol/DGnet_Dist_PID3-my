@@ -918,11 +918,21 @@ void usb_ep_set_ifnum(USBDevice *dev, int pid, int ep, uint8_t ifnum)
 void usb_ep_set_max_packet_size(USBDevice *dev, int pid, int ep,
                                 uint16_t raw, uint16_t wBytesPerInterval, uint8_t is_superspeed)
 {
+    
+    // The driver must always use the MaximumPacketSize (uep->max_packet_size) value of the endpoint descriptor 
+    // to determine the layout of the transfer buffer.
+
     struct USBEndpoint *uep = usb_ep_get(dev, pid, ep);
 
-    if (is_superspeed){
+    if (is_superspeed && (wBytesPerInterval > 0)){
+        trace_hw_usb_coreC_usb_ep_set_max_packet_size_0_dgtrace("superspeed isoc or int endpoint type: uep->max_packet_size = wBytesPerInterval");
         uep->max_packet_size = wBytesPerInterval;
-    }else{
+    }else if (is_superspeed && (wBytesPerInterval == 0)  {
+        trace_hw_usb_coreC_usb_ep_set_max_packet_size_1_dgtrace("superspeed bulk or control endpoint type: uep->max_packet_size = raw");
+        uep->max_packet_size = raw;     // uep->max_packet_size = iface->eps[e].wMaxPacketSize
+
+    }else{                                                      // USB 2.0
+        trace_hw_usb_coreC_usb_ep_set_max_packet_size_2_dgtrace("USB 2.0");
         int size, microframes;
         size = raw & 0x7ff;
         switch ((raw >> 11) & 3) {
@@ -938,11 +948,11 @@ void usb_ep_set_max_packet_size(USBDevice *dev, int pid, int ep,
         }
         uep->max_packet_size = size * microframes;
 
-        trace_hw_usb_coreC_usb_ep_set_max_packet_size_0_dgtrace(size, microframes);
+        trace_hw_usb_coreC_usb_ep_set_max_packet_size_3_dgtrace(size, microframes);
 
     }
 
-    trace_hw_usb_coreC_usb_ep_set_max_packet_size_1_dgtrace(raw, wBytesPerInterval, uep->max_packet_size);
+    trace_hw_usb_coreC_usb_ep_set_max_packet_size_4_dgtrace(raw, wBytesPerInterval, uep->max_packet_size);
 
 
 

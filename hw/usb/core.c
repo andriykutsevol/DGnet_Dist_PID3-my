@@ -954,31 +954,6 @@ void usb_ep_set_max_packet_size(USBDevice *dev, int pid, int ep,
 
     trace_hw_usb_coreC_usb_ep_set_max_packet_size_4_dgtrace(raw, wBytesPerInterval, uep->max_packet_size);
 
-
-
-    // if (raw == 1024){
-    //     uep->max_packet_size = wBytesPerInterval;
-    // }else{
-    //     int size, microframes;
-    //     size = raw & 0x7ff;
-    //     switch ((raw >> 11) & 3) {
-    //     case 1:
-    //         microframes = 2;
-    //         break;
-    //     case 2:
-    //         microframes = 3;
-    //         break;
-    //     default:
-    //         microframes = 1;
-    //         break;
-    //     }
-    //     uep->max_packet_size = size * microframes;
-
-    //     trace_hw_usb_coreC_usb_ep_set_max_packet_size_0_dgtrace(size, microframes);
-
-    // }
-
-    // trace_hw_usb_coreC_usb_ep_set_max_packet_size_1_dgtrace(raw, wBytesPerInterval, uep->max_packet_size);
 }
 
 void usb_ep_set_max_streams(USBDevice *dev, int pid, int ep, uint8_t raw)

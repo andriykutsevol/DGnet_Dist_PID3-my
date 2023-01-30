@@ -928,7 +928,7 @@ static void usb_host_ep_update(USBHostDevice *s)
                                           (devep & USB_DIR_IN) ? "in" : "out",
                                           tname[type], true);
 
-            unit8_t ep_type = usb_ep_get_type(udev, pid, ep);
+            uint8_t ep_type = usb_ep_get_type(udev, pid, ep);
 
 
             libusb_get_ss_endpoint_companion_descriptor(NULL, endp, &endp_ss_comp);

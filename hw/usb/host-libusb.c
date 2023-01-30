@@ -940,7 +940,7 @@ static void usb_host_ep_update(USBHostDevice *s)
 
             if (endp_ss_comp){
                 this_is_superspeed = 1;
-                hw_usb_host_libusbC_usb_host_ep_update_2_dgtrace("This is superseed");
+                trace_hw_usb_host_libusbC_usb_host_ep_update_2_dgtrace("This is superseed");
                 if ((ep_type = USB_ENDPOINT_XFER_ISOC) || (ep_type == USB_ENDPOINT_XFER_INT)){
                     trace_hw_usb_host_libusbC_usb_host_ep_update_3_dgtrace("superspeed isoc or int endpoint type");
                     // wBytesPerInterval indicates the total number of bytes that the host can send or receive in a bus interval.

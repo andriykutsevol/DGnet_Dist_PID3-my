@@ -927,7 +927,7 @@ void usb_ep_set_max_packet_size(USBDevice *dev, int pid, int ep,
     if (is_superspeed && (wBytesPerInterval > 0)){
         trace_hw_usb_coreC_usb_ep_set_max_packet_size_0_dgtrace("superspeed isoc or int endpoint type: uep->max_packet_size = wBytesPerInterval");
         uep->max_packet_size = wBytesPerInterval;
-    }else if (is_superspeed && (wBytesPerInterval == 0)  {
+    }else if (is_superspeed && (wBytesPerInterval == 0))  {
         trace_hw_usb_coreC_usb_ep_set_max_packet_size_1_dgtrace("superspeed bulk or control endpoint type: uep->max_packet_size = raw");
         uep->max_packet_size = raw;     // uep->max_packet_size = iface->eps[e].wMaxPacketSize
 

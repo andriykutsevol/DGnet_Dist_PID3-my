@@ -4,6 +4,8 @@
 #include "desc.h"
 #include "trace.h"
 
+#include <libusb.h>
+
 /* ------------------------------------------------------------------ */
 
 int usb_desc_device(const USBDescID *id, const USBDescDevice *dev,
@@ -204,9 +206,15 @@ int usb_desc_iface(const USBDescIface *iface, int flags,
 int usb_desc_endpoint(const USBDescEndpoint *ep, int flags,
                       uint8_t *dest, size_t len)
 {
+    
+    trace_hw_usb_descC_usb_desc_endpoint_0_dgtrace(flags, len);
+    
     uint8_t bLength = ep->is_audio ? 0x09 : 0x07;
     uint8_t extralen = ep->extra ? ep->extra[0] : 0;
     uint8_t superlen = (flags & USB_DESC_FLAG_SUPER) ? 0x06 : 0;
+
+    trace_hw_usb_descC_usb_desc_endpoint_1_dgtrace(superlen, flags, USB_DESC_FLAG_SUPER);
+
     USBDescriptor *d = (void *)dest;
 
     if (len < bLength + extralen + superlen) {
@@ -227,12 +235,18 @@ int usb_desc_endpoint(const USBDescEndpoint *ep, int flags,
     }
 
     if (superlen) {
+
+        trace_hw_usb_descC_usb_desc_endpoint_2_dgtrace();
+
         USBDescriptor *d = (void *)(dest + bLength);
 
         d->bLength                       = 0x06;
         d->bDescriptorType               = USB_DT_ENDPOINT_COMPANION;
 
         d->u.super_endpoint.bMaxBurst    = ep->bMaxBurst;
+
+        trace_hw_usb_descC_usb_desc_endpoint_3_dgtrace(ep->bMaxBurst);
+
         d->u.super_endpoint.bmAttributes = ep->bmAttributes_super;
         d->u.super_endpoint.wBytesPerInterval_lo =
             usb_lo(ep->wBytesPerInterval);
@@ -241,9 +255,11 @@ int usb_desc_endpoint(const USBDescEndpoint *ep, int flags,
     }
 
     if (ep->extra) {
+        trace_hw_usb_descC_usb_desc_endpoint_4_dgtrace("ep->extra");
         memcpy(dest + bLength + superlen, ep->extra, extralen);
     }
 
+    trace_hw_usb_descC_usb_desc_endpoint_999_dgtrace();
     return bLength + extralen + superlen;
 }
 
@@ -369,9 +385,14 @@ static int usb_desc_bos(const USBDesc *desc, uint8_t *dest, size_t len)
 static void usb_desc_ep_init(USBDevice *dev)
 {
     const USBDescIface *iface;
+    //const struct libusb_interface_descriptor *intf;
+
     int i, e, pid, ep;
 
     usb_ep_init(dev);
+
+    //const struct libusb_endpoint_descriptor *endp;
+
     for (i = 0; i < dev->ninterfaces; i++) {
         iface = dev->ifaces[i];
         if (iface == NULL) {
@@ -383,8 +404,31 @@ static void usb_desc_ep_init(USBDevice *dev)
             ep = iface->eps[e].bEndpointAddress & 0x0f;
             usb_ep_set_type(dev, pid, ep, iface->eps[e].bmAttributes & 0x03);
             usb_ep_set_ifnum(dev, pid, ep, iface->bInterfaceNumber);
+
+
+            uint8_t this_is_superspeed = 0;
+            uint16_t wBytesPerInterval = 0;
+
+  
+            // For SuperSpeed isoch endpoint, it uses wBytesPerInterval from its
+            // endpoint companion descriptor. 
+            if (dev->speed == USB_SPEED_SUPER){
+                this_is_superspeed = 1;
+                if ( ((iface->eps[e].bmAttributes & 0x03) == USB_ENDPOINT_XFER_ISOC) || ((iface->eps[e].bmAttributes & 0x03) == USB_ENDPOINT_XFER_INT)){
+                    wBytesPerInterval = iface->eps[e].wBytesPerInterval;
+                }else{
+                    //wBytesPerInterval is reserved and must be set to
+                    //zero for control and bulk endpoints.
+                    wBytesPerInterval = 0;
+                }
+            }
+
+
             usb_ep_set_max_packet_size(dev, pid, ep,
-                                       iface->eps[e].wMaxPacketSize, iface->eps[e].wBytesPerInterval);
+                                       iface->eps[e].wMaxPacketSize, wBytesPerInterval, this_is_superspeed);
+            
+            
+            
             usb_ep_set_max_streams(dev, pid, ep,
                                    iface->eps[e].bmAttributes_super);
         }
@@ -629,6 +673,9 @@ int usb_desc_string(USBDevice *dev, int index, uint8_t *dest, size_t len)
 int usb_desc_get_descriptor(USBDevice *dev, USBPacket *p,
                             int value, uint8_t *dest, size_t len)
 {
+    
+    trace_hw_usb_descC_usb_desc_get_descriptor_0_dgtrace(dev->flags);
+    
     bool msos = (dev->flags & (1 << USB_DEV_FLAG_MSOS_DESC_IN_USE));
     const USBDesc *desc = usb_device_get_usb_desc(dev);
     const USBDescDevice *other_dev;
@@ -646,29 +693,32 @@ int usb_desc_get_descriptor(USBDevice *dev, USBPacket *p,
     flags = 0;
     if (dev->device->bcdUSB >= 0x0300) {
         flags |= USB_DESC_FLAG_SUPER;
+        trace_hw_usb_descC_usb_desc_get_descriptor_01_dgtrace(flags, USB_DESC_FLAG_SUPER);
     }
+
+    trace_hw_usb_descC_usb_desc_get_descriptor_1_dgtrace(dev->flags, flags, dev->device->bcdUSB);
 
     switch(type) {
     case USB_DT_DEVICE:
         ret = usb_desc_device(&desc->id, dev->device, msos, buf, sizeof(buf));
-        trace_usb_desc_device(dev->addr, len, ret);
+        trace_hw_usb_descC_usb_desc_get_descriptor_2_dgtrace(dev->addr, len, ret);
         break;
     case USB_DT_CONFIG:
         if (index < dev->device->bNumConfigurations) {
             ret = usb_desc_config(dev->device->confs + index, flags,
                                   buf, sizeof(buf));
         }
-        trace_usb_desc_config(dev->addr, index, len, ret);
+        trace_hw_usb_descC_usb_desc_get_descriptor_3_dgtrace(dev->addr, index, len, ret, flags);
         break;
     case USB_DT_STRING:
         ret = usb_desc_string(dev, index, buf, sizeof(buf));
-        trace_usb_desc_string(dev->addr, index, len, ret);
+        trace_hw_usb_descC_usb_desc_get_descriptor_4_dgtrace(dev->addr, index, len, ret);
         break;
     case USB_DT_DEVICE_QUALIFIER:
         if (other_dev != NULL) {
             ret = usb_desc_device_qualifier(other_dev, buf, sizeof(buf));
         }
-        trace_usb_desc_device_qualifier(dev->addr, len, ret);
+        trace_hw_usb_descC_usb_desc_get_descriptor_5_dgtrace(dev->addr, len, ret);
         break;
     case USB_DT_OTHER_SPEED_CONFIG:
         if (other_dev != NULL && index < other_dev->bNumConfigurations) {
@@ -676,11 +726,11 @@ int usb_desc_get_descriptor(USBDevice *dev, USBPacket *p,
                                   buf, sizeof(buf));
             buf[0x01] = USB_DT_OTHER_SPEED_CONFIG;
         }
-        trace_usb_desc_other_speed_config(dev->addr, index, len, ret);
+        trace_hw_usb_descC_usb_desc_get_descriptor_6_dgtrace(dev->addr, index, len, ret);
         break;
     case USB_DT_BOS:
         ret = usb_desc_bos(desc, buf, sizeof(buf));
-        trace_usb_desc_bos(dev->addr, len, ret);
+        trace_hw_usb_descC_usb_desc_get_descriptor_7_dgtrace(dev->addr, len, ret);
         break;
 
     case USB_DT_DEBUG:
@@ -707,6 +757,10 @@ int usb_desc_get_descriptor(USBDevice *dev, USBPacket *p,
 int usb_desc_handle_control(USBDevice *dev, USBPacket *p,
         int request, int value, int index, int length, uint8_t *data)
 {
+    
+    trace_hw_usb_descC_usb_desc_handle_control_0_dgtrace(dev->device->bcdUSB);
+    
+    
     bool msos = (dev->flags & (1 << USB_DEV_FLAG_MSOS_DESC_IN_USE));
     const USBDesc *desc = usb_device_get_usb_desc(dev);
     int ret = -1;

@@ -4,11 +4,26 @@
 usb_packet_state_change(int bus, const char *port, int ep, void *p, const char *o, const char *n) "bus %d, port %s, ep %d, packet %p, state %s -> %s"
 usb_packet_state_fault(int bus, const char *port, int ep, void *p, const char *o, const char *n) "bus %d, port %s, ep %d, packet %p, state %s, expected %s"
 
+hw_usb_coreC_usb_ep_set_max_packet_size_0_dgtrace(const char *msg) "%s"
+hw_usb_coreC_usb_ep_set_max_packet_size_1_dgtrace(const char *msg) "%s"
+hw_usb_coreC_usb_ep_set_max_packet_size_2_dgtrace(const char *msg) "%s"
+hw_usb_coreC_usb_ep_set_max_packet_size_3_dgtrace(int size, int microframes) "      size: %d, microframes: %d"
+hw_usb_coreC_usb_ep_set_max_packet_size_4_dgtrace(int raw, int wBytesPerInterval, int uep_max_packet_size) "      raw: %d, wBytesPerInterval: %d, uep->max_packet_size: %d"
+
+
+
+hw_usb_coreC_usb_pick_speed_0_dgtrace(const char *msg) "%s"
+hw_usb_coreC_usb_pick_speed_1_dgtrace(int udev_speed) "udev->speed: %d"
+
 # bus.c
 usb_port_claim(int bus, const char *port) "bus %d, port %s"
 usb_port_attach(int bus, const char *port, const char *devspeed, const char *portspeed) "bus %d, port %s, devspeed %s, portspeed %s"
 usb_port_detach(int bus, const char *port) "bus %d, port %s"
 usb_port_release(int bus, const char *port) "bus %d, port %s"
+
+hw_usb_busC_usb_device_handle_control_0_dgtrace(int dev_device_bcdUSB) "dev->device->bcdUSB: %d"
+hw_usb_busC_usb_device_handle_control_1_dgtrace(int dev_device_bcdUSB) "dev->device->bcdUSB: %d"
+
 
 # hcd-ohci-pci.c
 usb_ohci_exit(const char *s) "%s"
@@ -229,12 +244,6 @@ usb_dwc2_reset_hold(void) "=== RESET hold ==="
 usb_dwc2_reset_exit(void) "=== RESET exit ==="
 
 # desc.c
-usb_desc_device(int addr, int len, int ret) "dev %d query device, len %d, ret %d"
-usb_desc_device_qualifier(int addr, int len, int ret) "dev %d query device qualifier, len %d, ret %d"
-usb_desc_config(int addr, int index, int len, int ret) "dev %d query config %d, len %d, ret %d"
-usb_desc_other_speed_config(int addr, int index, int len, int ret) "dev %d query config %d, len %d, ret %d"
-usb_desc_string(int addr, int index, int len, int ret) "dev %d query string %d, len %d, ret %d"
-usb_desc_bos(int addr, int len, int ret) "dev %d bos, len %d, ret %d"
 usb_desc_msos(int addr, int index, int len, int ret) "dev %d msos, index 0x%x, len %d, ret %d"
 usb_set_addr(int addr) "dev %d"
 usb_set_config(int addr, int config, int ret) "dev %d, config %d, ret %d"
@@ -242,15 +251,45 @@ usb_set_interface(int addr, int iface, int alt, int ret) "dev %d, interface %d, 
 usb_clear_device_feature(int addr, int feature, int ret) "dev %d, feature %d, ret %d"
 usb_set_device_feature(int addr, int feature, int ret) "dev %d, feature %d, ret %d"
 
+hw_usb_descC_usb_desc_endpoint_0_dgtrace(int flags, int len) "flags %d, len: %d"
+hw_usb_descC_usb_desc_endpoint_1_dgtrace(int superlen, int flags, int usb_desc_flag_super) "superlen: %d, flags: %d, USB_DESC_FLAG_SUPER: %d"
+hw_usb_descC_usb_desc_endpoint_2_dgtrace(void) ""
+hw_usb_descC_usb_desc_endpoint_3_dgtrace(int ep_max_burst) "ep->bMaxBurst: %d"
+hw_usb_descC_usb_desc_endpoint_4_dgtrace(const char *msg) "msg: %s"
+hw_usb_descC_usb_desc_endpoint_999_dgtrace(void) ""
+
+hw_usb_descC_usb_desc_get_descriptor_0_dgtrace(int dev_flags) "dev->flags: %d"
+hw_usb_descC_usb_desc_get_descriptor_01_dgtrace(int flags, int usb_desc_flag_super) "flags: %d, USB_DESC_FLAG_SUPER: %d"
+hw_usb_descC_usb_desc_get_descriptor_1_dgtrace(int dev_flags, int flags, int dev_device_bcdUSB) "dev->flags: %d, flags: %d, dev->device->bcdUSB: %d"
+hw_usb_descC_usb_desc_get_descriptor_2_dgtrace(int addr, int len, int ret) "dev %d query device, len %d, ret %d"
+hw_usb_descC_usb_desc_get_descriptor_3_dgtrace(int addr, int index, int len, int re, int flags) "dev %d query config %d, len %d, ret %d, flags: %d"
+hw_usb_descC_usb_desc_get_descriptor_4_dgtrace(int addr, int index, int len, int ret) "dev %d query string %d, len %d, ret %d"
+hw_usb_descC_usb_desc_get_descriptor_5_dgtrace(int addr, int len, int ret) "dev %d query device qualifier, len %d, ret %d"
+hw_usb_descC_usb_desc_get_descriptor_6_dgtrace(int addr, int index, int len, int ret) "dev %d query config %d, len %d, ret %d"
+hw_usb_descC_usb_desc_get_descriptor_7_dgtrace(int addr, int len, int ret) "dev %d bos, len %d, ret %d"
+
+
+hw_usb_descC_usb_desc_handle_control_0_dgtrace(int dev_device_bcdUSB) "dev->device->bcdUSB: %d"
+
+
+# dev-audio.c
+hw_usb_dev_audio_usb_audio_handle_control_0_dgtrace(void) ""
+
+#dev-hid.c
+hw_usb_dev_hid_usb_hid_handle_control_0_dgtrace(int dev_device_bcdUSB) "dev->device->bcdUSB: %d"
+
+
 # dev-hub.c
 usb_hub_reset(int addr) "dev %d"
-usb_hub_control(int addr, int request, int value, int index, int length) "dev %d, req 0x%x, value %d, index %d, langth %d"
 usb_hub_get_port_status(int addr, int nr, int status, int changed) "dev %d, port %d, status 0x%x, changed 0x%x"
 usb_hub_set_port_feature(int addr, int nr, const char *f) "dev %d, port %d, feature %s"
 usb_hub_clear_port_feature(int addr, int nr, const char *f) "dev %d, port %d, feature %s"
 usb_hub_attach(int addr, int nr) "dev %d, port %d"
 usb_hub_detach(int addr, int nr) "dev %d, port %d"
 usb_hub_status_report(int addr, int status) "dev %d, status 0x%x"
+
+hw_usb_dev_hubC_usb_hub_handle_control_0_dgtrace(int addr, int request, int value, int index, int length) "dev %d, req 0x%x, value %d, index %d, length %d"
+
 
 # dev-storage.c
 usb_msd_reset(void) ""
@@ -329,9 +368,48 @@ usb_host_auto_scan_enabled(void)
 usb_host_auto_scan_disabled(void)
 usb_host_parse_config(int bus, int addr, int value, int active) "dev %d:%d, value %d, active %d"
 usb_host_parse_interface(int bus, int addr, int num, int alt, int active) "dev %d:%d, num %d, alt %d, active %d"
-usb_host_parse_endpoint(int bus, int addr, int ep, const char *dir, const char *type, int active) "dev %d:%d, ep %d, %s, %s, active %d"
+usb_host_parse_endpoint(int bus, int addr, int ep, const char *dir, const char *type, int active) "dev %d:%d, ep %d, %s, ---%s---, active %d"
 usb_host_parse_error(int bus, int addr, const char *errmsg) "dev %d:%d, msg %s"
 usb_host_remote_wakeup_removed(int bus, int addr) "dev %d:%d"
+
+
+hw_usb_host_libusbC_usb_host_open_0_dgtrace(const char *msg) "%s"
+hw_usb_host_libusbC_usb_host_open_1_dgtrace(const char *msg) "%s"
+hw_usb_host_libusbC_usb_host_set_config_0_dgtrace(const char *msg) "%s"
+hw_usb_host_libusbC_usb_host_set_config_1_dgtrace(const char *msg) "%s"
+hw_usb_host_libusbC_usb_host_set_interface_0_dgtrace(const char *msg) "%s"
+hw_usb_host_libusbC_usb_host_set_interface_1_dgtrace(const char *msg) "%s"
+
+
+hw_usb_host_libusbC_usb_host_handle_control_0_dgtrace(const char *msg) "%s"
+hw_usb_host_libusbC_usb_host_handle_control_1_dgtrace(const char *msg) "%s"
+
+hw_usb_host_libusbC_usb_host_ep_update_0_dgtrace(const char *msg) "%s"
+hw_usb_host_libusbC_usb_host_ep_update_1_dgtrace(const char *msg) "%s"
+hw_usb_host_libusbC_usb_host_ep_update_1_1_dgtrace(const char *msg, int i) "-----------%s:%d-----------"
+hw_usb_host_libusbC_usb_host_ep_update_1_2_dgtrace(const char *msg, int e)"-----------%s:%d-----------"
+
+
+
+hw_usb_host_libusbC_usb_host_ep_update_2_dgtrace(const char *msg) "%s"
+hw_usb_host_libusbC_usb_host_ep_update_3_dgtrace(const char *msg) "%s"
+hw_usb_host_libusbC_usb_host_ep_update_4_dgtrace(const char *msg) "%s"
+
+hw_usb_host_libusbC_usb_host_ep_update_5_dgtrace(int endp_ss_comp_bMaxBurst)          "  endp_ss_comp->bMaxBurst: %d"
+hw_usb_host_libusbC_usb_host_ep_update_6_dgtrace(int endp_ss_comp_bmAttributes_super) "  endp_ss_comp->bmAttributes_super: %d"
+hw_usb_host_libusbC_usb_host_ep_update_7_dgtrace(int endp_ss_comp_wBytesPerInterval)  "  endp_ss_comp->wBytesPerInterval: %d"
+hw_usb_host_libusbC_usb_host_ep_update_8_dgtrace(int endp_wMaxPacketSize)             "  endp->wMaxPacketSize: %d"
+hw_usb_host_libusbC_usb_host_ep_update_9_dgtrace(int endp_bInterval)                  "  endp->bInterval: %d"
+
+hw_usb_host_libusbC_usb_host_ep_update_999_dgtrace(const char *msg) "%s"
+
+hw_usb_host_libusbC_usb_host_ep_update_0_1_dgtrace(int dev_speed, int dev_speedmask) "dev_speed: %d, dev_speedmask: %d"
+hw_usb_host_libusbC_usb_host_ep_update_0_2_dgtrace(const char *msg) "%s"
+hw_usb_host_libusbC_usb_host_ep_update_0_3_dgtrace(const char *msg) "%s"
+hw_usb_host_libusbC_usb_host_ep_update_0_4_dgtrace(const char *msg) "%s"
+
+
+
 
 # dev-serial.c
 usb_serial_reset(int bus, int addr) "dev %d:%u reset"

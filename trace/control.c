@@ -31,6 +31,12 @@
 
 int trace_events_enabled_count;
 
+
+#define MAX_SPOOF_NUM 30
+#define SPOOF_LINE_LENGTH 12
+
+
+
 typedef struct TraceEventGroup {
     TraceEvent **events;
 } TraceEventGroup;
@@ -42,8 +48,9 @@ static uint32_t next_vcpu_id;
 static bool init_trace_on_startup;
 static char *trace_opts_file;
 
-char *usbspoof_from;
-char *usbspoof_to;
+char *usbspoof_from = NULL;
+char *usbspoof_to = NULL;
+int spoof_index = 0;
 
 QemuOptsList qemu_usbspoof_opts = {
     .name = "usbspoof",
@@ -331,16 +338,19 @@ void trace_opt_parse(const char *optarg)
 
 void usbspoof_opt_parse(const char *optarg)
 {
-    QemuOpts *opts = qemu_opts_parse_noisily(qemu_find_opts("usbspoof"),
-                                    optarg, true);                                        
-    usbspoof_from = (char* )calloc(256, sizeof(char));
-    sprintf(usbspoof_from, "%s/",qemu_opt_get(opts, "from"));
-
-
-    usbspoof_to = (char* )calloc(10, sizeof(char));
-    sprintf(usbspoof_to, "%s",qemu_opt_get(opts, "to"));
-
     
+    QemuOpts *opts = qemu_opts_parse_noisily(qemu_find_opts("usbspoof"),
+                                    optarg, true);  
+
+    if(spoof_index == 0){
+        usbspoof_from = (char* )calloc(SPOOF_LINE_LENGTH*MAX_SPOOF_NUM, sizeof(char));
+        usbspoof_to = (char* )calloc(SPOOF_LINE_LENGTH*MAX_SPOOF_NUM, sizeof(char));
+    }
+
+    sprintf(usbspoof_from+SPOOF_LINE_LENGTH*spoof_index, "%s/",qemu_opt_get(opts, "from"));
+    sprintf(usbspoof_to+SPOOF_LINE_LENGTH*spoof_index, "%s",qemu_opt_get(opts, "to"));
+    spoof_index = spoof_index + 1;
+
     qemu_opts_del(opts);
 }
 

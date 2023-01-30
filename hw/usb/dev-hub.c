@@ -353,7 +353,7 @@ static void usb_hub_handle_control(USBDevice *dev, USBPacket *p,
     USBHubState *s = (USBHubState *)dev;
     int ret;
 
-    trace_usb_hub_control(s->dev.addr, request, value, index, length);
+    trace_hw_usb_dev_hubC_usb_hub_handle_control_0_dgtrace(s->dev.addr, request, value, index, length);
 
     ret = usb_desc_handle_control(dev, p, request, value, index, length, data);
     if (ret >= 0) {

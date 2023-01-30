@@ -58,6 +58,8 @@
 #include "hw/qdev-properties.h"
 #include "hw/usb.h"
 
+#include "desc.h"
+
 /* ------------------------------------------------------------------------ */
 
 #define TYPE_USB_HOST_DEVICE "usb-host"
@@ -822,6 +824,8 @@ static void usb_host_speed_compat(USBHostDevice *s)
 
 static void usb_host_ep_update(USBHostDevice *s)
 {
+    trace_hw_usb_host_libusbC_usb_host_ep_update_0_dgtrace("------------------------START: usb_host_ep_update()------------------------");
+    
     static const char *tname[] = {
         [USB_ENDPOINT_XFER_CONTROL] = "control",
         [USB_ENDPOINT_XFER_ISOC]    = "isoc",
@@ -833,6 +837,7 @@ static void usb_host_ep_update(USBHostDevice *s)
     const struct libusb_interface_descriptor *intf;
     const struct libusb_endpoint_descriptor *endp;
 #ifdef HAVE_STREAMS
+    trace_hw_usb_host_libusbC_usb_host_ep_update_1_dgtrace("HAVE_STREAMS");
     struct libusb_ss_endpoint_companion_descriptor *endp_ss_comp;
 #endif
     uint8_t devep, type;
@@ -844,10 +849,43 @@ static void usb_host_ep_update(USBHostDevice *s)
     if (rc != 0) {
         return;
     }
+
+
+    //-----------------------------------------------------
+    //-----------------------------------------------------
+
+    //int dev_speed = s->parent_obj.speed;
+    //int dev_speedmask = s->parent_obj.speedmask;
+    // int dev_speed = udev->speed;
+    // int dev_speedmask = udev->speedmask;
+    // trace_hw_usb_host_libusbC_usb_host_ep_update_0_1_dgtrace(dev_speed, dev_speedmask);
+
+    //const USBDesc *desc = usb_device_get_usb_desc(udev);
+    
+    // if (desc->full) {
+    //     //dev->speedmask |= USB_SPEED_MASK_FULL;
+    //     trace_hw_usb_host_libusbC_usb_host_ep_update_0_2_dgtrace("desc->full");
+    // }
+    // if (desc->high) {
+    //     //dev->speedmask |= USB_SPEED_MASK_HIGH;
+    //     trace_hw_usb_host_libusbC_usb_host_ep_update_0_3_dgtrace("desc->high");
+    // }
+    // if (desc->super) {
+    //     //dev->speedmask |= USB_SPEED_MASK_SUPER;
+    //     trace_hw_usb_host_libusbC_usb_host_ep_update_0_4_dgtrace("desc->super");
+    // }
+
+
+    //-----------------------------------------------------
+    //-----------------------------------------------------
+
+
+    
     trace_usb_host_parse_config(s->bus_num, s->addr,
                                 conf->bConfigurationValue, true);
 
     for (i = 0; i < conf->bNumInterfaces; i++) {
+        trace_hw_usb_host_libusbC_usb_host_ep_update_1_1_dgtrace("FOR: conf->bNumInterfaces", i);
         /*
          * The udev->altsetting array indexes alternate settings
          * by the interface number. Get the 0th alternate setting
@@ -866,6 +904,8 @@ static void usb_host_ep_update(USBHostDevice *s)
                                        intf->bInterfaceNumber,
                                        intf->bAlternateSetting, true);
         for (e = 0; e < intf->bNumEndpoints; e++) {
+            trace_hw_usb_host_libusbC_usb_host_ep_update_1_2_dgtrace("FOR: intf->bNumEndpoints", e);
+
             endp = &intf->endpoint[e];
 
             devep = endp->bEndpointAddress;
@@ -888,15 +928,44 @@ static void usb_host_ep_update(USBHostDevice *s)
                                           (devep & USB_DIR_IN) ? "in" : "out",
                                           tname[type], true);
 
+            uint8_t ep_type = usb_ep_get_type(udev, pid, ep);
+
 
             libusb_get_ss_endpoint_companion_descriptor(NULL, endp, &endp_ss_comp);
             uint16_t wBytesPerInterval = 0;
+            uint8_t this_is_superspeed = 0;
+            
+            // For SuperSpeed isoch endpoint, it uses wBytesPerInterval from its
+            // endpoint companion descriptor.    
+
             if (endp_ss_comp){
-                wBytesPerInterval = endp_ss_comp->wBytesPerInterval;
+                this_is_superspeed = 1;
+                trace_hw_usb_host_libusbC_usb_host_ep_update_2_dgtrace("This is superseed");
+                if ((ep_type = USB_ENDPOINT_XFER_ISOC) || (ep_type == USB_ENDPOINT_XFER_INT)){
+                    trace_hw_usb_host_libusbC_usb_host_ep_update_3_dgtrace("superspeed isoc or int endpoint type");
+                    // wBytesPerInterval indicates the total number of bytes that the host can send or receive in a bus interval.
+                    // Even though the maximum number of bytes per bus interval can be calculated as (bMaxBurst+1) * (Mult+1) * wMaxPacketSize, 
+                    // the USB 3.0 specification recommends using the wBytesPerInterval value instead.
+                    // The wBytesPerInterval value must be less than or equal to that calculated value.
+                    wBytesPerInterval = endp_ss_comp->wBytesPerInterval;
+                } else {
+                    trace_hw_usb_host_libusbC_usb_host_ep_update_4_dgtrace("superspeed bulk or control endpoint type");
+                    //wBytesPerInterval is reserved and must be set to
+                    //zero for control and bulk endpoints.                    
+                    wBytesPerInterval = 0;
+                }
+
+                trace_hw_usb_host_libusbC_usb_host_ep_update_5_dgtrace(endp_ss_comp->bMaxBurst);
+                trace_hw_usb_host_libusbC_usb_host_ep_update_6_dgtrace(endp_ss_comp->bmAttributes);
+                trace_hw_usb_host_libusbC_usb_host_ep_update_7_dgtrace(endp_ss_comp->wBytesPerInterval);
             }
 
+
+            trace_hw_usb_host_libusbC_usb_host_ep_update_8_dgtrace(endp->wMaxPacketSize);
+            trace_hw_usb_host_libusbC_usb_host_ep_update_9_dgtrace(endp->bInterval);
+
             usb_ep_set_max_packet_size(udev, pid, ep,
-                                       endp->wMaxPacketSize, wBytesPerInterval);
+                                       endp->wMaxPacketSize, wBytesPerInterval, this_is_superspeed);
 
 
 
@@ -915,6 +984,8 @@ static void usb_host_ep_update(USBHostDevice *s)
         }
     }
 
+    
+    trace_hw_usb_host_libusbC_usb_host_ep_update_999_dgtrace("------------------------END: usb_host_ep_update()------------------------");
     libusb_free_config_descriptor(conf);
 }
 
@@ -970,7 +1041,9 @@ static int usb_host_open(USBHostDevice *s, libusb_device *dev, int hostfd)
     usb_host_get_port(s->dev, s->port, sizeof(s->port));
 
     usb_ep_init(udev);
+    trace_hw_usb_host_libusbC_usb_host_open_0_dgtrace("===================================START: usb_host_ep_update(s)===================================");
     usb_host_ep_update(s);
+    trace_hw_usb_host_libusbC_usb_host_open_1_dgtrace("===================================END: usb_host_ep_update(s)===================================");
 
     libusb_speed = libusb_get_device_speed(dev);
 #if LIBUSB_API_VERSION >= 0x01000107 && defined(CONFIG_LINUX) && \
@@ -1401,7 +1474,9 @@ static void usb_host_set_config(USBHostDevice *s, int config, USBPacket *p)
     if (p->status != USB_RET_SUCCESS) {
         return;
     }
+    trace_hw_usb_host_libusbC_usb_host_set_config_0_dgtrace("===================================START: usb_host_ep_update(s)===================================");
     usb_host_ep_update(s);
+    trace_hw_usb_host_libusbC_usb_host_set_config_1_dgtrace("===================================END: usb_host_ep_update(s)===================================");
 }
 
 static void usb_host_set_interface(USBHostDevice *s, int iface, int alt,
@@ -1430,7 +1505,9 @@ static void usb_host_set_interface(USBHostDevice *s, int iface, int alt,
     }
 
     udev->altsetting[iface] = alt;
+    trace_hw_usb_host_libusbC_usb_host_set_interface_0_dgtrace("===================================START: usb_host_ep_update(s)===================================");
     usb_host_ep_update(s);
+    trace_hw_usb_host_libusbC_usb_host_set_interface_1_dgtrace("===================================END: usb_host_ep_update(s)===================================");
 }
 
 static void usb_host_handle_control(USBDevice *udev, USBPacket *p,
@@ -1441,7 +1518,7 @@ static void usb_host_handle_control(USBDevice *udev, USBPacket *p,
     USBHostRequest *r;
     int rc;
 
-    trace_usb_host_req_control(s->bus_num, s->addr, p, request, value, index);
+    //trace_usb_host_req_control(s->bus_num, s->addr, p, request, value, index);
 
     if (s->dh == NULL) {
         p->status = USB_RET_NODEV;
@@ -1461,6 +1538,7 @@ static void usb_host_handle_control(USBDevice *udev, USBPacket *p,
         return;
 
     case InterfaceOutRequest | USB_REQ_SET_INTERFACE:
+        trace_usb_host_req_control(s->bus_num, s->addr, p, request, value, index);
         usb_host_set_interface(s, index, value, p);
         trace_usb_host_req_emulated(s->bus_num, s->addr, p, p->status);
         return;
@@ -1491,10 +1569,15 @@ static void usb_host_handle_control(USBDevice *udev, USBPacket *p,
         r->usb3ep0quirk = true;
     }
 
+    //trace_hw_usb_host_libusbC_usb_host_handle_control_0_dgtrace("Before libusb_fill_control_transfer");
+
     libusb_fill_control_transfer(r->xfer, s->dh, r->buffer,
                                  usb_host_req_complete_ctrl, r,
                                  CONTROL_TIMEOUT);
     rc = libusb_submit_transfer(r->xfer);
+
+    //trace_hw_usb_host_libusbC_usb_host_handle_control_1_dgtrace("AFTER libusb_fill_control_transfer");
+
     if (rc != 0) {
         p->status = USB_RET_NODEV;
         trace_usb_host_req_complete(s->bus_num, s->addr, p,

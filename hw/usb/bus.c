@@ -165,7 +165,22 @@ void usb_device_handle_reset(USBDevice *dev)
 void usb_device_handle_control(USBDevice *dev, USBPacket *p, int request,
                                int value, int index, int length, uint8_t *data)
 {
+    
+    // if (dev->device->bcdUSB){
+    //     trace_hw_usb_busC_usb_device_handle_control_0_dgtrace(dev->device->bcdUSB);   // !!! It does not compile
+    // }else{
+           // trace_hw_usb_busC_usb_device_handle_control_0_dgtrace(0);
+    // }
+    
+
+    
     USBDeviceClass *klass = USB_DEVICE_GET_CLASS(dev);
+
+    //trace_hw_usb_busC_usb_device_handle_control_1_dgtrace(dev->device->bcdUSB);
+            // ../qemu-6.0.0/hw/usb/bus.c:179:70: error: invalid use of incomplete typedef ‘USBDescDevice’
+            // 179 |     trace_hw_usb_busC_usb_device_handle_control_1_dgtrace(dev->device->bcdUSB);
+
+
     if (klass->handle_control) {
         klass->handle_control(dev, p, request, value, index, length, data);
     }

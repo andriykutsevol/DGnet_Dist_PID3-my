@@ -508,6 +508,10 @@ glib = declare_dependency(compile_args: config_host['GLIB_CFLAGS'].split(),
                           })
 # override glib dep with the configure results (for subprojects)
 meson.override_dependency('glib-2.0', glib)
+# pass down whether Glib has the slice allocator
+if config_host.has_key('HAVE_GLIB_WITH_SLICE_ALLOCATOR')
+  config_host_data.set('HAVE_GLIB_WITH_SLICE_ALLOCATOR', true)
+endif
 
 gio = not_found
 gdbus_codegen = not_found
@@ -2366,12 +2370,9 @@ config_host_data.set('CONFIG_AVX512F_OPT', get_option('avx512f') \
 config_host_data.set('CONFIG_AVX512BW_OPT', get_option('avx512bw') \
   .require(have_cpuid_h, error_message: 'cpuid.h not available, cannot enable AVX512BW') \
   .require(cc.links('''
-    #pragma GCC push_options
-    #pragma GCC target("avx512bw")
     #include <cpuid.h>
     #include <immintrin.h>
-    static int bar(void *a) {
-
+    static int __attribute__((target("avx512bw"))) bar(void *a) {
       __m512i *x = a;
       __m512i res= _mm512_abs_epi8(*x);
       return res[1];

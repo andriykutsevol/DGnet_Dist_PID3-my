@@ -70,10 +70,12 @@ void co_wrapper blk_eject(BlockBackend *blk, bool eject_flag);
 int64_t coroutine_fn blk_co_getlength(BlockBackend *blk);
 int64_t co_wrapper_mixed blk_getlength(BlockBackend *blk);
 
+void coroutine_fn blk_co_get_geometry(BlockBackend *blk,
+                                      uint64_t *nb_sectors_ptr);
 void blk_get_geometry(BlockBackend *blk, uint64_t *nb_sectors_ptr);
 
 int64_t coroutine_fn blk_co_nb_sectors(BlockBackend *blk);
-int64_t co_wrapper_mixed blk_nb_sectors(BlockBackend *blk);
+int64_t blk_nb_sectors(BlockBackend *blk);
 
 void *blk_try_blockalign(BlockBackend *blk, size_t size);
 void *blk_blockalign(BlockBackend *blk, size_t size);
@@ -88,6 +90,11 @@ void blk_iostatus_set_err(BlockBackend *blk, int error);
 int blk_get_max_iov(BlockBackend *blk);
 int blk_get_max_hw_iov(BlockBackend *blk);
 
+/*
+ * blk_io_plug/unplug are thread-local operations. This means that multiple
+ * IOThreads can simultaneously call plug/unplug, but the caller must ensure
+ * that each unplug() is called in the same IOThread of the matching plug().
+ */
 void coroutine_fn blk_co_io_plug(BlockBackend *blk);
 void co_wrapper blk_io_plug(BlockBackend *blk);
 

@@ -420,7 +420,7 @@
 ##
 # @guest-fsfreeze-status:
 #
-# Get guest fsfreeze state. error state indicates
+# Get guest fsfreeze state.
 #
 # Returns: GuestFsfreezeStatus ("thawed", "frozen", etc., as defined below)
 #
@@ -722,7 +722,7 @@
 # Get list of guest IP addresses, MAC addresses
 # and netmasks.
 #
-# Returns: List of GuestNetworkInfo on success.
+# Returns: List of GuestNetworkInterface on success.
 #
 # Since: 1.1
 ##
@@ -1201,6 +1201,40 @@
   'data': { 'pid': 'int'} }
 
 ##
+# @GuestExecCaptureOutputMode:
+#
+# An enumeration of guest-exec capture modes.
+#
+# @none: do not capture any output
+# @stdout: only capture stdout
+# @stderr: only capture stderr
+# @separated: capture both stdout and stderr, but separated into
+#             GuestExecStatus out-data and err-data, respectively
+# @merged: capture both stdout and stderr, but merge together
+#          into out-data. not effective on windows guests.
+#
+# Since: 8.0
+##
+ { 'enum': 'GuestExecCaptureOutputMode',
+   'data': [ 'none', 'stdout', 'stderr', 'separated',
+             { 'name': 'merged', 'if': { 'not': 'CONFIG_WIN32' } } ] }
+
+##
+# @GuestExecCaptureOutput:
+#
+# Controls what guest-exec output gets captures.
+#
+# @flag: captures both stdout and stderr if true. Equivalent
+#        to GuestExecCaptureOutputMode::all. (since 2.5)
+# @mode: capture mode; preferred interface
+#
+# Since: 8.0
+##
+ { 'alternate': 'GuestExecCaptureOutput',
+   'data': { 'flag': 'bool',
+             'mode': 'GuestExecCaptureOutputMode'} }
+
+##
 # @guest-exec:
 #
 # Execute a command in the guest
@@ -1218,7 +1252,7 @@
 ##
 { 'command': 'guest-exec',
   'data':    { 'path': 'str', '*arg': ['str'], '*env': ['str'],
-               '*input-data': 'str', '*capture-output': 'bool' },
+               '*input-data': 'str', '*capture-output': 'GuestExecCaptureOutput' },
   'returns': 'GuestExec' }
 
 
@@ -1553,11 +1587,11 @@
 ##
 # @GuestDiskStatsInfo:
 #
-# @name disk name
+# @name: disk name
 #
-# @major major device number of disk
+# @major: major device number of disk
 #
-# @minor minor device number of disk
+# @minor: minor device number of disk
 ##
 { 'struct': 'GuestDiskStatsInfo',
   'data': {'name': 'str',

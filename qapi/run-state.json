@@ -104,16 +104,24 @@
 #
 # @running: true if all VCPUs are runnable, false if not runnable
 #
-# @singlestep: true if VCPUs are in single-step mode
+# @singlestep: true if using TCG with one guest instruction
+#              per translation block
 #
 # @status: the virtual machine @RunState
 #
+# Features:
+# @deprecated: Member 'singlestep' is deprecated (with no replacement).
+#
 # Since: 0.14
 #
-# Notes: @singlestep is enabled through the GDB stub
+# Notes: @singlestep is enabled on the command line with
+#        '-accel tcg,one-insn-per-tb=on', or with the HMP
+#        'one-insn-per-tb' command.
 ##
 { 'struct': 'StatusInfo',
-  'data': {'running': 'bool', 'singlestep': 'bool', 'status': 'RunState'} }
+  'data': {'running': 'bool',
+           'singlestep': { 'type': 'bool', 'features': [ 'deprecated' ]},
+           'status': 'RunState'} }
 
 ##
 # @query-status:
@@ -258,9 +266,8 @@
 #
 # Example:
 #
-# <-   { "event": "SUSPEND_DISK",
-#        "timestamp": { "seconds": 1344456160, "microseconds": 309119 } }
-#
+# <- { "event": "SUSPEND_DISK",
+#      "timestamp": { "seconds": 1344456160, "microseconds": 309119 } }
 ##
 { 'event': 'SUSPEND_DISK' }
 
@@ -468,7 +475,11 @@
 #
 # @pause: system pauses
 #
-# Since: 2.1 (poweroff since 2.8, run since 5.0)
+# @poweroff: system powers off (since 2.8)
+#
+# @run: system continues to run (since 5.0)
+#
+# Since: 2.1
 ##
 { 'enum': 'GuestPanicAction',
   'data': [ 'pause', 'poweroff', 'run' ] }

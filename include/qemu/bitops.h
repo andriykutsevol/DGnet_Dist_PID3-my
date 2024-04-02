@@ -218,7 +218,7 @@ static inline unsigned long find_first_zero_bit(const unsigned long *addr,
  */
 static inline uint8_t rol8(uint8_t word, unsigned int shift)
 {
-    return (word << shift) | (word >> ((8 - shift) & 7));
+    return (word << (shift & 7)) | (word >> (-shift & 7));
 }
 
 /**
@@ -228,7 +228,7 @@ static inline uint8_t rol8(uint8_t word, unsigned int shift)
  */
 static inline uint8_t ror8(uint8_t word, unsigned int shift)
 {
-    return (word >> shift) | (word << ((8 - shift) & 7));
+    return (word >> (shift & 7)) | (word << (-shift & 7));
 }
 
 /**
@@ -238,7 +238,7 @@ static inline uint8_t ror8(uint8_t word, unsigned int shift)
  */
 static inline uint16_t rol16(uint16_t word, unsigned int shift)
 {
-    return (word << shift) | (word >> ((16 - shift) & 15));
+    return (word << (shift & 15)) | (word >> (-shift & 15));
 }
 
 /**
@@ -248,7 +248,7 @@ static inline uint16_t rol16(uint16_t word, unsigned int shift)
  */
 static inline uint16_t ror16(uint16_t word, unsigned int shift)
 {
-    return (word >> shift) | (word << ((16 - shift) & 15));
+    return (word >> (shift & 15)) | (word << (-shift & 15));
 }
 
 /**
@@ -258,7 +258,7 @@ static inline uint16_t ror16(uint16_t word, unsigned int shift)
  */
 static inline uint32_t rol32(uint32_t word, unsigned int shift)
 {
-    return (word << shift) | (word >> ((32 - shift) & 31));
+    return (word << (shift & 31)) | (word >> (-shift & 31));
 }
 
 /**
@@ -268,7 +268,7 @@ static inline uint32_t rol32(uint32_t word, unsigned int shift)
  */
 static inline uint32_t ror32(uint32_t word, unsigned int shift)
 {
-    return (word >> shift) | (word << ((32 - shift) & 31));
+    return (word >> (shift & 31)) | (word << (-shift & 31));
 }
 
 /**
@@ -278,7 +278,7 @@ static inline uint32_t ror32(uint32_t word, unsigned int shift)
  */
 static inline uint64_t rol64(uint64_t word, unsigned int shift)
 {
-    return (word << shift) | (word >> ((64 - shift) & 63));
+    return (word << (shift & 63)) | (word >> (-shift & 63));
 }
 
 /**
@@ -288,7 +288,7 @@ static inline uint64_t rol64(uint64_t word, unsigned int shift)
  */
 static inline uint64_t ror64(uint64_t word, unsigned int shift)
 {
-    return (word >> shift) | (word << ((64 - shift) & 63));
+    return (word >> (shift & 63)) | (word << (-shift & 63));
 }
 
 /**
@@ -615,28 +615,6 @@ static inline uint64_t half_unshuffle64(uint64_t x)
     x = ((x >> 4) | x) & 0x00FF00FF00FF00FFULL;
     x = ((x >> 8) | x) & 0x0000FFFF0000FFFFULL;
     x = ((x >> 16) | x) & 0x00000000FFFFFFFFULL;
-    return x;
-}
-
-/**
- * bitrev8:
- * @x: 8-bit value to be reversed
- *
- * Given an input value with bits::
- *
- *   ABCDEFGH
- *
- * return the value with its bits reversed from left to right::
- *
- *   HGFEDCBA
- *
- * Returns: the bit-reversed value.
- */
-static inline uint8_t bitrev8(uint8_t x)
-{
-    x = ((x >> 1) & 0x55) | ((x << 1) & 0xaa);
-    x = ((x >> 2) & 0x33) | ((x << 2) & 0xcc);
-    x = (x >> 4) | (x << 4) ;
     return x;
 }
 

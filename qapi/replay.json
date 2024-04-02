@@ -1,4 +1,5 @@
 # -*- Mode: Python -*-
+# vim: filetype=python
 #
 
 ##
@@ -39,7 +40,6 @@
 # @icount: current number of executed instructions.
 #
 # Since: 5.2
-#
 ##
 { 'struct': 'ReplayInfo',
   'data': { 'mode': 'ReplayMode', '*filename': 'str', 'icount': 'int' } }
@@ -80,7 +80,8 @@
 #
 # Example:
 #
-# -> { "execute": "replay-break", "data": { "icount": 220414 } }
+# -> { "execute": "replay-break", "arguments": { "icount": 220414 } }
+# <- { "return": {} }
 #
 ##
 { 'command': 'replay-break', 'data': { 'icount': 'int' } }
@@ -96,6 +97,7 @@
 # Example:
 #
 # -> { "execute": "replay-delete-break" }
+# <- { "return": {} }
 #
 ##
 { 'command': 'replay-delete-break' }
@@ -116,6 +118,7 @@
 #
 # Example:
 #
-# -> { "execute": "replay-seek", "data": { "icount": 220414 } }
+# -> { "execute": "replay-seek", "arguments": { "icount": 220414 } }
+# <- { "return": {} }
 ##
 { 'command': 'replay-seek', 'data': { 'icount': 'int' } }

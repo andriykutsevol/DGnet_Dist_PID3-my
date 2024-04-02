@@ -22,7 +22,7 @@
 
 typedef struct TCGLabelQemuLdst {
     bool is_ld;             /* qemu_ld: true, qemu_st: false */
-    TCGMemOpIdx oi;
+    MemOpIdx oi;
     TCGType type;           /* result type of a load */
     TCGReg addrlo_reg;      /* reg index for low word of guest virtual addr */
     TCGReg addrhi_reg;      /* reg index for high word of guest virtual addr */
@@ -72,6 +72,7 @@ static inline TCGLabelQemuLdst *new_ldst_label(TCGContext *s)
 {
     TCGLabelQemuLdst *l = tcg_malloc(sizeof(*l));
 
+    memset(l, 0, sizeof(*l));
     QSIMPLEQ_INSERT_TAIL(&s->ldst_labels, l, next);
 
     return l;
